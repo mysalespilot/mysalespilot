@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competitor Price</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    /* Custom CSS */
+    .hero.is-primary {
+      background-color: #70A9A1;
+      color: #000;
+    }
+    .container-form {
+      max-width: 100%;
+      margin: 0 auto;
+      border: 1px solid #ccc; /* Added border style */
+      padding: 20px; /* Added padding for better visualization */
+    }
+    .message {
+      display: none;
+      margin: 10px;
+      font-weight: bold;
+      color: green;
+      padding: 8px;
+      background-color: beige;
+      border-radius: 4px;
+      border-color: aquamarine;
+    }
+    .preview-table {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .preview-table th, .preview-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero is-primary is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div style="display: flex; align-items: center;">
+    <img src="https://gefindia.com/assets/img/GEF_Logo.png" alt="Your Logo" style="max-width: 150px; border: 2px solid #31081F; padding: 5px; border-radius: 10px;">
+    <h1 class="title" style="margin-left: 10px;" >KA Competitor Price </h1>
+</div>
+    </div>
+  </section>
+  <!-- Employee ID Input -->
+  <div class="container">
+    <div class="field">
+      <label class="label" for="employeeID">Employee ID</label>
+      <div class="control">
+        <input class="input" type="text" id="employeeID" style="width:40%" placeholder="Enter Employee ID">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="employeeName">Employee Name</label>
+      <div class="control">
+        <input class="input" type="text" id="employeeName" style="width:40%" placeholder="Employee Name" readonly>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button to open the form -->
+  <button class="button is-info is-fullwidth" id="open-form-button" disabled>Open Form</button>
+
+  <div class="container container-form" id="form-container" style="display: none;">
+    <form id="form">
+      <div class="field">
+        <label class="label" style="width:25%" for="subzone">Subzone</label>
+        <div class="control">
+          <input class="input" type="text" name="Subzone" id="subzone"  readonly value="KARNATAKA">
+        </div>
+      </div>
+
+      <!-- Hidden input fields for Employee ID and Name -->
+      <input type="hidden" id="hiddenEmployeeID" name="EmployeeID">
+      <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
+
+      <div class="field">
+        <label class="label" style="width:35%" for="townName">Town Name</label>
+        <div class="control">
+          <div class="select">
+            <select id="townName" name="TownName">
+               <option disabled hidden selected>Select One</option>
+           <option value="Arsikere">Arsikere</option>
+<option value="Badami">Badami</option>
+<option value="Bagalkot">Bagalkot</option>
+<option value="Bagepalli">Bagepalli</option>
+<option value="Baluru">Baluru</option>
+<option value="Bangalore">Bangalore</option>
+<option value="Belgaum">Belgaum</option>
+<option value="Bellary">Bellary</option>
+<option value="Bhalki">Bhalki</option>
+<option value="Bidar">Bidar</option>
+<option value="Byadgi">Byadgi</option>
+<option value="Challakere">Challakere</option>
+<option value="Channarayapatna">Channarayapatna</option>
+<option value="Chikballapur">Chikballapur</option>
+<option value="Chikmagalur">Chikmagalur</option>
+<option value="Chikodi">Chikodi</option>
+<option value="Chincholi">Chincholi</option>
+<option value="Chintamani">Chintamani</option>
+<option value="Chitradurga">Chitradurga</option>
+<option value="Davanagere">Davanagere</option>
+<option value="Dharwad">Dharwad</option>
+<option value="Gangavati">Gangavati</option>
+<option value="Gokak">Gokak</option>
+<option value="Gulbarga">Gulbarga</option>
+<option value="Gundlupet">Gundlupet</option>
+<option value="Halagur">Halagur</option>
+<option value="Hanur">Hanur</option>
+<option value="Harihar">Harihar</option>
+<option value="Harpanhalli">Harpanhalli</option>
+<option value="Hassan">Hassan</option>
+<option value="Haveri">Haveri</option>
+<option value="Hiriyur">Hiriyur</option>
+<option value="Hosakote">Hosakote</option>
+<option value="Hospet">Hospet</option>
+<option value="Hubli">Hubli</option>
+<option value="Hunsur">Hunsur</option>
+<option value="Jamkhandi">Jamkhandi</option>
+<option value="Karwar">Karwar</option>
+<option value="Kodlipet">Kodlipet</option>
+<option value="Kolar">Kolar</option>
+<option value="Koppal">Koppal</option>
+<option value="Kudligi">Kudligi</option>
+<option value="Madikeri">Madikeri</option>
+<option value="Magadi">Magadi</option>
+<option value="Malebennur">Malebennur</option>
+<option value="Malur">Malur</option>
+<option value="Mandya">Mandya</option>
+<option value="Mangalore">Mangalore</option>
+<option value="Manvi">Manvi</option>
+<option value="Molakalmuru">Molakalmuru</option>
+<option value="Mudgal">Mudgal</option>
+<option value="Mudhol">Mudhol</option>
+<option value="Mysore">Mysore</option>
+<option value="Pavagada">Pavagada</option>
+<option value="Raichur">Raichur</option>
+<option value="Ranebennur">Ranebennur</option>
+<option value="Sandur">Sandur</option>
+<option value="Sedam">Sedam</option>
+<option value="Shimoga">Shimoga</option>
+<option value="Shiralkoppa">Shiralkoppa</option>
+<option value="Siddapura">Siddapura</option>
+<option value="Sidlaghatta">Sidlaghatta</option>
+<option value="Sindhanur">Sindhanur</option>
+<option value="Sira">Sira</option>
+<option value="Sirsi">Sirsi</option>
+<option value="Siruguppa">Siruguppa</option>
+<option value="Thirthahalli">Thirthahalli</option>
+<option value="Tumkur">Tumkur</option>
+<option value="Turuvekere">Turuvekere</option>
+<option value="Yadagiri">Yadagiri</option>
+<option value="Yadgir">Yadgir</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" style="width:35%" for="brandName">Brand Name</label>
+        <div class="control">
+          <div class="select">
+            <select id="brandName" name="BrandName">
+               <option disabled hidden selected>Select One</option>
+               <option value="Freedom">Freedom</option>
+<option value="Aadhar">Aadhar</option>
+<option value="Bangi Palli">Bangi Palli</option>
+<option value="Bongi-Dalda">Bongi-Dalda</option>
+<option value="Dalda">Dalda</option>
+<option value="Dhara">Dhara</option>
+<option value="Emami">Emami</option>
+<option value="Fortune">Fortune</option>
+<option value="Gemini">Gemini</option>
+<option value="Gold Evia">Gold Evia</option>
+<option value="Gold Winner">Gold Winner</option>
+<option value="Health fit oil">Health fit oil</option>
+<option value="Joy Life">Joy Life</option>
+<option value="Mr.Gold">Mr.Gold</option>
+<option value="Naturalle">Naturalle</option>
+<option value="Sun Fresh">Sun Fresh</option>
+<option value="Sun premium">Sun premium</option>
+<option value="Sun Shakthi">Sun Shakthi</option>
+<option value="Sun Taza">Sun Taza</option>
+<option value="Sundrop">Sundrop</option>
+<option value="Sungold">Sungold</option>
+<option value="Sunpure">Sunpure</option>
+<option value="Sunrich">Sunrich</option>
+<option value="Sunsolite">Sunsolite</option>
+<option value="Sunflow Gold">Sunflow Gold</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" style="width:65%" for="beatName">Beat Name</label>
+        <div class="control">
+          <input class="input" type="text" id="beatName" placeholder="Enter Beat Name" name="BeatName" style="width:75%" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="outletName">Outlet Name</label>
+        <div class="control">
+          <input class="input" type="text" id="outletName" placeholder="Enter Outlet Name" name="OutletName" style="width:75%" required>
+        </div>
+      </div>
+
+      <div class="field">
+    <label class="label" for="ltrPTR">SF 1 Ltr PTR</label>
+    <div class="control">
+        <input class="input" type="number" id="ltrPTR" placeholder="Enter 1 Ltr PTR (3 digits only)" name="1LtrPTR" min="90" max="299" style="width:45%" oninput="checkInput(this)" required>
+        <div id="ltrPTR-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label" for="ltrPTC">SF 1 Ltr PTC</label>
+    <div class="control">
+        <input class="input" type="number" id="ltrPTC" placeholder="Enter 1 Ltr PTC (3 digits only)" name="1LtrPTC" min="100" max="299" style="width:45%" oninput="checkInput(this)" required>
+        <div id="ltrPTC-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label" for="5trPTR">SF 5 Ltr PTR</label>
+    <div class="control">
+        <input class="input" type="number" id="5trPTR" placeholder="Enter 5 Ltr PTR (3 digits only)" name="5LtrPTR" min="400" max="1000" style="width:45%" oninput="checkInput(this)" required>
+        <div id="5trPTR-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label" for="5trPTC">SF 5 Ltr PTC</label>
+    <div class="control">
+        <input class="input" type="number" id="5trPTC" placeholder="Enter 5 Ltr PTC (3 digits only)" name="5LtrPTC" min="450" max="1000" style="width:45%" oninput="checkInput(this)" required>
+        <div id="5trPTC-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit" id="submit-button">Submit</button>
+        </div>
+        <div class="control">
+          <button class="button is-danger" type="button" id="cancel-button">Refresh </button>
+        </div>
+      </div>
+    </form>
+    <div id="message" class="message"></div>
+  </div>
+
+  <!-- Preview Container -->
+  <div class="container" id="preview-container" style="display: none;">
+    <table class="table preview-table">
+      <thead>
+        <tr>
+          <th>Serial No</th>
+          <th>Town Name</th>
+          <th>Brand Name</th>
+          <th>Beat Name</th>
+          <th>Outlet Name</th>
+          <th>1 Ltr PTR</th>
+          <th>1 Ltr PTC</th>
+          <th>5 Ltr PTR</th>
+          <th>5 Ltr PTC</th>
+          <!-- Add other table headers as needed -->
+        </tr>
+      </thead>
+      <tbody id="preview-table-body">
+        <!-- Preview data will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+  var submissionCount = 0;
+  var freedomSubmissionCount = 0; // Track the number of "Freedom" submissions
+  var allowedEmployeeIDs = [
+    "900418", "900511", "900504", "1355269", "1355262", "1355151", "1355239", "1355134", 
+    "1355241", "1355171", "1355279", "1355195", "1355161", "900507", "900282", "1355172", 
+    "1355183", "1355190", "900422", "900622", "900703", "1405740", "1410259", "1423555", 
+    "901128", "1460577", "1468081", "1471449", "900888", "900894", "1511729", "1529774", 
+    "1536105", "1545795", "1567694", "900927", "1604032", "1611497", "1641475", "1642731", 
+    "1641172", "1646505", "1652423", "1652448", "1665691", "901071", "1665776", "1670103", 
+    "901073", "1669795", "1684017", "1464667", "1678602", "1678603", "1683998", "1689457", 
+    "1689462", "1689470", "1689792", "1689803", "1673562", "1684015", "1689441", "1689460", 
+    "1689455", "1689801"
+  ]; // Predefined list of Employee IDs
+
+  var employeeNames = {
+    "900418": "Putta Madaiah",
+    "900511": "Mohan Kumar S",
+    "900504": "Somaraju M N",
+    "1355269": "Byregowda H",
+    "1355262": "Govindaiah",
+    "1355151": "Venkataramu B M",
+    "1355239": "Budhali Harsha Vardhan",
+    "1355134": "Appaji Gowda",
+    "1355241": "Siddaramu R",
+    "1355171": "Lakshmana",
+    "1355279": "Channabasaveshwara Prasad",
+    "1355195": "H M Girish",
+    "1355161": "Madhu T N",
+    "900507": "M P Sureshbabu",
+    "900282": "K Muralimohan",
+    "1355172": "Govindarajulu P",
+    "1355183": "Prakash Shinde",
+    "1355190": "Santhosh K",
+    "900422": "Santosh M.Manthal",
+    "900622": "Basavaraj Patil",
+    "900703": "Praveen Kumar V",
+    "1405740": "T Ravikumar",
+    "1410259": "Suneel Bahubali Patil",
+    "1423555": "A Venkateshwarlu",
+    "901128": "Nazeer Ahamed",
+    "1460577": "Manoj Shetty",
+    "1468081": "Sateesh Kumar S",
+    "1471449": "Prasad S R",
+    "900888": "Kempanna Parit",
+    "900894": "B R Ashoka",
+    "1511729": "Raghavendra Mallikarjun Devargudi",
+    "1529774": "Manoj Murthy Nayaka",
+    "1536105": "Mahadevaswamy",
+    "1545795": "Venkatesha S",
+    "1567694": "Suresha A B",
+    "900927": "Abhinav Pandey",
+    "1604032": "Shankarappa R",
+    "1611497": "Deepak B",
+    "1641475": "Umashankar",
+    "1642731": "K.Narasimman",
+    "1641172": "Manjunatha V Gouda",
+    "1646505": "Anil Kumar Kp",
+    "1652423": "Manjunatha V N",
+    "1652448": "Gurudarshan G",
+    "1665691": "R Murali",
+    "901071": "Manjunath. Pm",
+    "1665776": "Lalasab Nadaf",
+    "1670103": "Shivukumar C Desamath",
+    "901073": "Santhosh Kumar. M",
+    "1669795": "Raghavendra G",
+    "1684017": "Prajwal",
+    "1464667": "Channappa Lakamapur",
+    "1678602": "Kirthana G",
+    "1678603": "Dhanajay M K",
+    "1683998": "Shiva Kumar K N",
+    "1689457": "SANTHOSH H",
+    "1689462": "Kukumagara Basavaraja",
+    "1689470": "Kempe Gowda K N",
+    "1689792": "Avinash Kumar D",
+    "1689803": "Darshan K",
+    "1673562": "PAVAN JANAGOUDA",
+    "1684015": "Mallikarjuna",
+    "1689441": "Gokul Limakar",
+    "1689460": "Manjunath Valmiki",
+    "1689455": "Channaveer",
+    "1689801": "Jyotiba Sambaji Pawar"
+  }; // Predefined Employee Names
+document.getElementById("employeeID").addEventListener("input", function() {
+  var employeeID = this.value.trim();
+  document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
+  document.getElementById("employeeName").value = employeeNames[employeeID] || '';
+  // Set hidden fields for Employee ID and Name
+  document.getElementById("hiddenEmployeeID").value = employeeID;
+  document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
+});
+
+document.getElementById("form").addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent the default form submission
+
+  // Check if submission count has reached the limit
+  if (submissionCount >= 7) {
+    alert("You can only submit 7 times.");
+    return;
+  }
+
+  document.getElementById("message").textContent = "Submitting..";
+  document.getElementById("message").style.display = "block";
+  document.getElementById("submit-button").disabled = true;
+
+  submissionCount++;
+
+  // Collect the form data
+  var formData = new FormData(this);
+  var keyValuePairs = [];
+  for (var pair of formData.entries()) {
+    keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
+  }
+
+  var formDataString = keyValuePairs.join("&");
+
+  // Send a POST request to your Google Apps Script
+  fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
+    redirect: "follow",
+    method: "POST",
+    body: formDataString,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+  .then(function(response) {
+    // Check if the request was successful
+    if (response.ok) {
+      return response.text(); // Assuming your script returns text response
+    } else {
+      throw new Error("Failed to submit the form.");
+    }
+  })
+  .then(function(data) {
+    // Display a success message
+    document.getElementById("message").textContent = "Data submitted successfully!";
+    document.getElementById("message").style.backgroundColor = "green";
+    document.getElementById("message").style.color = "beige";
+    document.getElementById("submit-button").disabled = false;
+    document.getElementById("form").reset();
+
+    // Show preview
+    showPreview(formData);
+
+    setTimeout(function() {
+      document.getElementById("message").textContent = "";
+      document.getElementById("message").style.display = "none";
+    }, 2600);
+  })
+  .catch(function(error) {
+    // Handle errors, you can display an error message here
+    console.error(error);
+    document.getElementById("message").textContent = "An error occurred while submitting the form.";
+    document.getElementById("message").style.display = "block";
+  });
+});
+
+document.getElementById("open-form-button").addEventListener("click", function() {
+  document.getElementById("form-container").style.display = "block";
+});
+
+document.getElementById("cancel-button").addEventListener("click", function() {
+  document.getElementById("form-container").style.display = "none";
+});
+
+// Function to display preview
+function showPreview(formData) {
+  var previewTableBody = document.getElementById("preview-table-body");
+
+  // Create a row for data
+  var dataRow = document.createElement("tr");
+
+  var serialNumberCell = document.createElement("td");
+  serialNumberCell.textContent = submissionCount;
+  dataRow.appendChild(serialNumberCell);
+
+  var headers = ['TownName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+
+  headers.forEach(function(header) {
+    var dataCell = document.createElement("td");
+    dataCell.textContent = formData.get(header);
+    dataRow.appendChild(dataCell);
+  });
+
+  previewTableBody.appendChild(dataRow);
+
+  document.getElementById("preview-container").style.display = "block";
+}
+
+  </script>
+
+  <script>
+    function checkInput(input) {
+        let value = input.value;
+        let min = parseInt(input.min);
+        let max = parseInt(input.max);
+        let errorMessage = document.getElementById(input.id + "-error");
+
+        if (value.length !== 3 || isNaN(value) || value < min || value > max) {
+            errorMessage.textContent = "Please enter Valid number";
+            input.setCustomValidity("Invalid input");
+        } else {
+            errorMessage.textContent = "";
+            input.setCustomValidity("");
+        }
+    }
+</script>
+
+</body>
+</html>
