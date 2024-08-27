@@ -116,8 +116,7 @@
           </div>
         </div>
       </div>
-
-      <div class="field">
+<div class="field">
         <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
         <div class="control">
           <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town/AreaName" style="width:75%" required>
@@ -206,7 +205,7 @@
     </form>
     <div id="message" class="message"></div>
   </div>
-  < <div class="container" id="preview-container" style="display: none;">
+  <div class="container" id="preview-container" style="display: none;">
     <table class="table preview-table">
       <thead>
         <tr>
@@ -272,36 +271,22 @@ var employeeNames = {
       document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
     });
 
-    document.getElementById("form").addEventListener("input", function() {
-      showPreview(new FormData(this)); // Update preview on input
-    });
-
     document.getElementById("form").addEventListener("submit", function(e) {
-      e.preventDefault(); // Prevent the default form submission
-
+      e.preventDefault();
       if (submissionCount >= 7) {
         alert("You can only submit 7 times.");
         return;
       }
-
-      if (!validateBrandSelection()) {
-        return;
-      }
-
       document.getElementById("message").textContent = "Submitting..";
       document.getElementById("message").style.display = "block";
       document.getElementById("submit-button").disabled = true;
-
       submissionCount++;
-
       var formData = new FormData(this);
       var keyValuePairs = [];
       for (var pair of formData.entries()) {
         keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
       }
-
       var formDataString = keyValuePairs.join("&");
-
       fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
         redirect: "follow",
         method: "POST",
@@ -312,7 +297,7 @@ var employeeNames = {
       })
       .then(function(response) {
         if (response.ok) {
-          return response.text(); 
+          return response.text();
         } else {
           throw new Error("Failed to submit the form.");
         }
@@ -323,9 +308,7 @@ var employeeNames = {
         document.getElementById("message").style.color = "beige";
         document.getElementById("submit-button").disabled = false;
         document.getElementById("form").reset();
-
-        showPreview(new FormData(document.getElementById("form")));
-
+        showPreview(formData);
         setTimeout(function() {
           document.getElementById("message").textContent = "";
           document.getElementById("message").style.display = "none";
@@ -348,57 +331,31 @@ var employeeNames = {
 
     function showPreview(formData) {
       var previewTableBody = document.getElementById("preview-table-body");
-      var headers = ['DistrictName', 'Town/AreaName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
-
-      var dataRow = previewTableBody.querySelector("tr");
-      if (!dataRow) {
-        dataRow = document.createElement("tr");
-        previewTableBody.appendChild(dataRow);
-
-        var serialNumberCell = document.createElement("td");
-        serialNumberCell.textContent = submissionCount + 1;
-        dataRow.appendChild(serialNumberCell);
-
-        headers.forEach(function(header) {
-          var dataCell = document.createElement("td");
-          dataRow.appendChild(dataCell);
-        });
-      }
-
-      var cells = dataRow.querySelectorAll("td");
-      cells.forEach(function(cell, index) {
-        if (index > 0) {
-          cell.textContent = formData.get(headers[index - 1]) || "";
-        }
+      var dataRow = document.createElement("tr");
+      var serialNumberCell = document.createElement("td");
+      serialNumberCell.textContent = submissionCount;
+      dataRow.appendChild(serialNumberCell);
+      var headers = ['TownName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+      headers.forEach(function(header) {
+        var dataCell = document.createElement("td");
+        dataCell.textContent = formData.get(header);
+        dataRow.appendChild(dataCell);
       });
-
+      previewTableBody.appendChild(dataRow);
       document.getElementById("preview-container").style.display = "block";
     }
 
     function checkInput(input) {
-      let value = parseInt(input.value);
-      let min = parseInt(input.getAttribute("min"));
-      let max = parseInt(input.getAttribute("max"));
+      let value = input.value;
+      let min = parseInt(input.min);
+      let max = parseInt(input.max);
       let errorMessage = document.getElementById(input.id + "-error");
-
-      if (isNaN(value) || value < min || value > max) {
-        errorMessage.textContent = "Please enter a valid number between " + min + " and " + max;
+      if (value.length !== 3 || isNaN(value) || value < min || value > max) {
+        errorMessage.textContent = "Please enter a valid number";
         input.setCustomValidity("Invalid input");
       } else {
         errorMessage.textContent = "";
         input.setCustomValidity("");
-      }
-    }
-
-    function validateBrandSelection() {
-      var selectedBrand = document.getElementById("brandName").value;
-      var requiredBrands = ["Freedom", "Gold Drop", "Gold Winner", "Priya Gold", "Crystal"];
-      if (!requiredBrands.includes(selectedBrand)) {
-        document.getElementById("brand-error").textContent = "Please select one of the following brands: " + requiredBrands.join(", ");
-        return false;
-      } else {
-        document.getElementById("brand-error").textContent = "";
-        return true;
       }
     }
   </script>
