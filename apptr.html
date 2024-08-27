@@ -83,28 +83,28 @@
       <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
 
       <div class="field">
-  <label class="label" style="width:35%" for="districtName">District Name</label>
-  <div class="control">
-    <div class="select">
-      <select id="district" name="DistrictName" required>
-        <option value="">Select One</option> <!-- Updated -->
-        <option value="Anantapur">Anantapur</option>
-        <option value="Chittoor">Chittoor</option>
-        <option value="East Godavari">East Godavari</option>
-        <option value="Guntur">Guntur</option>
-        <option value="Krishna">Krishna</option>
-        <option value="Kurnool">Kurnool</option>
-        <option value="Ongole">Ongole</option>
-        <option value="Nellore">Nellore</option>
-        <option value="Srikakulam">Srikakulam</option>
-        <option value="Visakhapatnam">Visakhapatnam</option>
-        <option value="Vizianagaram">Vizianagaram</option>
-        <option value="West Godavari">West Godavari</option>
-        <option value="Kadapa">Kadapa</option>
-      </select>
-    </div>
-  </div>
-</div>
+        <label class="label" style="width:35%" for="districtName">District Name</label>
+        <div class="control">
+          <div class="select">
+            <select id="district" name="DistrictName" required>
+              <option value="">Select One</option>
+              <option value="Anantapur">Anantapur</option>
+              <option value="Chittoor">Chittoor</option>
+              <option value="East Godavari">East Godavari</option>
+              <option value="Guntur">Guntur</option>
+              <option value="Krishna">Krishna</option>
+              <option value="Kurnool">Kurnool</option>
+              <option value="Ongole">Ongole</option>
+              <option value="Nellore">Nellore</option>
+              <option value="Srikakulam">Srikakulam</option>
+              <option value="Visakhapatnam">Visakhapatnam</option>
+              <option value="Vizianagaram">Vizianagaram</option>
+              <option value="West Godavari">West Godavari</option>
+              <option value="Kadapa">Kadapa</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       <div class="field">
         <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
@@ -210,7 +210,7 @@
           <button class="button is-primary" type="submit" id="submit-button">Submit</button>
         </div>
         <div class="control">
-          <button class="button is-danger" type="button" id="cancel-button">Refresh </button>
+          <button class="button is-danger" type="button" id="cancel-button">Refresh</button>
         </div>
       </div>
     </form>
@@ -284,8 +284,7 @@
       "901116": "G.Munichanthan"
     }; // Predefined Employee Names
 
-    var requiredDistricts = ["Guntur", "Krishna", "East Godavari", "West Godavari"]; // Districts where the brands are mandatory
-    var requiredBrands = ["Freedom", "Gold Drop", "Fortune", "Gold Winner", "Priya Gold"]; // Brands that require mandatory PTR/PTC
+    var requiredBrands = ["Freedom", "Gold Drop", "Fortune", "Gold Winner", "Priya Gold"]; // Mandatory brands
 
     document.getElementById("employeeID").addEventListener("input", function() {
       var employeeID = this.value.trim();
@@ -350,7 +349,7 @@
         showPreview(new FormData(document.getElementById("form")));
 
         setTimeout(function() {
-          document.getElementId("message").textContent = "";
+          document.getElementById("message").textContent = "";
           document.getElementById("message").style.display = "none";
         }, 2600);
       })
@@ -422,31 +421,21 @@
     }
 
     function validateBrandSelection() {
-      var selectedDistrict = document.getElementById("district").value;
       var selectedBrand = document.getElementById("brandName").value;
 
-      if (requiredDistricts.includes(selectedDistrict) && requiredBrands.includes(selectedBrand)) {
-        document.getElementById("ltrPTR").setAttribute("required", "required");
-        document.getElementById("ltrPTC").setAttribute("required", "required");
-        document.getElementById("5trPTR").setAttribute("required", "required");
-        document.getElementById("5trPTC").setAttribute("required", "required");
-
+      if (requiredBrands.includes(selectedBrand)) {
         var ltrPTR = document.getElementById("ltrPTR").value;
         var ltrPTC = document.getElementById("ltrPTC").value;
         var tr5PTR = document.getElementById("5trPTR").value;
         var tr5PTC = document.getElementById("5trPTC").value;
 
         if (!ltrPTR || !ltrPTC || !tr5PTR || !tr5PTC) {
-          document.getElementById("brand-error").textContent = "Please fill in all PTR and PTC fields for the selected brand.";
+          alert("Please fill in all PTR and PTC fields for the selected brand: " + selectedBrand);
           return false;
-        } else {
-          document.getElementById("brand-error").textContent = "";
-          return true;
         }
-      } else {
-        document.getElementById("brand-error").textContent = "";
-        return true;
       }
+
+      return true;
     }
   </script>
 </body>
