@@ -83,35 +83,35 @@
       <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
 
       <div class="field">
-        <label class="label" style="width:35%" for="districtName">District Name</label>
-        <div class="control">
-          <div class="select">
-            <select id="district" name="DistrictName" required>
-              <option disabled hidden selected>Select One</option>
-              <option value="Anantapur">Anantapur</option>
-              <option value="Chittoor">Chittoor</option>
-              <option value="East Godavari">East Godavari</option>
-              <option value="Guntur">Guntur</option>
-              <option value="Krishna">Krishna</option>
-              <option value="Kurnool">Kurnool</option>
-              <option value="Ongole">Ongole</option>
-              <option value="Nellore">Nellore</option>
-              <option value="Srikakulam">Srikakulam</option>
-              <option value="Visakhapatnam">Visakhapatnam</option>
-              <option value="Vizianagaram">Vizianagaram</option>
-              <option value="West Godavari">West Godavari</option>
-              <option value="Kadapa">Kadapa</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-  <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
+  <label class="label" style="width:35%" for="districtName">District Name</label>
   <div class="control">
-    <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town/AreaName" style="width:75%" required>
+    <div class="select">
+      <select id="district" name="DistrictName" required>
+        <option value="">Select One</option> <!-- Updated -->
+        <option value="Anantapur">Anantapur</option>
+        <option value="Chittoor">Chittoor</option>
+        <option value="East Godavari">East Godavari</option>
+        <option value="Guntur">Guntur</option>
+        <option value="Krishna">Krishna</option>
+        <option value="Kurnool">Kurnool</option>
+        <option value="Ongole">Ongole</option>
+        <option value="Nellore">Nellore</option>
+        <option value="Srikakulam">Srikakulam</option>
+        <option value="Visakhapatnam">Visakhapatnam</option>
+        <option value="Vizianagaram">Vizianagaram</option>
+        <option value="West Godavari">West Godavari</option>
+        <option value="Kadapa">Kadapa</option>
+      </select>
+    </div>
   </div>
 </div>
+
+      <div class="field">
+        <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
+        <div class="control">
+          <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town/AreaName" style="width:75%" required>
+        </div>
+      </div>
 
       <div class="field">
         <label class="label" style="width:35%" for="brandName">Brand Name</label>
@@ -284,6 +284,9 @@
       "901116": "G.Munichanthan"
     }; // Predefined Employee Names
 
+    var requiredDistricts = ["Guntur", "Krishna", "East Godavari", "West Godavari"]; // Districts where the brands are mandatory
+    var requiredBrands = ["Freedom", "Gold Drop", "Fortune", "Gold Winner", "Priya Gold"]; // Brands that require mandatory PTR/PTC
+
     document.getElementById("employeeID").addEventListener("input", function() {
       var employeeID = this.value.trim();
       document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
@@ -347,7 +350,7 @@
         showPreview(new FormData(document.getElementById("form")));
 
         setTimeout(function() {
-          document.getElementById("message").textContent = "";
+          document.getElementId("message").textContent = "";
           document.getElementById("message").style.display = "none";
         }, 2600);
       })
@@ -364,6 +367,14 @@
 
     document.getElementById("cancel-button").addEventListener("click", function() {
       document.getElementById("form-container").style.display = "none";
+    });
+
+    document.getElementById("district").addEventListener("change", function() {
+      validateBrandSelection(); // Check brand requirements when district changes
+    });
+
+    document.getElementById("brandName").addEventListener("change", function() {
+      validateBrandSelection(); // Check brand requirements when brand changes
     });
 
     function showPreview(formData) {
@@ -411,11 +422,27 @@
     }
 
     function validateBrandSelection() {
+      var selectedDistrict = document.getElementById("district").value;
       var selectedBrand = document.getElementById("brandName").value;
-      var requiredBrands = ["Freedom", "Gold Drop", "Gold Winner", "Priya Gold", "Crystal"];
-      if (!requiredBrands.includes(selectedBrand)) {
-        document.getElementById("brand-error").textContent = "Please select one of the following brands: " + requiredBrands.join(", ");
-        return false;
+
+      if (requiredDistricts.includes(selectedDistrict) && requiredBrands.includes(selectedBrand)) {
+        document.getElementById("ltrPTR").setAttribute("required", "required");
+        document.getElementById("ltrPTC").setAttribute("required", "required");
+        document.getElementById("5trPTR").setAttribute("required", "required");
+        document.getElementById("5trPTC").setAttribute("required", "required");
+
+        var ltrPTR = document.getElementById("ltrPTR").value;
+        var ltrPTC = document.getElementById("ltrPTC").value;
+        var tr5PTR = document.getElementById("5trPTR").value;
+        var tr5PTC = document.getElementById("5trPTC").value;
+
+        if (!ltrPTR || !ltrPTC || !tr5PTR || !tr5PTC) {
+          document.getElementById("brand-error").textContent = "Please fill in all PTR and PTC fields for the selected brand.";
+          return false;
+        } else {
+          document.getElementById("brand-error").textContent = "";
+          return true;
+        }
       } else {
         document.getElementById("brand-error").textContent = "";
         return true;
