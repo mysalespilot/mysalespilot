@@ -331,6 +331,8 @@
     "1689801": "Jyotiba Sambaji Pawar",
     "1695429": "Balakrishna"
   }; // Predefined Employee Names
+
+  
 document.getElementById("employeeID").addEventListener("input", function() {
       var employeeID = this.value.trim();
       document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
@@ -413,6 +415,14 @@ document.getElementById("employeeID").addEventListener("input", function() {
       document.getElementById("form-container").style.display = "none";
     });
 
+    document.getElementById("district").addEventListener("change", function() {
+      validateBrandSelection(); // Check brand requirements when district changes
+    });
+
+    document.getElementById("brandName").addEventListener("change", function() {
+      validateBrandSelection(); // Check brand requirements when brand changes
+    });
+
     function showPreview(formData) {
       var previewTableBody = document.getElementById("preview-table-body");
       var headers = ['DistrictName', 'Town/AreaName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
@@ -459,16 +469,21 @@ document.getElementById("employeeID").addEventListener("input", function() {
 
     function validateBrandSelection() {
       var selectedBrand = document.getElementById("brandName").value;
-      var requiredBrands = ["Freedom", "Gold Drop", "Gold Winner", "Priya Gold", "Crystal"];
-      if (!requiredBrands.includes(selectedBrand)) {
-        document.getElementById("brand-error").textContent = "Please select one of the following brands: " + requiredBrands.join(", ");
-        return false;
-      } else {
-        document.getElementById("brand-error").textContent = "";
-        return true;
+
+      if (requiredBrands.includes(selectedBrand)) {
+        var ltrPTR = document.getElementById("ltrPTR").value;
+        var ltrPTC = document.getElementById("ltrPTC").value;
+        var tr5PTR = document.getElementById("5trPTR").value;
+        var tr5PTC = document.getElementById("5trPTC").value;
+
+        if (!ltrPTR || !ltrPTC || !tr5PTR || !tr5PTC) {
+          alert("Please fill in all PTR and PTC fields for the selected brand: " + selectedBrand);
+          return false;
+        }
       }
+
+      return true;
     }
   </script>
 </body>
 </html>
-
