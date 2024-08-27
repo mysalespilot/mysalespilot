@@ -83,79 +83,38 @@
       <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
 
       <div class="field">
-        <label class="label" style="width:35%" for="townName">Town Name</label>
+        <label class="label" style="width:35%" for="districtName">District Name</label>
         <div class="control">
           <div class="select">
-            <select id="townName" name="TownName">
-               <option disabled hidden selected>Select One</option>
+            <select id="district" name="DistrictName">
+              <option disabled hidden selected>Select One</option>
             <option value="Adilabad">Adilabad</option>
-<option value="Armoor">Armoor</option>
-<option value="Aswaraopet">Aswaraopet</option>
-<option value="Asifabad">Asifabad</option>
-<option value="Banswada">Banswada</option>
-<option value="Bellampalli">Bellampalli</option>
-<option value="Bhadrachalam">Bhadrachalam</option>
-<option value="Bandarugudem">Bandarugudem</option>
-<option value="Bhainsa">Bhainsa</option>
-<option value="Bheemgal">Bheemgal</option>
-<option value="Bhupalpally">Bhupalpally</option>
-<option value="Bichkunda">Bichkunda</option>
-<option value="Bodhan">Bodhan</option>
-<option value="Cherial">Cherial</option>
-<option value="Chennur">Chennur</option>
-<option value="Choppadandi">Choppadandi</option>
-<option value="Dharmaram">Dharmaram</option>
-<option value="Dharampuri">Dharampuri</option>
-<option value="Dhammapet">Dhammapet</option>
-<option value="Dornakal">Dornakal</option>
-<option value="Ghanpur">Ghanpur</option>
-<option value="Godavari Khani">Godavari Khani</option>
-<option value="Hanamkonda">Hanamkonda</option>
-<option value="Husnabad">Husnabad</option>
-<option value="Huzurabad">Huzurabad</option>
-<option value="Ichoda">Ichoda</option>
-<option value="Jadcherla">Jadcherla</option>
-<option value="Jagityal">Jagityal</option>
-<option value="Jammikunta">Jammikunta</option>
-<option value="Jangaon">Jangaon</option>
-<option value="Jangalapally">Jangalapally</option>
-<option value="Kagaz Nagar">Kagaz Nagar</option>
-<option value="Kallur">Kallur</option>
+<option value="Bhadradri">Bhadradri</option>
+<option value="Jagtial">Jagtial</option>
+<option value="Jogulamba">Jogulamba</option>
 <option value="Kamareddy">Kamareddy</option>
 <option value="Karimnagar">Karimnagar</option>
-<option value="Kazipet">Kazipet</option>
-<option value="Kesamudram">Kesamudram</option>
 <option value="Khammam">Khammam</option>
-<option value="Koratla">Koratla</option>
-<option value="Kothagudem">Kothagudem</option>
-<option value="Luxettipet">Luxettipet</option>
-<option value="Madhira">Madhira</option>
+<option value="Komaram Bheem">Komaram Bheem</option>
 <option value="Mahabubabad">Mahabubabad</option>
 <option value="Mancherial">Mancherial</option>
-<option value="Manthani">Manthani</option>
-<option value="Maripeda">Maripeda</option>
-<option value="Metpaelly">Metpaelly</option>
-<option value="Narsampet">Narsampet</option>
-<option value="Nelakondapalli">Nelakondapalli</option>
-<option value="New Paloncha">New Paloncha</option>
+<option value="Medak">Medak</option>
 <option value="Nirmal">Nirmal</option>
 <option value="Nizamabad">Nizamabad</option>
-<option value="Parkal">Parkal</option>
 <option value="Peddapalli">Peddapalli</option>
-<option value="Raikal">Raikal</option>
-<option value="Ramannapet">Ramannapet</option>
-<option value="Sathupally">Sathupally</option>
-<option value="Sirisilla">Sirisilla</option>
-<option value="Sulthanabad">Sulthanabad</option>
-<option value="Thorrur">Thorrur</option>
-<option value="Vemulavada">Vemulavada</option>
+<option value="Rajanna">Rajanna</option>
+<option value="Wanaparthy">Wanaparthy</option>
 <option value="Warangal">Warangal</option>
-<option value="Venkatapur">Venkatapur</option>
-<option value="Wyra">Wyra</option>
-<option value="Yellandu">Yellandu</option>
-<option value="Yellareddypet">Yellareddypet</option>
+
             </select>
           </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
+        <div class="control">
+          <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town/AreaName" style="width:75%" required>
         </div>
       </div>
 
@@ -188,7 +147,7 @@
           </div>
         </div>
       </div>
-
+      
       <div class="field">
         <label class="label" style="width:65%" for="beatName">Beat Name</label>
         <div class="control">
@@ -248,12 +207,13 @@
   </div>
 
   <!-- Preview Container -->
-  <div class="container" id="preview-container" style="display: none;">
+   <div class="container" id="preview-container" style="display: none;">
     <table class="table preview-table">
       <thead>
         <tr>
           <th>Serial No</th>
-          <th>Town Name</th>
+          <th>District Name</th>
+          <th>Town/Area Name</th>
           <th>Brand Name</th>
           <th>Beat Name</th>
           <th>Outlet Name</th>
@@ -261,7 +221,6 @@
           <th>1 Ltr PTC</th>
           <th>5 Ltr PTR</th>
           <th>5 Ltr PTC</th>
-          <!-- Add other table headers as needed -->
         </tr>
       </thead>
       <tbody id="preview-table-body">
@@ -291,129 +250,144 @@ var employeeNames = {
 }; // Predefined Employee Names
 
 document.getElementById("employeeID").addEventListener("input", function() {
-  var employeeID = this.value.trim();
-  document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
-  document.getElementById("employeeName").value = employeeNames[employeeID] || '';
-  // Set hidden fields for Employee ID and Name
-  document.getElementById("hiddenEmployeeID").value = employeeID;
-  document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
-});
+      var employeeID = this.value.trim();
+      document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
+      document.getElementById("employeeName").value = employeeNames[employeeID] || '';
+      document.getElementById("hiddenEmployeeID").value = employeeID;
+      document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
+    });
 
-document.getElementById("form").addEventListener("submit", function(e) {
-  e.preventDefault(); // Prevent the default form submission
+    document.getElementById("form").addEventListener("input", function() {
+      showPreview(new FormData(this)); // Update preview on input
+    });
 
-  // Check if submission count has reached the limit
-  if (submissionCount >= 7) {
-    alert("You can only submit 7 times.");
-    return;
-  }
+    document.getElementById("form").addEventListener("submit", function(e) {
+      e.preventDefault(); // Prevent the default form submission
 
-  document.getElementById("message").textContent = "Submitting..";
-  document.getElementById("message").style.display = "block";
-  document.getElementById("submit-button").disabled = true;
+      if (submissionCount >= 7) {
+        alert("You can only submit 7 times.");
+        return;
+      }
 
-  submissionCount++;
+      if (!validateBrandSelection()) {
+        return;
+      }
 
-  // Collect the form data
-  var formData = new FormData(this);
-  var keyValuePairs = [];
-  for (var pair of formData.entries()) {
-    keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
-  }
+      document.getElementById("message").textContent = "Submitting..";
+      document.getElementById("message").style.display = "block";
+      document.getElementById("submit-button").disabled = true;
 
-  var formDataString = keyValuePairs.join("&");
+      submissionCount++;
 
-  // Send a POST request to your Google Apps Script
-  fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
-    redirect: "follow",
-    method: "POST",
-    body: formDataString,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  })
-  .then(function(response) {
-    // Check if the request was successful
-    if (response.ok) {
-      return response.text(); // Assuming your script returns text response
-    } else {
-      throw new Error("Failed to submit the form.");
-    }
-  })
-  .then(function(data) {
-    // Display a success message
-    document.getElementById("message").textContent = "Data submitted successfully!";
-    document.getElementById("message").style.backgroundColor = "green";
-    document.getElementById("message").style.color = "beige";
-    document.getElementById("submit-button").disabled = false;
-    document.getElementById("form").reset();
+      var formData = new FormData(this);
+      var keyValuePairs = [];
+      for (var pair of formData.entries()) {
+        keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
+      }
 
-    // Show preview
-    showPreview(formData);
+      var formDataString = keyValuePairs.join("&");
 
-    setTimeout(function() {
-      document.getElementById("message").textContent = "";
-      document.getElementById("message").style.display = "none";
-    }, 2600);
-  })
-  .catch(function(error) {
-    // Handle errors, you can display an error message here
-    console.error(error);
-    document.getElementById("message").textContent = "An error occurred while submitting the form.";
-    document.getElementById("message").style.display = "block";
-  });
-});
-
-document.getElementById("open-form-button").addEventListener("click", function() {
-  document.getElementById("form-container").style.display = "block";
-});
-
-document.getElementById("cancel-button").addEventListener("click", function() {
-  document.getElementById("form-container").style.display = "none";
-});
-
-// Function to display preview
-function showPreview(formData) {
-  var previewTableBody = document.getElementById("preview-table-body");
-
-  // Create a row for data
-  var dataRow = document.createElement("tr");
-
-  var serialNumberCell = document.createElement("td");
-  serialNumberCell.textContent = submissionCount;
-  dataRow.appendChild(serialNumberCell);
-
-  var headers = ['TownName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
-
-  headers.forEach(function(header) {
-    var dataCell = document.createElement("td");
-    dataCell.textContent = formData.get(header);
-    dataRow.appendChild(dataCell);
-  });
-
-  previewTableBody.appendChild(dataRow);
-
-  document.getElementById("preview-container").style.display = "block";
-}
-
-  </script>
-
-  <script>
-    function checkInput(input) {
-        let value = input.value;
-        let min = parseInt(input.min);
-        let max = parseInt(input.max);
-        let errorMessage = document.getElementById(input.id + "-error");
-
-        if (value.length !== 3 || isNaN(value) || value < min || value > max) {
-            errorMessage.textContent = "Please enter Valid number";
-            input.setCustomValidity("Invalid input");
-        } else {
-            errorMessage.textContent = "";
-            input.setCustomValidity("");
+      fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
+        redirect: "follow",
+        method: "POST",
+        body: formDataString,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
         }
-    }
-</script>
+      })
+      .then(function(response) {
+        if (response.ok) {
+          return response.text(); 
+        } else {
+          throw new Error("Failed to submit the form.");
+        }
+      })
+      .then(function(data) {
+        document.getElementById("message").textContent = "Data submitted successfully!";
+        document.getElementById("message").style.backgroundColor = "green";
+        document.getElementById("message").style.color = "beige";
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("form").reset();
 
+        showPreview(new FormData(document.getElementById("form")));
+
+        setTimeout(function() {
+          document.getElementById("message").textContent = "";
+          document.getElementById("message").style.display = "none";
+        }, 2600);
+      })
+      .catch(function(error) {
+        console.error(error);
+        document.getElementById("message").textContent = "An error occurred while submitting the form.";
+        document.getElementById("message").style.display = "block";
+      });
+    });
+
+    document.getElementById("open-form-button").addEventListener("click", function() {
+      document.getElementById("form-container").style.display = "block";
+    });
+
+    document.getElementById("cancel-button").addEventListener("click", function() {
+      document.getElementById("form-container").style.display = "none";
+    });
+
+    function showPreview(formData) {
+      var previewTableBody = document.getElementById("preview-table-body");
+      var headers = ['DistrictName', 'Town/AreaName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+
+      var dataRow = previewTableBody.querySelector("tr");
+      if (!dataRow) {
+        dataRow = document.createElement("tr");
+        previewTableBody.appendChild(dataRow);
+
+        var serialNumberCell = document.createElement("td");
+        serialNumberCell.textContent = submissionCount + 1;
+        dataRow.appendChild(serialNumberCell);
+
+        headers.forEach(function(header) {
+          var dataCell = document.createElement("td");
+          dataRow.appendChild(dataCell);
+        });
+      }
+
+      var cells = dataRow.querySelectorAll("td");
+      cells.forEach(function(cell, index) {
+        if (index > 0) {
+          cell.textContent = formData.get(headers[index - 1]) || "";
+        }
+      });
+
+      document.getElementById("preview-container").style.display = "block";
+    }
+
+    function checkInput(input) {
+      let value = parseInt(input.value);
+      let min = parseInt(input.getAttribute("min"));
+      let max = parseInt(input.getAttribute("max"));
+      let errorMessage = document.getElementById(input.id + "-error");
+
+      if (isNaN(value) || value < min || value > max) {
+        errorMessage.textContent = "Please enter a valid number between " + min + " and " + max;
+        input.setCustomValidity("Invalid input");
+      } else {
+        errorMessage.textContent = "";
+        input.setCustomValidity("");
+      }
+    }
+
+    function validateBrandSelection() {
+      var selectedBrand = document.getElementById("brandName").value;
+      var requiredBrands = ["Freedom", "Gold Drop", "Gold Winner", "Priya Gold", "Crystal"];
+      if (!requiredBrands.includes(selectedBrand)) {
+        document.getElementById("brand-error").textContent = "Please select one of the following brands: " + requiredBrands.join(", ");
+        return false;
+      } else {
+        document.getElementById("brand-error").textContent = "";
+        return true;
+      }
+    }
+  </script>
 </body>
 </html>
+
+

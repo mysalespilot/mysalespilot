@@ -117,7 +117,7 @@
         <label class="label" style="width:35%" for="brandName">Brand Name</label>
         <div class="control">
           <div class="select">
-            <select id="brandName" name="BrandName">
+            <select id="brandName" name="BrandName" required>
               <option disabled hidden selected>Select One</option>
               <option value="Freedom">Freedom</option>  
               <option value="Aadhaar">Aadhaar</option>
@@ -130,7 +130,7 @@
               <option value="FRISH N FRISH">FRISH N FRISH</option>
               <option value="Gold Drop">Gold Drop</option>
               <option value="Gold Life">Gold Life</option>
-              <option value="Gold winner">Gold winner</option>
+              <option value="Gold winner">Gold Winner</option>
               <option value="Kurnool Oil">Kurnool Oil</option>
               <option value="Nataraj">Nataraj</option>
               <option value="Naturalle">Naturalle</option>
@@ -155,6 +155,7 @@
               <option value="Hello LIfe">Hello LIfe</option>
             </select>
           </div>
+          <div id="brand-error" class="error-message" style="color: red;"></div>
         </div>
       </div>
 
@@ -222,7 +223,8 @@
       <thead>
         <tr>
           <th>Serial No</th>
-          <th>Town Name</th>
+          <th>District Name</th>
+          <th>Town/Area Name</th>
           <th>Brand Name</th>
           <th>Beat Name</th>
           <th>Outlet Name</th>
@@ -299,6 +301,10 @@
 
       if (submissionCount >= 7) {
         alert("You can only submit 7 times.");
+        return;
+      }
+
+      if (!validateBrandSelection()) {
         return;
       }
 
@@ -401,6 +407,18 @@
       } else {
         errorMessage.textContent = "";
         input.setCustomValidity("");
+      }
+    }
+
+    function validateBrandSelection() {
+      var selectedBrand = document.getElementById("brandName").value;
+      var requiredBrands = ["Freedom", "Gold Drop", "Gold Winner", "Priya Gold", "Crystal"];
+      if (!requiredBrands.includes(selectedBrand)) {
+        document.getElementById("brand-error").textContent = "Please select one of the following brands: " + requiredBrands.join(", ");
+        return false;
+      } else {
+        document.getElementById("brand-error").textContent = "";
+        return true;
       }
     }
   </script>
