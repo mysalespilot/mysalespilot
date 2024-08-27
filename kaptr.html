@@ -14,8 +14,8 @@
     .container-form {
       max-width: 100%;
       margin: 0 auto;
-      border: 1px solid #ccc; /* Added border style */
-      padding: 20px; /* Added padding for better visualization */
+      border: 1px solid #ccc;
+      padding: 20px;
     }
     .message {
       display: none;
@@ -217,7 +217,7 @@
           <button class="button is-primary" type="submit" id="submit-button">Submit</button>
         </div>
         <div class="control">
-          <button class="button is-danger" type="button" id="cancel-button">Refresh </button>
+          <button class="button is-danger" type="button" id="cancel-button">Refresh</button>
         </div>
       </div>
     </form>
@@ -332,7 +332,8 @@
     "1695429": "Balakrishna"
   }; // Predefined Employee Names
 
-  
+  var requiredBrands = ["Freedom", "Gold Drop", "Fortune", "Gold Winner", "Priya Gold"]; // Mandatory bra
+
 document.getElementById("employeeID").addEventListener("input", function() {
       var employeeID = this.value.trim();
       document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
