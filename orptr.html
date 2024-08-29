@@ -335,7 +335,7 @@ var employeeNames = {
       var serialNumberCell = document.createElement("td");
       serialNumberCell.textContent = submissionCount;
       dataRow.appendChild(serialNumberCell);
-      var headers = ['TownName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+      var headers = ['DistrictName', 'Town/AreaName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
       headers.forEach(function(header) {
         var dataCell = document.createElement("td");
         dataCell.textContent = formData.get(header);
