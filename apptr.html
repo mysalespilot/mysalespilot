@@ -92,7 +92,9 @@
               <option value="Chittoor">Chittoor</option>
               <option value="East Godavari">East Godavari</option>
               <option value="Guntur">Guntur</option>
-              <option value="Krishna">Krishna</option>
+              <option value="Vijayawada">Vijayawada</option>
+              <option value="Kakinada">Kakinada</option>
+              <option value="Eluru">Eluru</option>
               <option value="Kurnool">Kurnool</option>
               <option value="Ongole">Ongole</option>
               <option value="Nellore">Nellore</option>
@@ -101,6 +103,8 @@
               <option value="Vizianagaram">Vizianagaram</option>
               <option value="West Godavari">West Godavari</option>
               <option value="Kadapa">Kadapa</option>
+              <option value="Chittoor">Chittoor</option>
+              <option value="Tirupati">Tirupati</option>
             </select>
           </div>
         </div>
@@ -300,6 +304,12 @@
 
     document.getElementById("form").addEventListener("submit", function(e) {
       e.preventDefault(); // Prevent the default form submission
+
+var districtSelect = document.getElementById("district");
+        if (districtSelect.value === "Select One") {
+            alert("Please select a District Name before submitting the form.");
+            return; // Stop form submission
+        }
 
       if (submissionCount >= 7) {
         alert("You can only submit 7 times.");

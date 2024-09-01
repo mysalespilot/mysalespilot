@@ -344,6 +344,13 @@ document.getElementById("employeeID").addEventListener("input", function() {
 document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault(); // Prevent the default form submission
 
+var districtSelect = document.getElementById("district");
+        if (districtSelect.value === "Select One") {
+            alert("Please select a District Name before submitting the form.");
+            return; // Stop form submission
+        }
+
+
   // Check if submission count has reached the limit
   if (submissionCount >= 7) {
     alert("You can only submit 7 times.");
