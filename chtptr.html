@@ -46,7 +46,7 @@
       <div class="container">
         <div style="display: flex; align-items: center;">
     <img src="https://gefindia.com/assets/img/GEF_Logo.png" alt="Your Logo" style="max-width: 150px; border: 2px solid #31081F; padding: 5px; border-radius: 10px;">
-    <h1 class="title" style="margin-left: 10px;" >ROTS Competitor Price </h1>
+    <h1 class="title" style="margin-left: 10px;" >Chattisgarh Competitor Price </h1>
 </div>
     </div>
   </section>
@@ -74,7 +74,7 @@
       <div class="field">
         <label class="label" style="width:25%" for="subzone">Subzone</label>
         <div class="control">
-          <input class="input" type="text" name="Subzone" id="subzone"  readonly value="ROTS">
+          <input class="input" type="text" name="Subzone" id="subzone"  readonly value="Chattisgarh">
         </div>
       </div>
 
@@ -118,10 +118,11 @@
             <select id="brandName" name="BrandName">
                <option disabled hidden selected>Select One</option>
                <option value="Freedom" >Freedom </option required> 
-             <option value="Dhara">Dhara</option>
-<option value="Sunrich">Sunrich</option>
+             <option value="Silver Drop">Silver Drop</option>
+<option value="Kiriti Gold">Kiriti Gold</option>
 <option value="Fortune">Fortune</option>
-<option value="Kiriti Gold">Gold Drop</option>
+<option value="King Sunflower">King Sunflower</option>
+<option value="Sweekar Sunflower">Sweekar Sunflower</option>
 <option value="Gold Winner">Gold Winner</option>
 <option value="Hello LIfe">Hello LIfe</option>
 <option value="Fiona">Fiona</option>
@@ -213,11 +214,12 @@
 
   <script>
    var submissionCount = 0;
-var allowedEmployeeIDs = ["900978", "1615225", "901081" ]; // Predefined list of Employee IDs
+var allowedEmployeeIDs = ["900978", "1615225", "901081", "901131" ]; // Predefined list of Employee IDs
 var employeeNames = {
   "900978": "Ravi Tamada",
   "1615225": "Rahul Reddy ",
-  "901081": "Mrigank Choubey  "
+  "901081": "Mrigank Choubey  ",
+  "901131":"Dhananjay Sharma"
   
 
 }; // Predefined Employee Names
@@ -351,6 +353,15 @@ function showPreview(formData) {
             input.setCustomValidity("");
         }
     }
+
+    function validateBrandSelection() {
+    var selectedBrand = document.getElementById("brandName").value;
+    if (selectedBrand !== "Sunrich") {
+      alert("Please select 'Sunrich' as the Brand Name.");
+      return false;
+    }
+    return true;
+  }
 </script>
 
 </body>
