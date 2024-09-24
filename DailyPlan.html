@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Plan</title>
+    <style>
+        body {
+            background-color: #f7f8fc;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #loginForm, #msform {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type=text], input[type=number], select {
+            width: 75%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        input[type=submit], input[type=reset], .action-button {
+            width: 80%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        input[type=submit], .action-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        input[type=reset] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        input[type=submit]:hover, .action-button:hover {
+            background-color: #45a049;
+        }
+
+        input[type=reset]:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 50px;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        table td input[type=number] {
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Color themes for page changes */
+        .primary-planning {
+            background-color: #e0f7fa;
+        }
+
+        .secondary-planning {
+            background-color: #ffe0b2;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            #loginForm, #msform {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            input[type=submit], input[type=reset], .action-button {
+                font-size: 14px;
+            }
+
+            table, table th, table td {
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+
+            table th, table td {
+                padding: 10px;
+            }
+
+            table td input[type=number] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login Section -->
+<div id="loginForm" style="text-align: center; margin-top: 100px;">
+    <h2>Employee Login</h2>
+    <label for="employeeCode">Enter Employee Code:</label>
+    <input type="text" id="employeeCode" placeholder="Employee Code"> 
+    <button class="action-button" type="button" onclick="login()">Login</button>
+</div>
+
+<!-- Form Section (Hidden until login) -->
+<form id="msform" style="display:none;">
+    <h2 class="fs-title">Plan Submission</h2>
+
+    <fieldset>
+        <div>
+            <strong>Date: <span id="currentDate"></span></strong>
+        </div>
+        <div class="input-field">
+            <label for="planningType">Select Plan Type:</label>
+            <select id="planningType" onchange="changeLabels(); changeBackgroundColor(); validateForm();">
+                <option value="" style="font-weight: bold;">Select Plan Type</option>
+                <option value="primary" style="font-weight: bold;">Primary Planning</option>
+                <option value="secondary" style="font-weight: bold;">Secondary Planning</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label for="name">Name of the Person:</label>
+            <input id="name" readonly>
+        </div>
+
+        <!-- SKU Categories with Direct and Depot inputs -->
+        <table id="skuTable" border="1">
+            <thead>
+                <tr>
+                    <th>SKU Category</th>
+                    <th id="directLabel">Direct (MTs)</th>
+                    <th id="depotLabel">Depot (MTs)</th>
+                    <th>Total (MTs)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sunflower</td>
+                    <td><input type="number" id="sunflowerDirect" oninput="calculateTotal('sunflower'); validateForm();"></td>
+                    <td><input type="number" id="sunflowerDepot" oninput="calculateTotal('sunflower'); validateForm();"></td>
+                    <td><input type="number" id="sunflowerTotal" readonly></td>
+                </tr>
+                <tr>
+                    <td>RiceBran</td>
+                    <td><input type="number" id="RiceBranDirect" oninput="calculateTotal('RiceBran'); validateForm();"></td>
+                    <td><input type="number" id="RiceBranDepot" oninput="calculateTotal('RiceBran'); validateForm();"></td>
+                    <td><input type="number" id="RiceBranTotal" readonly></td>
+                </tr>
+                <tr>
+                    <td>GroundNut</td>
+                    <td><input type="number" id="GroundNutDirect" oninput="calculateTotal('GroundNut')"></td>
+                    <td><input type="number" id="GroundNutDepot" oninput="calculateTotal('GroundNut')"></td>
+                    <td><input type="number" id="GroundNutTotal" readonly></td>
+                </tr>
+                <tr>
+                    <td>Mustard</td>
+                    <td><input type="number" id="MustardDirect" oninput="calculateTotal('Mustard')"></td>
+                    <td><input type="number" id="MustardDepot" oninput="calculateTotal('Mustard')"></td>
+                    <td><input type="number" id="MustardTotal" readonly></td>
+                </tr>
+                <tr>
+                    <td>Palmolein</td>
+                    <td><input type="number" id="PalmoleinDirect" oninput="calculateTotal('Palmolein')"></td>
+                    <td><input type="number" id="PalmoleinDepot" oninput="calculateTotal('Palmolein')"></td>
+                    <td><input type="number" id="PalmoleinTotal" readonly></td>
+                </tr>
+                <tr>
+                    <td>Soya</td>
+                    <td><input type="number" id="SoyaDirect" oninput="calculateTotal('Soya')"></td>
+                    <td><input type="number" id="SoyaDepot" oninput="calculateTotal('Soya')"></td>
+                    <td><input type="number" id="SoyaTotal" readonly></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="submit" value="Submit" onclick="submitToGoogleSheets();">
+        <input type="reset" value="Clear All" onclick="clearAllFields();">
+    </fieldset>
+</form>
+
+<script>
+    // Login functionality
+    function login() {
+        const empCode = document.getElementById('employeeCode').value;
+        if (empCode) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('msform').style.display = 'block';
+            document.getElementById('name').value = empCode; // Replace this with actual user name
+            document.getElementById('currentDate').innerText = new Date().toLocaleDateString();
+        }
+    }
+
+    // Form manipulation and validation functions
+    function changeLabels() {
+        const planType = document.getElementById('planningType').value;
+        if (planType === 'primary') {
+            document.getElementById('directLabel').innerText = 'Direct (MTs)';
+            document.getElementById('depotLabel').innerText = 'Depot (MTs)';
+        } else if (planType === 'secondary') {
+            document.getElementById('directLabel').innerText = 'Indirect (MTs)';
+            document.getElementById('depotLabel').innerText = 'Consignee (MTs)';
+        }
+    }
+
+    function changeBackgroundColor() {
+        const planType = document.getElementById('planningType').value;
+        if (planType === 'primary') {
+            document.body.className = 'primary-planning'; // Light blue
+        } else if (planType === 'secondary') {
+            document.body.className = 'secondary-planning'; // Light orange
+        }
+    }
+
+    // Clear form fields
+    function clearAllFields() {
+        document.getElementById('msform').reset();
+    }
+
+    // Total calculation logic
+    function calculateTotal(category) {
+        const direct = parseFloat(document.getElementById(`${category}Direct`).value) || 0;
+        const depot = parseFloat(document.getElementById(`${category}Depot`).value) || 0;
+        document.getElementById(`${category}Total`).value = direct + depot;
+    }
+
+    // Submit the form data to Google Sheets
+    function submitToGoogleSheets() {
+        // Google Sheets submission logic
+        alert("Submitting data to Google Sheets");
+    }
+</script>
+
+</body>
+</html>
