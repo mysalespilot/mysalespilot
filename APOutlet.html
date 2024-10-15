@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlet Stocks</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+         *, *:before, *:after {
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Nunito', sans-serif;
+         color: #384047;
+         }
+         .hero {
+         margin-bottom: 20px;
+         }
+         form {
+         max-width: 480px;
+         margin: 10px auto;
+         padding: 20px;
+         background: #FCE181;
+         border-radius: 8px;
+         }
+         h1 {
+         margin: 0 0 30px 0;
+         text-align: center;
+         }
+         input[type="text"],
+         input[type="number"],
+         textarea,
+         select {
+         background-color: #EDEAE5;
+         border: none;
+         font-size: 16px;
+         padding: 15px;
+         width: 100%;
+         color: #121110;
+         box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+         margin-bottom: 20px;
+         }
+         input[readonly] {
+         background-color: #f4f4f4;
+         cursor: not-allowed;
+         }
+         button {
+         padding: 19px 39px;
+         color: #FFF;
+         background-color: #026670;
+         font-size: 18px;
+         text-align: center;
+         border-radius: 5px;
+         width: auto; /* Ensure button width is automatic */
+         border: 1px solid #026670;
+         border-width: 1px 1px 3px;
+         box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+         margin-bottom: 10px;
+         }
+         .preview-table {
+         border: 1px solid #e4ede7;
+         border-collapse: collapse;
+         margin-top: 10px;
+         width: 100%;
+         }
+         .preview-table th, .preview-table td {
+         border: 1px solid #ccc;
+         padding: 8px;
+         text-align: center;
+         }
+         #message {
+         display: none;
+         margin: 20px;
+         font-weight: bold;
+         padding: 8px;
+         border-radius: 4px;
+         border-color: aquamarine;
+         }
+         .message-success {
+         color: beige;
+         background-color: green;
+         border: 1px solid green;
+         }
+         .message-error {
+         color: red;
+         background-color: lightcoral;
+         border: 1px solid red;
+         }
+         .login-container {
+         max-width: 300px;
+         margin: 10px auto;
+         padding: 20px;
+         background: #f4f7f8;
+         border-radius: 8px;
+         text-align: center;
+         }
+         .login-container input {
+         margin-bottom: 10px;
+         }
+         .header-title {
+         background: linear-gradient(135deg, #026670 0%, #026670 100%);
+         color: #ffffff;
+         padding: 20px;
+         text-align: center;
+         border-radius: 8px;
+         }
+         @media screen and (min-width: 480px) {
+         form {
+         max-width: 480px;
+         }
+         }
+         .field.is-grouped {
+         display: flex;
+         justify-content: space-between;
+         margin-top: 20px;
+         }
+         .field.is-grouped .control {
+         flex: 1;
+         margin: 0 5px;
+         }
+         .field.is-grouped .button {
+         width: auto;
+         }
+    </style>
+</head>
+
+<body>
+    <div id="login-container" class="login-container">
+        <h1 class="title">Login</h1>
+        <div class="field">
+            <label class="label">Outlet ID</label>
+            <div class="control">
+                <input class="input" type="number" id="login-outlet-id" placeholder="Enter Outlet ID">
+            </div>
+        </div>
+        <button class="button is-primary" onclick="login()">Login</button>
+    </div>
+    <section class="hero is-primary is-bold" id="hero-section" style="display: none;">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="header-title">Outlet Stocks</h1>
+            </div>
+        </div>
+    </section>
+    <form id="form" method="POST" style="display: none;">
+        <div class="field">
+            <label class="label">Outlet ID</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Outlet ID" name="Outlet ID" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Outlet Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Outlet Name" name="Outlet Name" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Outlet Address</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Outlet Address" name="Outlet Address" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">SAP Code</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="SAP Code" name="SAP Code" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Distributor Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Distributor Name" name="Distributor Name" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">City</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="City" name="City" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">District</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="District" name="District" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Subzone</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Subzone" name="subzone" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Quantity in Cases</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Quantity in Cases" name="Quantity in Cases" oninput="updatePreview()">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Quantity in Pieces</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Quantity in Pieces" name="Quantity in Pieces" oninput="updatePreview()">
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-primary" type="submit" id="submit-button">Submit</button>
+            </div>
+            <div class="control">
+                <button class="button is-danger" type="button" id="cancel-button">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div id="message" class="message-success"></div>
+    <!-- Preview Container -->
+    <div class="container" id="preview-container" style="display: none;">
+        <table class="table preview-table">
+            <thead>
+                <tr>
+                    <th>Outlet Id</th>
+                    <th>Outlet Name</th>
+                    <th>Outlet Address</th>
+                    <th>SAP Code</th>
+                    <th>Distributor Name</th>
+                    <th>City</th>
+                    <th>District</th>
+                    <th>Subzone</th>
+                    <th>Quantity in Cases</th>
+                    <th>Quantity in Pieces</th>
+                </tr>
+            </thead>
+            <tbody id="preview-table-body">
+                <!-- Preview data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // Sample data for multiple Outlet IDs
+         const outletData = {
+            77926:{outletName:"Venkata Durga traders",outletAddress:"Rajahmundry",sapCode:"360379",distributorName:"Sri Satya Narayana Enterprises",city:"Rajahmundry", district: "Rajahmundry",subzone: "AP"},
+73079:{outletName:"Madhu kirana & fancy General Merchant",outletAddress:"Rajahmundry",sapCode:"360379",distributorName:"Sri Satya Narayana Enterprises",city:"Rajahmundry", district: "Rajahmundry",subzone: "AP"},
+44836:{outletName:"Manyam Kirana & general merchant",outletAddress:"Ravulapalem",sapCode:"360714",distributorName:"Sri Surya Kameswari traders",city:"Ravulapalem", district: "Ravulapalem",subzone: "AP"},
+50056:{outletName:"Srinivasa oils & general merchant",outletAddress:"Amalapuram",sapCode:"362691",distributorName:"Sai Srinivasa Traders",city:"Amalapuram", district: "Amalapuram",subzone: "AP"},
+29868:{outletName:"Sri Lakshmi Ganapati General stores",outletAddress:"Kakinada",sapCode:"362701",distributorName:"G.C.M Traders",city:"Kakinada", district: "Kakinada",subzone: "AP"},
+29299:{outletName:"Sri Vijayalakshmi Departmental stores",outletAddress:"Kakinada",sapCode:"362723",distributorName:"Gurram Aadinarayana & Co",city:"Kakinada", district: "Kakinada",subzone: "AP"},
+22531:{outletName:"sri kanaka Durga Salt and oil flour mill kirana store ",outletAddress:"Tadepalli gudem ",sapCode:"362736",distributorName:"srinivasa oil and general merchants ",city:"Tadepalligudem", district: "Tadepalli gudem ",subzone: "AP"},
+48318:{outletName:"parameswari kirana stores",outletAddress:"Tadepalli gudem ",sapCode:"362736",distributorName:"srinivasa oil and general merchants ",city:"Tadepalligudem", district: "Tadepalli gudem ",subzone: "AP"},
+33508:{outletName:"Balanagu generals",outletAddress:"Eluru ",sapCode:"360539",distributorName:"Dhanalakshmi oil and foods ",city:"Eluru", district: "Eluru ",subzone: "AP"},
+39483:{outletName:"Sri bharat general stores ",outletAddress:"bhimavaram ",sapCode:"362693",distributorName:"sivateja oil stores ",city:"Bhimavaram", district: "bhimavaram ",subzone: "AP"},
+23705:{outletName:"Amma general Store ",outletAddress:"Gudivada ",sapCode:"362665",distributorName:"kotha Veeraiah ",city:"Gudivada", district: "Gudivada ",subzone: "AP"},
+31450:{outletName:"sri venteswara general Store ",outletAddress:"machillipatanam ",sapCode:"362687",distributorName:"Vijaya bhaskara traders ",city:"Machilipatnam", district: "machillipatanam ",subzone: "AP"},
+20080:{outletName:"K.S.N Enterprises ",outletAddress:"Vijayawada ",sapCode:"363140",distributorName:"Sai Lakshmi enterprises ",city:"Bhavanipuram", district: "Vijayawada ",subzone: "AP"},
+20152:{outletName:"Padma Priya general Store ",outletAddress:"kankipadu ",sapCode:"362648",distributorName:"maha Lakshmi trading company ",city:"Kankipadu", district: "kankipadu ",subzone: "AP"},
+21062:{outletName:"sri Venkateswara rice and general Store ",outletAddress:"Vijayawada ",sapCode:"363146",distributorName:"Amaravati Enterprises ",city:"Vijayawada", district: "Vijayawada ",subzone: "AP"},
+45990:{outletName:"Venkateswara oil and general marchent ",outletAddress:"Nandigama ",sapCode:"362686",distributorName:"V.N.R Enterprises ",city:"Nandigama", district: "Nandigama ",subzone: "AP"},
+22630:{outletName:"Sri Lalitha traders ",outletAddress:"Nellore ",sapCode:"362719",distributorName:"Jitendra Enterprises ",city:"Nellore", district: "Nellore ",subzone: "AP"},
+45370:{outletName:"Jaya Vijaya vani oils ",outletAddress:"Nellore ",sapCode:"362719",distributorName:"Jitendra Enterprises ",city:"Nellore ", district: "Nellore ",subzone: "AP"},
+52151:{outletName:"Sri sai Lakshmi Agencies ",outletAddress:"Nellore ",sapCode:"362719",distributorName:"Jitendra Enterprises ",city:"Nellore ", district: "Nellore ",subzone: "AP"},
+33850:{outletName:"New venkat Lakshmi provision ",outletAddress:"Kavali",sapCode:"362709",distributorName:"Sri Anjaneya provision store ",city:"Kavali", district: "Kavali",subzone: "AP"},
+26543:{outletName:"Sai Selvam Super Market ",outletAddress:"Chittoor ",sapCode:"362704",distributorName:"Kiran Agencies ",city:"Chittoor", district: "Chittoor ",subzone: "AP"},
+39520:{outletName:"Pasuparthy's Super Market ",outletAddress:"Tirupati ",sapCode:"362779",distributorName:"Sri Ayyappa Traders ",city:"Tirupathi", district: "Tirupati ",subzone: "AP"},
+23055:{outletName:"Padam General Store ",outletAddress:"Kadapa",sapCode:"360713",distributorName:"Sri shirdi sai sugar sales ",city:"Kadapa", district: "Kadapa",subzone: "AP"},
+23009:{outletName:"Rama Krishna general Store ",outletAddress:"Kadapa",sapCode:"360713",distributorName:"Sri shirdi sai sugar sales",city:"Kadapa", district: "Kadapa",subzone: "AP"},
+34179:{outletName:"Karthikeya oil Trader's ",outletAddress:"Produtur ",sapCode:"362311",distributorName:"Poreddy agencies ",city:"Proddatur", district: "Produtur ",subzone: "AP"},
+25073:{outletName:"Sri Venkatalakshmi Stores",outletAddress:"Gopalapatnam",sapCode:"362726",distributorName:"Srinivasa Oil stores",city:"Visakhapatnam", district: "Gopalapatnam",subzone: "AP"},
+24734:{outletName:"Renuka General Stores",outletAddress:"Gopalapatnam",sapCode:"362726",distributorName:"Srinivasa Oil stores",city:"Visakhapatnam", district: "Gopalapatnam",subzone: "AP"},
+24916:{outletName:"Saraswathi Traders",outletAddress:"Gajuwaka",sapCode:"361662",distributorName:"Butchi Enterprises",city:"Visakhapatnam", district: "Gajuwaka",subzone: "AP"},
+24747:{outletName:"Rama Traders",outletAddress:"Gajuwaka",sapCode:"361662",distributorName:"Butchi Enterprises",city:"Visakhapatnam", district: "Gajuwaka",subzone: "AP"},
+47672:{outletName:"S.V.V.L.K",outletAddress:"Visakhapatnam",sapCode:"362176",distributorName:"Usha Enterprises",city:"Visakhapatnam", district: "Visakhapatnam",subzone: "AP"},
+29865:{outletName:"Pothula Pydithalli Oils",outletAddress:"Vizianagaram ",sapCode:"361458",distributorName:"Kvr traders ",city:"Vizianagaram", district: "Vizianagaram ",subzone: "AP"},
+120749:{outletName:"Lakshmi D Mart",outletAddress:"Ramabadrapuram ",sapCode:"361162",distributorName:"Sri Venkatapadvathi traders ",city:"Ramabhadrapuram", district: "Ramabadrapuram ",subzone: "AP"},
+77431:{outletName:"SSR Stores ",outletAddress:"Srikakulam ",sapCode:"361788",distributorName:"Sri Suryachandra enterprises ",city:"Srikakulam", district: "Srikakulam ",subzone: "AP"},
+33017:{outletName:"Tangudu Anantha Rao kirana ",outletAddress:"Narasannapeta ",sapCode:"362739",distributorName:"Sai Krishna traders ",city:"Narasannapeta", district: "Narasannapeta ",subzone: "AP"},
+29775:{outletName:"sadguru sachidananda swamy traders ",outletAddress:"Anantapur ",sapCode:"362716",distributorName:"sri venkatramana oil enterprises ",city:"Anantapur", district: "Anantapur ",subzone: "AP"},
+29779:{outletName:"sukeetth traders",outletAddress:"Anantapur ",sapCode:"362716",distributorName:"sri venkataraman oil enterprises ",city:"Anantapur", district: "Anantapur ",subzone: "AP"},
+69202:{outletName:"Balaji traders ",outletAddress:"Hindupur ",sapCode:"362545",distributorName:"Sri traders ",city:"Hindupur", district: "Hindupur ",subzone: "AP"},
+32907:{outletName:"sai Vikrant traders ",outletAddress:"Kurnool ",sapCode:"362705",distributorName:"Sudhakar traders ",city:"Kurnool", district: "Kurnool ",subzone: "AP"},
+22540:{outletName:"Gopalakrishnana trading company ",outletAddress:"Kurnool ",sapCode:"362705",distributorName:"sudhakar traders ",city:"Kurnool", district: "Kurnool ",subzone: "AP"},
+22186:{outletName:"AM oil traders ",outletAddress:"Kurnool ",sapCode:"362705",distributorName:"sudhakar traders ",city:"Kurnool", district: "Kurnool ",subzone: "AP"},
+80983:{outletName:"V Mart",outletAddress:"NANDYAL",sapCode:"362710",distributorName:"Sri Gajalakshmi Agencies",city:"Nandyal", district: "NANDYAL",subzone: "AP"},
+26832:{outletName:"Kota brothers new firm",outletAddress:"ONGOLE ",sapCode:"360551",distributorName:"sree balaji oil traders ",city:"Hubli", district: "ONGOLE ",subzone: "AP"},
+26762:{outletName:"Rvl provisions ",outletAddress:"ONGOLE ",sapCode:"360551",distributorName:"sree balaji oil traders ",city:"Ongole", district: "ONGOLE ",subzone: "AP"},
+26822:{outletName:"B. jwala provisions ",outletAddress:"ONGOLE ",sapCode:"360551",distributorName:"sree balaji oil traders ",city:"Ongole", district: "ONGOLE ",subzone: "AP"},
+60715:{outletName:"Devi Traders",outletAddress:"Guntur",sapCode:"361255",distributorName:"Goodwill Enterprises ",city:"Guntur", district: "Guntur",subzone: "AP"},
+59885:{outletName:"Adithya Traders",outletAddress:"Guntur",sapCode:"361255",distributorName:"Goodwill Enterprises ",city:"Guntur", district: "Guntur",subzone: "AP"},
+124401:{outletName:"M S R Super market ",outletAddress:"Guntur",sapCode:"361255",distributorName:"Goodwill Enterprises ",city:"Guntur", district: "Guntur",subzone: "AP"},
+124395:{outletName:"Amrutha General Stores ",outletAddress:"Guntur",sapCode:"361255",distributorName:"Goodwill Enterprises ",city:"Guntur", district: "Guntur",subzone: "AP"},
+20597:{outletName:"Tenali Rice and Kirana",outletAddress:"Guntur",sapCode:"361255",distributorName:"Goodwill Enterprises ",city:"Guntur", district: "Guntur",subzone: "AP"},
+21204:{outletName:"Navya Sai traders",outletAddress:"Guntur",sapCode:"361255",distributorName:"Goodwill Enterprises ",city:"Guntur", district: "Guntur",subzone: "AP"}
+           // Add up to 10 outlet data entries here...
+         };
+         
+         function login() {
+           const loginOutletId = document.getElementById("login-outlet-id").value;
+           const data = outletData[loginOutletId];
+         
+           if (data) {
+             document.getElementById("hero-section").style.display = "block";
+             document.getElementById("form").style.display = "block";
+             document.getElementById("login-container").style.display = "none";
+         
+             // Autofill the form fields
+             document.querySelector("input[name='Outlet ID']").value = loginOutletId;
+             document.querySelector("input[name='Outlet Name']").value = data.outletName;
+             document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
+             document.querySelector("input[name='SAP Code']").value = data.sapCode;
+             document.querySelector("input[name='Distributor Name']").value = data.distributorName;
+             document.querySelector("input[name='City']").value = data.city;
+             document.querySelector("input[name='District']").value = data.district;
+             document.querySelector("input[name='Subzone']").value = data.Subzone;
+         
+             updatePreview();
+           } else {
+             alert("Invalid Outlet ID");
+           }
+         }
+         
+         function updatePreview() {
+           const previewTableBody = document.getElementById("preview-table-body");
+           const formData = new FormData(document.getElementById("form"));
+           const row = document.createElement("tr");
+         
+           formData.forEach((value) => {
+             const cell = document.createElement("td");
+             cell.textContent = value;
+             row.appendChild(cell);
+           });
+         
+           previewTableBody.innerHTML = "";
+           previewTableBody.appendChild(row);
+           document.getElementById("preview-container").style.display = "block";
+         }
+         
+         document.getElementById("form").addEventListener("submit", function(event) {
+           event.preventDefault();
+           document.getElementById("message").style.display = "block";
+           document.getElementById("message").className = "message-success";
+           document.getElementById("message").innerHTML = "Form submitted successfully!";
+         });
+         
+         document.getElementById("form").addEventListener("reset", function() {
+           document.getElementById("preview-table-body").innerHTML = "";
+           document.getElementById("preview-container").style.display = "none";
+           document.getElementById("message").style.display = "none";
+         });
+         
+         document.getElementById("cancel-button").addEventListener("click", function() {
+           // Hide the "Outlet Stocks" header
+           document.getElementById("hero-section").style.display = "none";
+           
+           // Show the login container
+           document.getElementById("login-container").style.display = "block";
+           
+           // Hide the form
+           document.getElementById("form").style.display = "none";
+           
+           // Hide the preview container
+           document.getElementById("preview-container").style.display = "none";
+           
+           // Clear form and preview data
+           document.getElementById("form").reset();
+           document.getElementById("preview-table-body").innerHTML = "";
+           
+           // Hide the success message
+           document.getElementById("message").style.display = "none";
+         });
+    </script>
+    <script>
+        document.getElementById("form").addEventListener("submit", function (e) {
+           e.preventDefault(); // Prevent the default form submission
+           document.getElementById("message").textContent = "Submitting..";
+           document.getElementById("message").style.display = "block";
+           document.getElementById("submit-button").disabled = true;
+         
+           // Collect the form data
+           var formData = new FormData(this);
+           var keyValuePairs = [];
+           for (var pair of formData.entries()) {
+             keyValuePairs.push(pair[0] + "=" + pair[1]);
+           }
+         
+           var formDataString = keyValuePairs.join("&");
+         
+           // Send a POST request to your Google Apps Script
+           fetch(
+             "https://script.google.com/macros/s/AKfycbwYaEAPDbb7JsPDa9128D5lJwAD-TaWBpn8tdiKFUsTYTBShLCWeeL_3DRNpW74nAHY/exec",
+             {
+               redirect: "follow",
+               method: "POST",
+               body: formDataString,
+               headers: {
+                 "Content-Type": "text/plain;charset=utf-8",
+               },
+             }
+           )
+             .then(function (response) {
+               // Check if the request was successful
+               if (response) {
+                 return response; // Assuming your script returns JSON response
+               } else {
+                 throw new Error("Failed to submit the form.");
+               }
+             })
+             .then(function (data) {
+               // Display a success message
+               document.getElementById("message").textContent =
+                 "Data submitted successfully!";
+               document.getElementById("message").style.display = "block";
+               document.getElementById("message").style.backgroundColor = "green";
+               document.getElementById("message").style.color = "beige";
+               document.getElementById("submit-button").disabled = false;
+               document.getElementById("form").reset();
+         
+               setTimeout(function () {
+                 document.getElementById("message").textContent = "";
+                 document.getElementById("message").style.display = "none";
+               }, 2600);
+             })
+             .catch(function (error) {
+               // Handle errors, you can display an error message here
+               console.error(error);
+               document.getElementById("message").textContent =
+                 "An error occurred while submitting the form.";
+               document.getElementById("message").style.display = "block";
+             });
+         });
+    </script>
+</body>
+
+</html>
