@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlet Stocks</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+         *, *:before, *:after {
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Nunito', sans-serif;
+         color: #384047;
+         }
+         .hero {
+         margin-bottom: 20px;
+         }
+         form {
+         max-width: 480px;
+         margin: 10px auto;
+         padding: 20px;
+         background: #FCE181;
+         border-radius: 8px;
+         }
+         h1 {
+         margin: 0 0 30px 0;
+         text-align: center;
+         }
+         input[type="text"],
+         input[type="number"],
+         textarea,
+         select {
+         background-color: #EDEAE5;
+         border: none;
+         font-size: 16px;
+         padding: 15px;
+         width: 100%;
+         color: #121110;
+         box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+         margin-bottom: 20px;
+         }
+         input[readonly] {
+         background-color: #f4f4f4;
+         cursor: not-allowed;
+         }
+         button {
+         padding: 19px 39px;
+         color: #FFF;
+         background-color: #026670;
+         font-size: 18px;
+         text-align: center;
+         border-radius: 5px;
+         width: auto; /* Ensure button width is automatic */
+         border: 1px solid #026670;
+         border-width: 1px 1px 3px;
+         box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+         margin-bottom: 10px;
+         }
+         .preview-table {
+         border: 1px solid #e4ede7;
+         border-collapse: collapse;
+         margin-top: 10px;
+         width: 100%;
+         }
+         .preview-table th, .preview-table td {
+         border: 1px solid #ccc;
+         padding: 8px;
+         text-align: center;
+         }
+         #message {
+         display: none;
+         margin: 20px;
+         font-weight: bold;
+         padding: 8px;
+         border-radius: 4px;
+         border-color: aquamarine;
+         }
+         .message-success {
+         color: beige;
+         background-color: green;
+         border: 1px solid green;
+         }
+         .message-error {
+         color: red;
+         background-color: lightcoral;
+         border: 1px solid red;
+         }
+         .login-container {
+         max-width: 300px;
+         margin: 10px auto;
+         padding: 20px;
+         background: #f4f7f8;
+         border-radius: 8px;
+         text-align: center;
+         }
+         .login-container input {
+         margin-bottom: 10px;
+         }
+         .header-title {
+         background: linear-gradient(135deg, #026670 0%, #026670 100%);
+         color: #ffffff;
+         padding: 20px;
+         text-align: center;
+         border-radius: 8px;
+         }
+         @media screen and (min-width: 480px) {
+         form {
+         max-width: 480px;
+         }
+         }
+         .field.is-grouped {
+         display: flex;
+         justify-content: space-between;
+         margin-top: 20px;
+         }
+         .field.is-grouped .control {
+         flex: 1;
+         margin: 0 5px;
+         }
+         .field.is-grouped .button {
+         width: auto;
+         }
+    </style>
+</head>
+
+<body>
+    <div id="login-container" class="login-container">
+        <h1 class="title">Login</h1>
+        <div class="field">
+            <label class="label">Outlet ID</label>
+            <div class="control">
+                <input class="input" type="number" id="login-outlet-id" placeholder="Enter Outlet ID">
+            </div>
+        </div>
+        <button class="button is-primary" onclick="login()">Login</button>
+    </div>
+    <section class="hero is-primary is-bold" id="hero-section" style="display: none;">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="header-title">Outlet Stocks</h1>
+            </div>
+        </div>
+    </section>
+    <form id="form" method="POST" style="display: none;">
+        <div class="field">
+            <label class="label">Outlet ID</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Outlet ID" name="Outlet ID" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Outlet Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Outlet Name" name="Outlet Name" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Outlet Address</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Outlet Address" name="Outlet Address" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">SAP Code</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="SAP Code" name="SAP Code" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Distributor Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Distributor Name" name="Distributor Name" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">City</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="City" name="City" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">District</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="District" name="District" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Subzone</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Subzone" name="Subzone" oninput="updatePreview()" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Quantity in Cases</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Quantity in Cases" name="Quantity in Cases" oninput="updatePreview()">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Quantity in Pieces</label>
+            <div class="control">
+                <input class="input" type="number" placeholder="Quantity in Pieces" name="Quantity in Pieces" oninput="updatePreview()">
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-primary" type="submit" id="submit-button">Submit</button>
+            </div>
+            <div class="control">
+                <button class="button is-danger" type="button" id="cancel-button">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div id="message" class="message-success"></div>
+    <!-- Preview Container -->
+    <div class="container" id="preview-container" style="display: none;">
+        <table class="table preview-table">
+            <thead>
+                <tr>
+                    <th>Outlet Id</th>
+                    <th>Outlet Name</th>
+                    <th>Outlet Address</th>
+                    <th>SAP Code</th>
+                    <th>Distributor Name</th>
+                    <th>City</th>
+                    <th>District</th>
+                    <th>Subzone</th>
+                    <th>Quantity in Cases</th>
+                    <th>Quantity in Pieces</th>
+                </tr>
+            </thead>
+            <tbody id="preview-table-body">
+                <!-- Preview data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+   <script>
+    const outletData = {
+                36523:{outletName:"Biswanath Sahoo", outletAddress: "Puri",sapCode: "362763",distributorName: "Madan Trading Co",city:"Puri",district: "Puri", Subzone: "ORISSA",},
+36565:{outletName:"Ravi Industries", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+36839:{outletName:"Mahalaxmi Store", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+36864:{outletName:"MOTILAL TRADERS", outletAddress: "Bhubhaneswar",sapCode: "362831",distributorName: "Sriram Agency",city:"Bhubhaneswar",district: "Bhubhaneswar", Subzone: "ORISSA",},
+36986:{outletName:"Dash Fancy", outletAddress: "Hirakud",sapCode: "362078",distributorName: "Jaidayal Agarwal",city:"Hirakud",district: "Hirakud", Subzone: "ORISSA",},
+37042:{outletName:"Jai Mathaji Agency", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+37048:{outletName:"M/S  R K Enterprisers", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+37111:{outletName:"S K Sahu", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37135:{outletName:"Gudla General Store", outletAddress: "Jeypore",sapCode: "362497",distributorName: "Ratho Traders",city:"Jeypore",district: "Jeypore", Subzone: "ORISSA",},
+37301:{outletName:"Ganesh General Store", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37302:{outletName:"Sambha Devi Variety Store", outletAddress: "Cuttack",sapCode: "363451",distributorName: "MS Jagannath Oil And Pulses",city:"Cuttack",district: "Cuttack", Subzone: "ORISSA",},
+37338:{outletName:"Rahul Pati", outletAddress: "Bhadrak",sapCode: "362047",distributorName: "Satyam Distributors",city:"Bhadrak",district: "Bhadrak", Subzone: "ORISSA",},
+37343:{outletName:"Sahu General Store", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37362:{outletName:"Sunil Rout", outletAddress: "Bhadrak",sapCode: "362047",distributorName: "Satyam Distributors",city:"Bhadrak",district: "Bhadrak", Subzone: "ORISSA",},
+37383:{outletName:"Kishore Lenka", outletAddress: "Cuttack",sapCode: "363451",distributorName: "MS Jagannath Oil And Pulses",city:"Cuttack",district: "Cuttack", Subzone: "ORISSA",},
+37385:{outletName:"G China Rao", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37420:{outletName:"K  Krishna Rao", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37422:{outletName:"Jyoti Senapati", outletAddress: "Rambha",sapCode: "362766",distributorName: "T Igni Subhudhi And Sons",city:"Rambha",district: "Rambha", Subzone: "ORISSA",},
+37466:{outletName:"Daka Patra", outletAddress: "Rambha",sapCode: "362766",distributorName: "T Igni Subhudhi And Sons",city:"Rambha",district: "Rambha", Subzone: "ORISSA",},
+37471:{outletName:"E M Rao", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37482:{outletName:"Jay Hanuman Bhandar", outletAddress: "Cuttack",sapCode: "363451",distributorName: "MS Jagannath Oil And Pulses",city:"Cuttack",district: "Cuttack", Subzone: "ORISSA",},
+37527:{outletName:"Patitapabana Store", outletAddress: "Cuttack",sapCode: "363451",distributorName: "MS Jagannath Oil And Pulses",city:"Cuttack",district: "Cuttack", Subzone: "ORISSA",},
+37542:{outletName:"Aslam Beig", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37593:{outletName:"Sulabha Store", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37598:{outletName:"Deepak store", outletAddress: "Rambha",sapCode: "362766",distributorName: "T Igni Subhudhi And Sons",city:"Rambha",district: "Rambha", Subzone: "ORISSA",},
+37603:{outletName:"Santosh Store", outletAddress: "Ganjam",sapCode: "362768",distributorName: "Ashoka Agency",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+37750:{outletName:"Hanuman Store", outletAddress: "Bhubhaneswar",sapCode: "362831",distributorName: "Sriram Agency",city:"Bhubhaneswar",district: "Bhubhaneswar", Subzone: "ORISSA",},
+37965:{outletName:"B C Sahoo", outletAddress: "Bhubhaneswar",sapCode: "363246",distributorName: "Shankar trading",city:"Bhubhaneswar",district: "Bhubhaneswar", Subzone: "ORISSA",},
+38290:{outletName:"Sahu Trading and sales", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+38307:{outletName:"Balaji Kirana", outletAddress: "Semiliguda",sapCode: "362170",distributorName: "Aditya Enterprises",city:"Semiliguda",district: "Semiliguda", Subzone: "ORISSA",},
+38411:{outletName:"Purusottam Store", outletAddress: "Bhubhaneswar",sapCode: "363246",distributorName: "Shankar trading",city:"Bhubhaneswar",district: "Bhubhaneswar", Subzone: "ORISSA",},
+38524:{outletName:"DULADEVI STORE", outletAddress: "Bhubhaneswar",sapCode: "362831",distributorName: "Sriram Agency",city:"Bhubhaneswar",district: "Bhubhaneswar", Subzone: "ORISSA",},
+38582:{outletName:"Brundha Rani Store", outletAddress: "Nabarangpur",sapCode: "362786",distributorName: "Sri Balaji Traders  Nabarangpur",city:"Nabarangpur",district: "Nabarangpur", Subzone: "ORISSA",},
+38617:{outletName:"Harekrishna Strore", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+38642:{outletName:"Gayatri Store", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+38769:{outletName:"Aditya Enterprise", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+38855:{outletName:"Chip Variety Store", outletAddress: "Rourkela",sapCode: "362008",distributorName: "Ajay Floor Mill",city:"Rourkela",district: "Rourkela", Subzone: "ORISSA",},
+39025:{outletName:"Gopinath  Store", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+39068:{outletName:"Satyam Store", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+39199:{outletName:"Swostik Homes", outletAddress: "Rourkela",sapCode: "362008",distributorName: "Ajay Floor Mill",city:"Rourkela",district: "Rourkela", Subzone: "ORISSA",},
+39658:{outletName:"Gopal Enterprise", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+39678:{outletName:"Maa Mangala Traders", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+39725:{outletName:"Rath Brothers", outletAddress: "Berhampur",sapCode: "362815",distributorName: "Dwarikanath Traders",city:"Berhampur",district: "Berhampur", Subzone: "ORISSA",},
+39798:{outletName:"Bharat Traders", outletAddress: "Hirakud",sapCode: "362078",distributorName: "Jaidayal Agarwal",city:"Hirakud",district: "Hirakud", Subzone: "ORISSA",},
+39804:{outletName:"TULASHI  STORE", outletAddress: "Bhubhaneswar",sapCode: "362831",distributorName: "Sriram Agency",city:"Bhubhaneswar",district: "Bhubhaneswar", Subzone: "ORISSA",},
+39991:{outletName:"Madhu General Stores", outletAddress: "Ganjam",sapCode: "361925",distributorName: "SIVA SAI ENTERPRISERS",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+40070:{outletName:"Padmalaya General Store", outletAddress: "Ganjam",sapCode: "361925",distributorName: "SIVA SAI ENTERPRISERS",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+40103:{outletName:"Satybrata Sahoo", outletAddress: "Ghasipur",sapCode: "361918",distributorName: "Sabitri Enterprises",city:"Ghasipur",district: "Ghasipur", Subzone: "ORISSA",},
+40119:{outletName:"Ganesh Store", outletAddress: "Ganjam",sapCode: "361925",distributorName: "SIVA SAI ENTERPRISERS",city:"Ganjam",district: "Ganjam", Subzone: "ORISSA",},
+40427:{outletName:"Kathia Sahoo", outletAddress: "Ghasipur",sapCode: "361918",distributorName: "Sabitri Enterprises",city:"Ghasipur",district: "Ghasipur", Subzone: "ORISSA",}
+
+    };
+         
+         function login() {
+           const loginOutletId = document.getElementById("login-outlet-id").value;
+           const data = outletData[loginOutletId];
+         
+           if (data) {
+             document.getElementById("hero-section").style.display = "block";
+             document.getElementById("form").style.display = "block";
+             document.getElementById("login-container").style.display = "none";
+         
+             // Autofill the form fields
+             document.querySelector("input[name='Outlet ID']").value = loginOutletId;
+             document.querySelector("input[name='Outlet Name']").value = data.outletName;
+             document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
+             document.querySelector("input[name='SAP Code']").value = data.sapCode;
+             document.querySelector("input[name='Distributor Name']").value = data.distributorName;
+             document.querySelector("input[name='City']").value = data.city;
+             document.querySelector("input[name='District']").value = data.district;
+             document.querySelector("input[name='Subzone']").value = data.Subzone;
+         
+             updatePreview();
+           } else {
+             alert("Invalid Outlet ID");
+           }
+         }
+         
+         function updatePreview() {
+           const previewTableBody = document.getElementById("preview-table-body");
+           const formData = new FormData(document.getElementById("form"));
+           const row = document.createElement("tr");
+         
+           formData.forEach((value) => {
+             const cell = document.createElement("td");
+             cell.textContent = value;
+             row.appendChild(cell);
+           });
+         
+           previewTableBody.innerHTML = "";
+           previewTableBody.appendChild(row);
+           document.getElementById("preview-container").style.display = "block";
+         }
+         
+         document.getElementById("form").addEventListener("submit", function(event) {
+           event.preventDefault();
+           document.getElementById("message").style.display = "block";
+           document.getElementById("message").className = "message-success";
+           document.getElementById("message").innerHTML = "Form submitted successfully!";
+         });
+         
+         document.getElementById("form").addEventListener("reset", function() {
+           document.getElementById("preview-table-body").innerHTML = "";
+           document.getElementById("preview-container").style.display = "none";
+           document.getElementById("message").style.display = "none";
+         });
+         
+         document.getElementById("cancel-button").addEventListener("click", function() {
+           // Hide the "Outlet Stocks" header
+           document.getElementById("hero-section").style.display = "none";
+           
+           // Show the login container
+           document.getElementById("login-container").style.display = "block";
+           
+           // Hide the form
+           document.getElementById("form").style.display = "none";
+           
+           // Hide the preview container
+           document.getElementById("preview-container").style.display = "none";
+           
+           // Clear form and preview data
+           document.getElementById("form").reset();
+           document.getElementById("preview-table-body").innerHTML = "";
+           
+           // Hide the success message
+           document.getElementById("message").style.display = "none";
+         });
+    </script>
+    <script>
+        document.getElementById("form").addEventListener("submit", function (e) {
+           e.preventDefault(); // Prevent the default form submission
+           document.getElementById("message").textContent = "Submitting..";
+           document.getElementById("message").style.display = "block";
+           document.getElementById("submit-button").disabled = true;
+         
+           // Collect the form data
+           var formData = new FormData(this);
+           var keyValuePairs = [];
+           for (var pair of formData.entries()) {
+             keyValuePairs.push(pair[0] + "=" + pair[1]);
+           }
+         
+           var formDataString = keyValuePairs.join("&");
+         
+           // Send a POST request to your Google Apps Script
+           fetch(
+             "https://script.google.com/macros/s/AKfycbwYaEAPDbb7JsPDa9128D5lJwAD-TaWBpn8tdiKFUsTYTBShLCWeeL_3DRNpW74nAHY/exec",
+             {
+               redirect: "follow",
+               method: "POST",
+               body: formDataString,
+               headers: {
+                 "Content-Type": "text/plain;charset=utf-8",
+               },
+             }
+           )
+             .then(function (response) {
+               // Check if the request was successful
+               if (response) {
+                 return response; // Assuming your script returns JSON response
+               } else {
+                 throw new Error("Failed to submit the form.");
+               }
+             })
+             .then(function (data) {
+               // Display a success message
+               document.getElementById("message").textContent =
+                 "Data submitted successfully!";
+               document.getElementById("message").style.display = "block";
+               document.getElementById("message").style.backgroundColor = "green";
+               document.getElementById("message").style.color = "beige";
+               document.getElementById("submit-button").disabled = false;
+               document.getElementById("form").reset();
+         
+               setTimeout(function () {
+                 document.getElementById("message").textContent = "";
+                 document.getElementById("message").style.display = "none";
+               }, 2600);
+             })
+             .catch(function (error) {
+               // Handle errors, you can display an error message here
+               console.error(error);
+               document.getElementById("message").textContent =
+                 "An error occurred while submitting the form.";
+               document.getElementById("message").style.display = "block";
+             });
+         });
+    </script>
+</body>
+
+</html>
