@@ -1,857 +1,1481 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Outlet Stocks</title>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-         *, *:before, *:after {
-         box-sizing: border-box;
-         }
-         body {
-         font-family: 'Nunito', sans-serif;
-         color: #384047;
-         }
-         .hero {
-         margin-bottom: 20px;
-         }
-         form {
-         max-width: 480px;
-         margin: 10px auto;
-         padding: 20px;
-         background: #FCE181;
-         border-radius: 8px;
-         }
-         h1 {
-         margin: 0 0 30px 0;
-         text-align: center;
-         }
-         input[type="text"],
-         input[type="number"],
-         textarea,
-         select {
-         background-color: #EDEAE5;
-         border: none;
-         font-size: 16px;
-         padding: 15px;
-         width: 100%;
-         color: #121110;
-         box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-         margin-bottom: 20px;
-         }
-         input[readonly] {
-         background-color: #f4f4f4;
-         cursor: not-allowed;
-         }
-         button {
-         padding: 19px 39px;
-         color: #FFF;
-         background-color: #026670;
-         font-size: 18px;
-         text-align: center;
-         border-radius: 5px;
-         width: auto; /* Ensure button width is automatic */
-         border: 1px solid #026670;
-         border-width: 1px 1px 3px;
-         box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-         margin-bottom: 10px;
-         }
-         .preview-table {
-         border: 1px solid #e4ede7;
-         border-collapse: collapse;
-         margin-top: 10px;
-         width: 100%;
-         }
-         .preview-table th, .preview-table td {
-         border: 1px solid #ccc;
-         padding: 8px;
-         text-align: center;
-         }
-         #message {
-         display: none;
-         margin: 20px;
-         font-weight: bold;
-         padding: 8px;
-         border-radius: 4px;
-         border-color: aquamarine;
-         }
-         .message-success {
-         color: beige;
-         background-color: green;
-         border: 1px solid green;
-         }
-         .message-error {
-         color: red;
-         background-color: lightcoral;
-         border: 1px solid red;
-         }
-         .login-container {
-         max-width: 300px;
-         margin: 10px auto;
-         padding: 20px;
-         background: #f4f7f8;
-         border-radius: 8px;
-         text-align: center;
-         }
-         .login-container input {
-         margin-bottom: 10px;
-         }
-         .header-title {
-         background: linear-gradient(135deg, #026670 0%, #026670 100%);
-         color: #ffffff;
-         padding: 20px;
-         text-align: center;
-         border-radius: 8px;
-         }
-         @media screen and (min-width: 480px) {
-         form {
-         max-width: 480px;
-         }
-         }
-         .field.is-grouped {
-         display: flex;
-         justify-content: space-between;
-         margin-top: 20px;
-         }
-         .field.is-grouped .control {
-         flex: 1;
-         margin: 0 5px;
-         }
-         .field.is-grouped .button {
-         width: auto;
-         }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        color: #384047;
+        margin: 0;
+        padding: 0;
+        background: #fffdf5;
+      }
+
+      .hero {
+        margin-bottom: 20px;
+      }
+
+      form {
+        max-width: 480px;
+        margin: 10px auto;
+        padding: 20px;
+        background: #fce181;
+        border-radius: 8px;
+      }
+
+      h1 {
+        margin: 0 0 30px 0;
+        text-align: center;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      textarea,
+      select {
+        background-color: #edeae5;
+        border: none;
+        font-size: 16px;
+        padding: 15px;
+        width: 100%;
+        color: #121110;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+        margin-bottom: 20px;
+      }
+
+      input[readonly] {
+        background-color: #f4f4f4;
+        cursor: not-allowed;
+      }
+
+      button {
+        padding: 14px 30px;
+        color: #fff;
+        background-color: #026670;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #026670;
+        border-width: 1px 1px 3px;
+        box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+
+      .preview-table {
+        border: 1px solid #e4ede7;
+        border-collapse: collapse;
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .preview-table th,
+      .preview-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+      }
+
+      #message {
+        display: none;
+        margin: 20px auto;
+        max-width: 480px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      .message-success {
+        color: beige;
+        background-color: green;
+        border: 1px solid green;
+      }
+
+      .message-error {
+        color: red;
+        background-color: lightcoral;
+        border: 1px solid red;
+      }
+
+      .login-container {
+        max-width: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f4f7f8;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .login-container input {
+        margin-bottom: 10px;
+      }
+
+      .header-title {
+        background: linear-gradient(135deg, #026670 0%, #026670 100%);
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .field.is-grouped {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .field.is-grouped .control {
+        flex: 1;
+        margin: 0 5px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
     </style>
-</head>
-
-<body>
+  </head>
+  <body>
     <div id="login-container" class="login-container">
-        <h1 class="title">Login</h1>
-        <div class="field">
-            <label class="label">Outlet ID</label>
-            <div class="control">
-                <input class="input" type="number" id="login-outlet-id" placeholder="Enter Outlet ID">
-            </div>
+      <h1 class="title">Login</h1>
+      <div class="field">
+        <label class="label">Outlet ID</label>
+        <div class="control">
+          <input class="input" type="number" id="login-outlet-id" placeholder="Enter Outlet ID" />
         </div>
-        <button class="button is-primary" onclick="login()">Login</button>
+      </div>
+      <button class="button is-primary" onclick="login()">Login</button>
     </div>
+
     <section class="hero is-primary is-bold" id="hero-section" style="display: none;">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="header-title">Outlet Stocks</h1>
-            </div>
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="header-title">Outlet Stocks</h1>
         </div>
+      </div>
     </section>
+
     <form id="form" method="POST" style="display: none;">
-        <div class="field">
-            <label class="label">Outlet ID</label>
-            <div class="control">
-                <input class="input" type="number" placeholder="Outlet ID" name="Outlet ID" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Outlet Name</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Outlet Name" name="Outlet Name" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Outlet Address</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Outlet Address" name="Outlet Address" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">SAP Code</label>
-            <div class="control">
-                <input class="input" type="number" placeholder="SAP Code" name="SAP Code" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Distributor Name</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Distributor Name" name="Distributor Name" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">City</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="City" name="City" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">District</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="District" name="District" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Subzone</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Subzone" name="subzone" oninput="updatePreview()" readonly>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Quantity in Cases</label>
-            <div class="control">
-                <input class="input" type="number" placeholder="Quantity in Cases" name="Quantity in Cases" oninput="updatePreview()">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Quantity in Pieces</label>
-            <div class="control">
-                <input class="input" type="number" placeholder="Quantity in Pieces" name="Quantity in Pieces" oninput="updatePreview()">
-            </div>
-        </div>
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-primary" type="submit" id="submit-button">Submit</button>
-            </div>
-            <div class="control">
-                <button class="button is-danger" type="button" id="cancel-button">Cancel</button>
-            </div>
-        </div>
+      <div class="field"><label class="label">Outlet ID</label>
+        <div class="control"><input class="input" type="number" name="Outlet ID" readonly /></div>
+      </div>
+      <div class="field"><label class="label">Outlet Name</label>
+        <div class="control"><input class="input" type="text" name="Outlet Name" readonly /></div>
+      </div>
+      <div class="field"><label class="label">Outlet Address</label>
+        <div class="control"><input class="input" type="text" name="Outlet Address" readonly /></div>
+      </div>
+      <div class="field"><label class="label">SAP Code</label>
+        <div class="control"><input class="input" type="number" name="SAP Code" readonly /></div>
+      </div>
+      <div class="field"><label class="label">Distributor Name</label>
+        <div class="control"><input class="input" type="text" name="Distributor Name" readonly /></div>
+      </div>
+      <div class="field"><label class="label">City</label>
+        <div class="control"><input class="input" type="text" name="City" readonly /></div>
+      </div>
+      <div class="field"><label class="label">District</label>
+        <div class="control"><input class="input" type="text" name="District" readonly /></div>
+      </div>
+      <div class="field"><label class="label">Subzone</label>
+        <div class="control"><input class="input" type="text" name="Subzone" readonly /></div>
+      </div>
+      <div class="field"><label class="label">Quantity in Cases</label>
+        <div class="control"><input class="input" type="number" name="Quantity in Cases" oninput="updatePreview()" /></div>
+      </div>
+      <div class="field"><label class="label">Quantity in Pieces</label>
+        <div class="control"><input class="input" type="number" name="Quantity in Pieces" oninput="updatePreview()" /></div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control"><button type="submit" class="button is-primary">Submit</button></div>
+        <div class="control"><button type="button" class="button is-danger" onclick="window.location.reload()">Cancel</button></div>
+      </div>
     </form>
-    <div id="message" class="message-success"></div>
-    <!-- Preview Container -->
+
+    <div id="message"></div>
+
     <div class="container" id="preview-container" style="display: none;">
-        <table class="table preview-table">
-            <thead>
-                <tr>
-                    <th>Outlet Id</th>
-                    <th>Outlet Name</th>
-                    <th>Outlet Address</th>
-                    <th>SAP Code</th>
-                    <th>Distributor Name</th>
-                    <th>City</th>
-                    <th>District</th>
-                    <th>Subzone</th>
-                    <th>Quantity in Cases</th>
-                    <th>Quantity in Pieces</th>
-                </tr>
-            </thead>
-            <tbody id="preview-table-body">
-                <!-- Preview data will be inserted here -->
-            </tbody>
-        </table>
+      <table class="table preview-table">
+        <thead>
+          <tr>
+            <th>Outlet ID</th>
+            <th>Outlet Name</th>
+            <th>Outlet Address</th>
+            <th>SAP Code</th>
+            <th>Distributor Name</th>
+            <th>City</th>
+            <th>District</th>
+            <th>Subzone</th>
+            <th>Quantity in Cases</th>
+            <th>Quantity in Pieces</th>
+          </tr>
+        </thead>
+        <tbody id="preview-table-body"></tbody>
+      </table>
     </div>
-    <script>
-        // Sample data for multiple Outlet IDs
-         const outletData = {
-            63020: {
-         outletName: "S K M Kiranam",
-         outletAddress: "Medak",
-         sapCode: "362877",
-         distributorName: "Enishetty Krishnamoorthy Kirana & G",
-         city: "Medak",
-         district: "Medak",
-         subzone: "HYD UPCOUNTRY"
-         },
-         63024: {
-         outletName: "Sri Kalabhairava Kiranam & General Merchant",
-         outletAddress: "Medak",
-         sapCode: "362877",
-         distributorName: "Enishetty Krishnamoorthy Kirana & G",
-         city: "Medak",
-         district: "Medak",
-         subzone: "HYD UPCOUNTRY"
-         },
-         63028: {
-         outletName: "Sri Hanuman Kirana & General Stores",
-         outletAddress: "Medak",
-         sapCode: "362877",
-         distributorName: "Enishetty Krishnamoorthy Kirana & G",
-         city: "Medak",
-         district: "Medak",
-         subzone: "HYD UPCOUNTRY"
-         },
-         63034: {
-         outletName: "Ram Sai Kirana & General Stores",
-         outletAddress: "Medak",
-         sapCode: "362877",
-         distributorName: "Enishetty Krishnamoorthy Kirana & G",
-         city: "Medak",
-         district: "Medak",
-         subzone: "HYD UPCOUNTRY"
-         },
-         63038: {
-         outletName: "Veerabhadra Kirana & General Stores",
-         outletAddress: "Medak",
-         sapCode: "362877",
-         distributorName: "Enishetty Krishnamoorthy Kirana & G",
-         city: "Medak",
-         district: "Medak",
-         subzone: "HYD UPCOUNTRY"
-         },
-         6126: {
-         outletName: "Sri Venkateshwara Kirana & General Store",
-         outletAddress: "Sangareddy",
-         sapCode: "362121",
-         distributorName: "Sri Renuka Traders",
-         city: "Sangareddy",
-         district: "Sangareddy",
-         subzone: "HYD UPCOUNTRY"
-         },
-         6136: {
-         outletName: "Mathaji Kirana & General Store Wholesale & Retail",
-         outletAddress: "Sangareddy",
-         sapCode: "362121",
-         distributorName: "Sri Renuka Traders",
-         city: "Sangareddy",
-         district: "Sangareddy",
-         subzone: "HYD UPCOUNTRY"
-         },
-         6294: {
-         outletName: "New Venkateshwara Kirana & General Store",
-         outletAddress: "Sangareddy",
-         sapCode: "362121",
-         distributorName: "Sri Renuka Traders",
-         city: "Sangareddy",
-         district: "Sangareddy",
-         subzone: "HYD UPCOUNTRY"
-         },
-         6300: {
-         outletName: "Ajay Kirana &  General Stores",
-         outletAddress: "Sangareddy",
-         sapCode: "362121",
-         distributorName: "Sri Renuka Traders",
-         city: "Sangareddy",
-         district: "Sangareddy",
-         subzone: "HYD UPCOUNTRY"
-         },
-         6310: {
-         outletName: "Laxmi Venkateshwara Kirana & General Store",
-         outletAddress: "Sangareddy",
-         sapCode: "362121",
-         distributorName: "Sri Renuka Traders",
-         city: "Sangareddy",
-         district: "Sangareddy",
-         subzone: "HYD UPCOUNTRY"
-         },
-         16027: {
-         outletName: "Sri Sai Kiranam VT Road",
-         outletAddress: "Nalgonda",
-         sapCode: "361941",
-         distributorName: "Sai Kiran Agencies",
-         city: "Nalgonda",
-         district: "Nalgonda",
-         subzone: "HYD UPCOUNTRY"
-         },
-         16028: {
-         outletName: "B.Pullareddy Sweet House",
-         outletAddress: "Nalgonda",
-         sapCode: "361941",
-         distributorName: "Sai Kiran Agencies",
-         city: "Nalgonda",
-         district: "Nalgonda",
-         subzone: "HYD UPCOUNTRY"
-         },
-         16029: {
-         outletName: "Lakshmi Oil Merchant",
-         outletAddress: "Nalgonda",
-         sapCode: "361941",
-         distributorName: "Sai Kiran Agencies",
-         city: "Nalgonda",
-         district: "Nalgonda",
-         subzone: "HYD UPCOUNTRY"
-         },
-         16030: {
-         outletName: "SLN Swamy Kiranam Ramagiri",
-         outletAddress: "Nalgonda",
-         sapCode: "361941",
-         distributorName: "Sai Kiran Agencies",
-         city: "Nalgonda",
-         district: "Nalgonda",
-         subzone: "HYD UPCOUNTRY"
-         },
-         16038: {
-         outletName: "Eshwari Kiranam & General Stores",
-         outletAddress: "Nalgonda",
-         sapCode: "361941",
-         distributorName: "Sai Kiran Agencies",
-         city: "Nalgonda",
-         district: "Nalgonda",
-         subzone: "HYD UPCOUNTRY"
-         },
-         30614: {
-         outletName: "Santhosh Kirana",
-         outletAddress: "Karimnagar",
-         sapCode: "361792",
-         distributorName: "Laxmi Ganapthi Distributors",
-         city: "Karimnagar",
-         district: "Karimnagar",
-         subzone: "ROTS"
-         },
-         60251: {
-         outletName: "A Shankaraiah Kiranam",
-         outletAddress: "Karimnagar",
-         sapCode: "361792",
-         distributorName: "Laxmi Ganapthi Distributors",
-         city: "Karimnagar",
-         district: "Karimnagar",
-         subzone: "ROTS"
-         },
-         30761: {
-         outletName: "Thirumala Kirana",
-         outletAddress: "Karimnagar",
-         sapCode: "361792",
-         distributorName: "Laxmi Ganapthi Distributors",
-         city: "Karimnagar",
-         district: "Karimnagar",
-         subzone: "ROTS"
-         },
-         30790: {
-         outletName: "Ganesh Kiranam",
-         outletAddress: "Karimnagar",
-         sapCode: "361792",
-         distributorName: "Laxmi Ganapthi Distributors",
-         city: "Karimnagar",
-         district: "Karimnagar",
-         subzone: "ROTS"
-         },
-         30811: {
-         outletName: "Srivani Kirana & General Stores",
-         outletAddress: "Karimnagar",
-         sapCode: "361792",
-         distributorName: "Laxmi Ganapthi Distributors",
-         city: "Karimnagar",
-         district: "Karimnagar",
-         subzone: "ROTS"
-         },
-         22325: {
-         outletName: "Nagendra Traders",
-         outletAddress: "Hanamkonda",
-         sapCode: "362703",
-         distributorName: "Mahendra Oil Traders",
-         city: "Hanamkonda",
-         district: "Hanamkonda",
-         subzone: "ROTS"
-         },
-         26807: {
-         outletName: "Anjana traders kiranam",
-         outletAddress: "Hanamkonda",
-         sapCode: "362703",
-         distributorName: "Mahendra Oil Traders",
-         city: "Hanamkonda",
-         district: "Hanamkonda",
-         subzone: "ROTS"
-         },
-         22461: {
-         outletName: "VP Reddy",
-         outletAddress: "Hanamkonda",
-         sapCode: "362703",
-         distributorName: "Mahendra Oil Traders",
-         city: "Hanamkonda",
-         district: "Hanamkonda",
-         subzone: "ROTS"
-         },
-         22386: {
-         outletName: "Sri Laxmi Kirana & General Stores",
-         outletAddress: "Hanamkonda",
-         sapCode: "362703",
-         distributorName: "Mahendra Oil Traders",
-         city: "Hanamkonda",
-         district: "Hanamkonda",
-         subzone: "ROTS"
-         },
-         22438: {
-         outletName: "S Devender Kirana & General",
-         outletAddress: "Hanamkonda",
-         sapCode: "362703",
-         distributorName: "Mahendra Oil Traders",
-         city: "Hanamkonda",
-         district: "Hanamkonda",
-         subzone: "ROTS"
-         },
-         38555: {
-         outletName: "Sapthagiri Kiranam & General Stores",
-         outletAddress: "Jangaon",
-         sapCode: "361985",
-         distributorName: "Manjunadha Agencies",
-         city: "Jangaon",
-         district: "Jangaon",
-         subzone: "HYD UPCOUNTRY"
-         },
-         38558: {
-         outletName: "Navya Kiranam & General Stores",
-         outletAddress: "Jangaon",
-         sapCode: "361985",
-         distributorName: "Manjunadha Agencies",
-         city: "Jangaon",
-         district: "Jangaon",
-         subzone: "HYD UPCOUNTRY"
-         },
-         38561: {
-         outletName: "Shekar Kiranam",
-         outletAddress: "Jangaon",
-         sapCode: "361985",
-         distributorName: "Manjunadha Agencies",
-         city: "Jangaon",
-         district: "Jangaon",
-         subzone: "HYD UPCOUNTRY"
-         },
-         38564: {
-         outletName: "Manthena Venkateshwarlu Kiranam & General",
-         outletAddress: "Jangaon",
-         sapCode: "361985",
-         distributorName: "Manjunadha Agencies",
-         city: "Jangaon",
-         district: "Jangaon",
-         subzone: "HYD UPCOUNTRY"
-         },
-         38577: {
-         outletName: "Sri Sai Kiranam",
-         outletAddress: "Jangaon",
-         sapCode: "361985",
-         distributorName: "Manjunadha Agencies",
-         city: "Jangaon",
-         district: "Jangaon",
-         subzone: "HYD UPCOUNTRY"
-         },
-         31554: {
-         outletName: "Reshma Kirana & General Stores",
-         outletAddress: "Mahabubnagar",
-         sapCode: "362077",
-         distributorName: "Murali Trading Comapany",
-         city: "Mahabubnagar",
-         district: "Mahabubnagar",
-         subzone: "HYD UPCOUNTRY"
-         },
-         31586: {
-         outletName: "Suresh Kirana & General Stores",
-         outletAddress: "Mahabubnagar",
-         sapCode: "362077",
-         distributorName: "Murali Trading Comapany",
-         city: "Mahabubnagar",
-         district: "Mahabubnagar",
-         subzone: "HYD UPCOUNTRY"
-         },
-         31601: {
-         outletName: "Brand Kiranana & General Store",
-         outletAddress: "Mahabubnagar",
-         sapCode: "362077",
-         distributorName: "Murali Trading Comapany",
-         city: "Mahabubnagar",
-         district: "Mahabubnagar",
-         subzone: "HYD UPCOUNTRY"
-         },
-         31616: {
-         outletName: "Sai Kirana & General Store",
-         outletAddress: "Mahabubnagar",
-         sapCode: "362077",
-         distributorName: "Murali Trading Comapany",
-         city: "Mahabubnagar",
-         district: "Mahabubnagar",
-         subzone: "HYD UPCOUNTRY"
-         },
-         31642: {
-         outletName: "Meraj Milk Point",
-         outletAddress: "Mahabubnagar",
-         sapCode: "362077",
-         distributorName: "Murali Trading Comapany",
-         city: "Mahabubnagar",
-         district: "Mahabubnagar",
-         subzone: "HYD UPCOUNTRY"
-         },
-         21718: {
-         outletName: "Umar kirana & Super Market",
-         outletAddress: "Nizamabad",
-         sapCode: "361760",
-         distributorName: "Krishna Trading Company",
-         city: "Nizamabad",
-         district: "Nizamabad",
-         subzone: "ROTS"
-         },
-         21745: {
-         outletName: "Y.S Kiranam & General Stores",
-         outletAddress: "Nizamabad",
-         sapCode: "361760",
-         distributorName: "Krishna Trading Company",
-         city: "Nizamabad",
-         district: "Nizamabad",
-         subzone: "ROTS"
-         },
-         21763: {
-         outletName: "SR Mart",
-         outletAddress: "Nizamabad",
-         sapCode: "361760",
-         distributorName: "Krishna Trading Company",
-         city: "Nizamabad",
-         district: "Nizamabad",
-         subzone: "ROTS"
-         },
-         21784: {
-         outletName: "Grand J.K. Super Market",
-         outletAddress: "Nizamabad",
-         sapCode: "361760",
-         distributorName: "Krishna Trading Company",
-         city: "Nizamabad",
-         district: "Nizamabad",
-         subzone: "ROTS"
-         },
-         21819: {
-         outletName: "A.R. Super Market",
-         outletAddress: "Nizamabad",
-         sapCode: "361760",
-         distributorName: "Krishna Trading Company",
-         city: "Nizamabad",
-         district: "Nizamabad",
-         subzone: "ROTS"
-         },
-         22375: {
-         outletName: "Nataraja Traders",
-         outletAddress: "Warangal",
-         sapCode: "360604",
-         distributorName: "Thota Ramakrishna Ganaral Merchants",
-         city: "Warangal",
-         district: "Warangal",
-         subzone: "ROTS"
-         },
-         22396: {
-         outletName: "Kumar Enterprises Kiranam & General Merchant",
-         outletAddress: "Warangal",
-         sapCode: "360604",
-         distributorName: "Thota Ramakrishna Ganaral Merchants",
-         city: "Warangal",
-         district: "Warangal",
-         subzone: "ROTS"
-         },
-         22408: {
-         outletName: "Mani Kiranam",
-         outletAddress: "Warangal",
-         sapCode: "360604",
-         distributorName: "Thota Ramakrishna Ganaral Merchants",
-         city: "Warangal",
-         district: "Warangal",
-         subzone: "ROTS"
-         },
-         22420: {
-         outletName: "Vamshikrishna Kiranam & General",
-         outletAddress: "Warangal",
-         sapCode: "360604",
-         distributorName: "Thota Ramakrishna Ganaral Merchants",
-         city: "Warangal",
-         district: "Warangal",
-         subzone: "ROTS"
-         },
-         22439: {
-         outletName: "Sri Raja Rajeswari Kiranam & General Merchant",
-         outletAddress: "Warangal",
-         sapCode: "360604",
-         distributorName: "Thota Ramakrishna Ganaral Merchants",
-         city: "Warangal",
-         district: "Warangal",
-         subzone: "ROTS"
-         },
-         
-         3651:{outletName: "Pavan Kirana & Gen Store",outletAddress: "Patancheru",sapCode: "362788",distributorName: "Siddhi Vinayaka Agencies", city: "Patancheru",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         3660:{outletName: "Radha Krishna  Dryfruits Kirana & General Stores",outletAddress: "Patancheru",sapCode: "362788",distributorName: "Siddhi Vinayaka Agencies", city: "Patancheru",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         3804:{outletName: "Sri Vijaylakshmi  Kirana &  General Stores  Wholesale &  Retail",outletAddress: "Patancheru",sapCode: "362788",distributorName: "Siddhi Vinayaka Agencies", city: "Patancheru",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         3673:{outletName: "Sri Om Kirana & General Store",outletAddress: "Patancheru",sapCode: "362788",distributorName: "Siddhi Vinayaka Agencies", city: "Patancheru",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         141171:{outletName: "Mathaji Kgs",outletAddress: "Hyderabad",sapCode: "363796",distributorName: "SRIVENINC", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         141216:{outletName: "Veerabhadra Kgs",outletAddress: "Hyderabad",sapCode: "363796",distributorName: "SRIVENINC", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         141221:{outletName: "Renuka Kirana",outletAddress: "Hyderabad",sapCode: "363796",distributorName: "SRIVENINC", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         5533:{outletName: "Vinayaka Kirana And General Store",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         140851:{outletName: "Om Saj Kirana",outletAddress: "Hyderabad",sapCode: "363796",distributorName: "SRIVENINC", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         5590:{outletName: "Raj Laxmi Kirana And General Store",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         121767:{outletName: "zam zam kirana",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         142354:{outletName: "GOLD KIAR MARKETING",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         122682:{outletName: "M A GAFFAR",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         122725:{outletName: "Yousuf And Sons",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         98801:{outletName: "Jai Balaji traders",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         122660:{outletName: "v mart",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         140801:{outletName: "Gajanand Kirana",outletAddress: "Hyderabad",sapCode: "363796",distributorName: "SRIVENINC", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         122597:{outletName: "Bharat Traders",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         130479:{outletName: "SVS traders",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         130490:{outletName: "New Bharat Traders",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         3383:{outletName: "Harsh Agencies",outletAddress: "Hyderabad",sapCode: "363267",distributorName: "Sri Mega Oil Agencies", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         3341:{outletName: "Mamatha Oil Depot",outletAddress: "Hyderabad",sapCode: "363267",distributorName: "Sri Mega Oil Agencies", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         3424:{outletName: "Sri Balaji Kirana & Oil Merchant",outletAddress: "Hyderabad",sapCode: "363267",distributorName: "Sri Mega Oil Agencies", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         3456:{outletName: "Sri Mannarayana Traders",outletAddress: "Hyderabad",sapCode: "363267",distributorName: "Sri Mega Oil Agencies", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         4467:{outletName: "Shiva Sai Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "363267",distributorName: "Sri Mega Oil Agencies", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         3885:{outletName: "Sri Hari Om Kirana General Stores",outletAddress: "Hyderabad",sapCode: "362728",distributorName: "Sri Srinivasa Agencies", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         14405:{outletName: "B Mart Kirana & General Store",outletAddress: "Hyderabad",sapCode: "360777",distributorName: "Sri Bhavani Traders", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1113:{outletName: "Sri Sai Venkataramana Kirana & General Store",outletAddress: "Hyderabad",sapCode: "362728",distributorName: "Sri Srinivasa Agencies", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         1325:{outletName: "Balaji Punamchand Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "362728",distributorName: "Sri Srinivasa Agencies", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         1432:{outletName: "Hamed Oil  Merchant",outletAddress: "Hyderabad",sapCode: "361314",distributorName: "Sri Siva Sai Agencies", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1442:{outletName: "K.Mallaiah & Sons Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "361314",distributorName: "Sri Siva Sai Agencies", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         6301:{outletName: "Sri Laxmi Ramana Rice Depot",outletAddress: "Hyderabad",sapCode: "361046",distributorName: "Prime Marketing", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         6203:{outletName: "Sudha Grand Bazar",outletAddress: "Hyderabad",sapCode: "361046",distributorName: "Prime Marketing", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         2431:{outletName: "Manikanta Traders",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         2459:{outletName: "Sri Sai Shruthi Kirana And General Store",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         145292:{outletName: "sai prabha kirana",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         126579:{outletName: "ram dev dry fruit",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         2430:{outletName: "Sri Veerabadra Pooja Samagri Kirana And General Stores",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         5252:{outletName: "Fine traders",outletAddress: "Hyderabad",sapCode: "360563",distributorName: "Lohiya Agro Industries", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         120026:{outletName: "Santosh kirana ",outletAddress: "Hyderabad",sapCode: "360563",distributorName: "Lohiya Agro Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         19754:{outletName: "Basad kirana ",outletAddress: "Hyderabad",sapCode: "360563",distributorName: "Lohiya Agro Industries", city: "Hyderabad",district: "Mancherial - TG", subzone: "HYD METRO"},
-         742:{outletName: "Zamzam kirana ",outletAddress: "Hyderabad",sapCode: "360563",distributorName: "Lohiya Agro Industries", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         119946:{outletName: "Basera traders ",outletAddress: "Hyderabad",sapCode: "360563",distributorName: "Lohiya Agro Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         155097:{outletName: "ARM TRADERS ",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         5137:{outletName: "GRAND GOOD LUCK STORE ",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         153754:{outletName: "NEW M.B.M TRADERS ",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         144607:{outletName: "AL AMAN TRADERS ",outletAddress: "Hyderabad",sapCode: "363331",distributorName: "CK Industries", city: "Hyderabad",district: "Rangareddi - TG", subzone: "HYD METRO"},
-         520:{outletName: "AL AZEEM TRADERS KIRANA  ",outletAddress: "Hyderabad",sapCode: "363267",distributorName: "Sri Mega Oil Agencies", city: "Hyderabad",district: "West Godavari - AP", subzone: "HYD METRO"},
-         1871:{outletName: "Balaji mart",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         2093:{outletName: "Laxmi Ganapathi Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         124426:{outletName: "Jagadamba KGS",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         763:{outletName: "venkatsai vegetables",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         4544:{outletName: "Maya Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1265:{outletName: "New Kakatiya Rice Depot",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         70413:{outletName: "Sandhip Krirana Ganaral Store",outletAddress: "Hyderabad",sapCode: "362242",distributorName: "Yagna Sai Enterprises", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         70081:{outletName: "Narender Kirana & Ganaral Store",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         70077:{outletName: "Tachi Super Mraket",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad - TG", subzone: "HYD METRO"},
-         4132:{outletName: "Sri V.B.S  Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "360293",distributorName: "Vriddhi Associates", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1733:{outletName: "Sri Balaji Birdichand Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "362042",distributorName: "Sri Balaji Birdichand Kirana & General Stores", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1571:{outletName: "S.K. Ali Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1586:{outletName: "Sri Balaji Rampal Kirana & General Store",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1642:{outletName: "New Balaji Provision Store",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1712:{outletName: "Sri Laxmi Venkateshwara Kirana & General Stores",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         1808:{outletName: "Padmavati Food Grains",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         73613:{outletName: "Sri Balaji Sunil Kirana & General Store",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         2243:{outletName: "Sri Kuber Traders",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"},
-         5735:{outletName: "Bhagawathi Kirana & General Store",outletAddress: "Hyderabad",sapCode: "",distributorName: "", city: "Hyderabad",district: "Hyderabad", subzone: "HYD METRO"}
 
-         
-           // Add up to 10 outlet data entries here...
-         };
-         
-         function login() {
-           const loginOutletId = document.getElementById("login-outlet-id").value;
-           const data = outletData[loginOutletId];
-         
-           if (data) {
-             document.getElementById("hero-section").style.display = "block";
-             document.getElementById("form").style.display = "block";
-             document.getElementById("login-container").style.display = "none";
-         
-             // Autofill the form fields
-             document.querySelector("input[name='Outlet ID']").value = loginOutletId;
-             document.querySelector("input[name='Outlet Name']").value = data.outletName;
-             document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
-             document.querySelector("input[name='SAP Code']").value = data.sapCode;
-             document.querySelector("input[name='Distributor Name']").value = data.distributorName;
-             document.querySelector("input[name='City']").value = data.city;
-             document.querySelector("input[name='District']").value = data.district;
-             document.querySelector("input[name='Subzone']").value = data.Subzone;
-         
-             updatePreview();
-           } else {
-             alert("Invalid Outlet ID");
-           }
-         }
-         
-         function updatePreview() {
-           const previewTableBody = document.getElementById("preview-table-body");
-           const formData = new FormData(document.getElementById("form"));
-           const row = document.createElement("tr");
-         
-           formData.forEach((value) => {
-             const cell = document.createElement("td");
-             cell.textContent = value;
-             row.appendChild(cell);
-           });
-         
-           previewTableBody.innerHTML = "";
-           previewTableBody.appendChild(row);
-           document.getElementById("preview-container").style.display = "block";
-         }
-         
-         document.getElementById("form").addEventListener("submit", function(event) {
-           event.preventDefault();
-           document.getElementById("message").style.display = "block";
-           document.getElementById("message").className = "message-success";
-           document.getElementById("message").innerHTML = "Form submitted successfully!";
-         });
-         
-         document.getElementById("form").addEventListener("reset", function() {
-           document.getElementById("preview-table-body").innerHTML = "";
-           document.getElementById("preview-container").style.display = "none";
-           document.getElementById("message").style.display = "none";
-         });
-         
-         document.getElementById("cancel-button").addEventListener("click", function() {
-           // Hide the "Outlet Stocks" header
-           document.getElementById("hero-section").style.display = "none";
-           
-           // Show the login container
-           document.getElementById("login-container").style.display = "block";
-           
-           // Hide the form
-           document.getElementById("form").style.display = "none";
-           
-           // Hide the preview container
-           document.getElementById("preview-container").style.display = "none";
-           
-           // Clear form and preview data
-           document.getElementById("form").reset();
-           document.getElementById("preview-table-body").innerHTML = "";
-           
-           // Hide the success message
-           document.getElementById("message").style.display = "none";
-         });
-    </script>
     <script>
-        document.getElementById("form").addEventListener("submit", function (e) {
-           e.preventDefault(); // Prevent the default form submission
-           document.getElementById("message").textContent = "Submitting..";
-           document.getElementById("message").style.display = "block";
-           document.getElementById("submit-button").disabled = true;
-         
-           // Collect the form data
-           var formData = new FormData(this);
-           var keyValuePairs = [];
-           for (var pair of formData.entries()) {
-             keyValuePairs.push(pair[0] + "=" + pair[1]);
-           }
-         
-           var formDataString = keyValuePairs.join("&");
-         
-           // Send a POST request to your Google Apps Script
-           fetch(
-             "https://script.google.com/macros/s/AKfycbwYaEAPDbb7JsPDa9128D5lJwAD-TaWBpn8tdiKFUsTYTBShLCWeeL_3DRNpW74nAHY/exec",
-             {
-               redirect: "follow",
-               method: "POST",
-               body: formDataString,
-               headers: {
-                 "Content-Type": "text/plain;charset=utf-8",
-               },
-             }
-           )
-             .then(function (response) {
-               // Check if the request was successful
-               if (response) {
-                 return response; // Assuming your script returns JSON response
-               } else {
-                 throw new Error("Failed to submit the form.");
-               }
-             })
-             .then(function (data) {
-               // Display a success message
-               document.getElementById("message").textContent =
-                 "Data submitted successfully!";
-               document.getElementById("message").style.display = "block";
-               document.getElementById("message").style.backgroundColor = "green";
-               document.getElementById("message").style.color = "beige";
-               document.getElementById("submit-button").disabled = false;
-               document.getElementById("form").reset();
-         
-               setTimeout(function () {
-                 document.getElementById("message").textContent = "";
-                 document.getElementById("message").style.display = "none";
-               }, 2600);
-             })
-             .catch(function (error) {
-               // Handle errors, you can display an error message here
-               console.error(error);
-               document.getElementById("message").textContent =
-                 "An error occurred while submitting the form.";
-               document.getElementById("message").style.display = "block";
-             });
-         });
-    </script>
-</body>
+      const outletData = {
+        63020: {
+          outletName: "S K M Kiranam",
+          outletAddress: "Medak",
+          sapCode: "362877",
+          distributorName: "Enishetty Krishnamoorthy Kirana & G",
+          city: "Medak",
+          district: "Medak",
+          subzone: "HYD UPCOUNTRY"
+        },
+        63024: {
+          outletName: "Sri Kalabhairava Kiranam & General Merchant",
+          outletAddress: "Medak",
+          sapCode: "362877",
+          distributorName: "Enishetty Krishnamoorthy Kirana & G",
+          city: "Medak",
+          district: "Medak",
+          subzone: "HYD UPCOUNTRY"
+        },
+        63028: {
+          outletName: "Sri Hanuman Kirana & General Stores",
+          outletAddress: "Medak",
+          sapCode: "362877",
+          distributorName: "Enishetty Krishnamoorthy Kirana & G",
+          city: "Medak",
+          district: "Medak",
+          subzone: "HYD UPCOUNTRY"
+        },
+        63034: {
+          outletName: "Ram Sai Kirana & General Stores",
+          outletAddress: "Medak",
+          sapCode: "362877",
+          distributorName: "Enishetty Krishnamoorthy Kirana & G",
+          city: "Medak",
+          district: "Medak",
+          subzone: "HYD UPCOUNTRY"
+        },
+        63038: {
+          outletName: "Veerabhadra Kirana & General Stores",
+          outletAddress: "Medak",
+          sapCode: "362877",
+          distributorName: "Enishetty Krishnamoorthy Kirana & G",
+          city: "Medak",
+          district: "Medak",
+          subzone: "HYD UPCOUNTRY"
+        },
+        6126: {
+          outletName: "Sri Venkateshwara Kirana & General Store",
+          outletAddress: "Sangareddy",
+          sapCode: "362121",
+          distributorName: "Sri Renuka Traders",
+          city: "Sangareddy",
+          district: "Sangareddy",
+          subzone: "HYD UPCOUNTRY"
+        },
+        6136: {
+          outletName: "Mathaji Kirana & General Store Wholesale & Retail",
+          outletAddress: "Sangareddy",
+          sapCode: "362121",
+          distributorName: "Sri Renuka Traders",
+          city: "Sangareddy",
+          district: "Sangareddy",
+          subzone: "HYD UPCOUNTRY"
+        },
+        6294: {
+          outletName: "New Venkateshwara Kirana & General Store",
+          outletAddress: "Sangareddy",
+          sapCode: "362121",
+          distributorName: "Sri Renuka Traders",
+          city: "Sangareddy",
+          district: "Sangareddy",
+          subzone: "HYD UPCOUNTRY"
+        },
+        6300: {
+          outletName: "Ajay Kirana &  General Stores",
+          outletAddress: "Sangareddy",
+          sapCode: "362121",
+          distributorName: "Sri Renuka Traders",
+          city: "Sangareddy",
+          district: "Sangareddy",
+          subzone: "HYD UPCOUNTRY"
+        },
+        6310: {
+          outletName: "Laxmi Venkateshwara Kirana & General Store",
+          outletAddress: "Sangareddy",
+          sapCode: "362121",
+          distributorName: "Sri Renuka Traders",
+          city: "Sangareddy",
+          district: "Sangareddy",
+          subzone: "HYD UPCOUNTRY"
+        },
+        16027: {
+          outletName: "Sri Sai Kiranam VT Road",
+          outletAddress: "Nalgonda",
+          sapCode: "361941",
+          distributorName: "Sai Kiran Agencies",
+          city: "Nalgonda",
+          district: "Nalgonda",
+          subzone: "HYD UPCOUNTRY"
+        },
+        16028: {
+          outletName: "B.Pullareddy Sweet House",
+          outletAddress: "Nalgonda",
+          sapCode: "361941",
+          distributorName: "Sai Kiran Agencies",
+          city: "Nalgonda",
+          district: "Nalgonda",
+          subzone: "HYD UPCOUNTRY"
+        },
+        16029: {
+          outletName: "Lakshmi Oil Merchant",
+          outletAddress: "Nalgonda",
+          sapCode: "361941",
+          distributorName: "Sai Kiran Agencies",
+          city: "Nalgonda",
+          district: "Nalgonda",
+          subzone: "HYD UPCOUNTRY"
+        },
+        16030: {
+          outletName: "SLN Swamy Kiranam Ramagiri",
+          outletAddress: "Nalgonda",
+          sapCode: "361941",
+          distributorName: "Sai Kiran Agencies",
+          city: "Nalgonda",
+          district: "Nalgonda",
+          subzone: "HYD UPCOUNTRY"
+        },
+        16038: {
+          outletName: "Eshwari Kiranam & General Stores",
+          outletAddress: "Nalgonda",
+          sapCode: "361941",
+          distributorName: "Sai Kiran Agencies",
+          city: "Nalgonda",
+          district: "Nalgonda",
+          subzone: "HYD UPCOUNTRY"
+        },
+        30614: {
+          outletName: "Santhosh Kirana",
+          outletAddress: "Karimnagar",
+          sapCode: "361792",
+          distributorName: "Laxmi Ganapthi Distributors",
+          city: "Karimnagar",
+          district: "Karimnagar",
+          subzone: "ROTS"
+        },
+        60251: {
+          outletName: "A Shankaraiah Kiranam",
+          outletAddress: "Karimnagar",
+          sapCode: "361792",
+          distributorName: "Laxmi Ganapthi Distributors",
+          city: "Karimnagar",
+          district: "Karimnagar",
+          subzone: "ROTS"
+        },
+        30761: {
+          outletName: "Thirumala Kirana",
+          outletAddress: "Karimnagar",
+          sapCode: "361792",
+          distributorName: "Laxmi Ganapthi Distributors",
+          city: "Karimnagar",
+          district: "Karimnagar",
+          subzone: "ROTS"
+        },
+        30790: {
+          outletName: "Ganesh Kiranam",
+          outletAddress: "Karimnagar",
+          sapCode: "361792",
+          distributorName: "Laxmi Ganapthi Distributors",
+          city: "Karimnagar",
+          district: "Karimnagar",
+          subzone: "ROTS"
+        },
+        30811: {
+          outletName: "Srivani Kirana & General Stores",
+          outletAddress: "Karimnagar",
+          sapCode: "361792",
+          distributorName: "Laxmi Ganapthi Distributors",
+          city: "Karimnagar",
+          district: "Karimnagar",
+          subzone: "ROTS"
+        },
+        22325: {
+          outletName: "Nagendra Traders",
+          outletAddress: "Hanamkonda",
+          sapCode: "362703",
+          distributorName: "Mahendra Oil Traders",
+          city: "Hanamkonda",
+          district: "Hanamkonda",
+          subzone: "ROTS"
+        },
+        26807: {
+          outletName: "Anjana traders kiranam",
+          outletAddress: "Hanamkonda",
+          sapCode: "362703",
+          distributorName: "Mahendra Oil Traders",
+          city: "Hanamkonda",
+          district: "Hanamkonda",
+          subzone: "ROTS"
+        },
+        22461: {
+          outletName: "VP Reddy",
+          outletAddress: "Hanamkonda",
+          sapCode: "362703",
+          distributorName: "Mahendra Oil Traders",
+          city: "Hanamkonda",
+          district: "Hanamkonda",
+          subzone: "ROTS"
+        },
+        22386: {
+          outletName: "Sri Laxmi Kirana & General Stores",
+          outletAddress: "Hanamkonda",
+          sapCode: "362703",
+          distributorName: "Mahendra Oil Traders",
+          city: "Hanamkonda",
+          district: "Hanamkonda",
+          subzone: "ROTS"
+        },
+        22438: {
+          outletName: "S Devender Kirana & General",
+          outletAddress: "Hanamkonda",
+          sapCode: "362703",
+          distributorName: "Mahendra Oil Traders",
+          city: "Hanamkonda",
+          district: "Hanamkonda",
+          subzone: "ROTS"
+        },
+        38555: {
+          outletName: "Sapthagiri Kiranam & General Stores",
+          outletAddress: "Jangaon",
+          sapCode: "361985",
+          distributorName: "Manjunadha Agencies",
+          city: "Jangaon",
+          district: "Jangaon",
+          subzone: "HYD UPCOUNTRY"
+        },
+        38558: {
+          outletName: "Navya Kiranam & General Stores",
+          outletAddress: "Jangaon",
+          sapCode: "361985",
+          distributorName: "Manjunadha Agencies",
+          city: "Jangaon",
+          district: "Jangaon",
+          subzone: "HYD UPCOUNTRY"
+        },
+        38561: {
+          outletName: "Shekar Kiranam",
+          outletAddress: "Jangaon",
+          sapCode: "361985",
+          distributorName: "Manjunadha Agencies",
+          city: "Jangaon",
+          district: "Jangaon",
+          subzone: "HYD UPCOUNTRY"
+        },
+        38564: {
+          outletName: "Manthena Venkateshwarlu Kiranam & General",
+          outletAddress: "Jangaon",
+          sapCode: "361985",
+          distributorName: "Manjunadha Agencies",
+          city: "Jangaon",
+          district: "Jangaon",
+          subzone: "HYD UPCOUNTRY"
+        },
+        38577: {
+          outletName: "Sri Sai Kiranam",
+          outletAddress: "Jangaon",
+          sapCode: "361985",
+          distributorName: "Manjunadha Agencies",
+          city: "Jangaon",
+          district: "Jangaon",
+          subzone: "HYD UPCOUNTRY"
+        },
+        31554: {
+          outletName: "Reshma Kirana & General Stores",
+          outletAddress: "Mahabubnagar",
+          sapCode: "362077",
+          distributorName: "Murali Trading Comapany",
+          city: "Mahabubnagar",
+          district: "Mahabubnagar",
+          subzone: "HYD UPCOUNTRY"
+        },
+        31586: {
+          outletName: "Suresh Kirana & General Stores",
+          outletAddress: "Mahabubnagar",
+          sapCode: "362077",
+          distributorName: "Murali Trading Comapany",
+          city: "Mahabubnagar",
+          district: "Mahabubnagar",
+          subzone: "HYD UPCOUNTRY"
+        },
+        31601: {
+          outletName: "Brand Kiranana & General Store",
+          outletAddress: "Mahabubnagar",
+          sapCode: "362077",
+          distributorName: "Murali Trading Comapany",
+          city: "Mahabubnagar",
+          district: "Mahabubnagar",
+          subzone: "HYD UPCOUNTRY"
+        },
+        31616: {
+          outletName: "Sai Kirana & General Store",
+          outletAddress: "Mahabubnagar",
+          sapCode: "362077",
+          distributorName: "Murali Trading Comapany",
+          city: "Mahabubnagar",
+          district: "Mahabubnagar",
+          subzone: "HYD UPCOUNTRY"
+        },
+        31642: {
+          outletName: "Meraj Milk Point",
+          outletAddress: "Mahabubnagar",
+          sapCode: "362077",
+          distributorName: "Murali Trading Comapany",
+          city: "Mahabubnagar",
+          district: "Mahabubnagar",
+          subzone: "HYD UPCOUNTRY"
+        },
+        21718: {
+          outletName: "Umar kirana & Super Market",
+          outletAddress: "Nizamabad",
+          sapCode: "361760",
+          distributorName: "Krishna Trading Company",
+          city: "Nizamabad",
+          district: "Nizamabad",
+          subzone: "ROTS"
+        },
+        21745: {
+          outletName: "Y.S Kiranam & General Stores",
+          outletAddress: "Nizamabad",
+          sapCode: "361760",
+          distributorName: "Krishna Trading Company",
+          city: "Nizamabad",
+          district: "Nizamabad",
+          subzone: "ROTS"
+        },
+        21763: {
+          outletName: "SR Mart",
+          outletAddress: "Nizamabad",
+          sapCode: "361760",
+          distributorName: "Krishna Trading Company",
+          city: "Nizamabad",
+          district: "Nizamabad",
+          subzone: "ROTS"
+        },
+        21784: {
+          outletName: "Grand J.K. Super Market",
+          outletAddress: "Nizamabad",
+          sapCode: "361760",
+          distributorName: "Krishna Trading Company",
+          city: "Nizamabad",
+          district: "Nizamabad",
+          subzone: "ROTS"
+        },
+        21819: {
+          outletName: "A.R. Super Market",
+          outletAddress: "Nizamabad",
+          sapCode: "361760",
+          distributorName: "Krishna Trading Company",
+          city: "Nizamabad",
+          district: "Nizamabad",
+          subzone: "ROTS"
+        },
+        22375: {
+          outletName: "Nataraja Traders",
+          outletAddress: "Warangal",
+          sapCode: "360604",
+          distributorName: "Thota Ramakrishna Ganaral Merchants",
+          city: "Warangal",
+          district: "Warangal",
+          subzone: "ROTS"
+        },
+        22396: {
+          outletName: "Kumar Enterprises Kiranam & General Merchant",
+          outletAddress: "Warangal",
+          sapCode: "360604",
+          distributorName: "Thota Ramakrishna Ganaral Merchants",
+          city: "Warangal",
+          district: "Warangal",
+          subzone: "ROTS"
+        },
+        22408: {
+          outletName: "Mani Kiranam",
+          outletAddress: "Warangal",
+          sapCode: "360604",
+          distributorName: "Thota Ramakrishna Ganaral Merchants",
+          city: "Warangal",
+          district: "Warangal",
+          subzone: "ROTS"
+        },
+        22420: {
+          outletName: "Vamshikrishna Kiranam & General",
+          outletAddress: "Warangal",
+          sapCode: "360604",
+          distributorName: "Thota Ramakrishna Ganaral Merchants",
+          city: "Warangal",
+          district: "Warangal",
+          subzone: "ROTS"
+        },
+        22439: {
+          outletName: "Sri Raja Rajeswari Kiranam & General Merchant",
+          outletAddress: "Warangal",
+          sapCode: "360604",
+          distributorName: "Thota Ramakrishna Ganaral Merchants",
+          city: "Warangal",
+          district: "Warangal",
+          subzone: "ROTS"
+        },
+        3651: {
+          outletName: "Pavan Kirana & Gen Store",
+          outletAddress: "Patancheru",
+          sapCode: "362788",
+          distributorName: "Siddhi Vinayaka Agencies",
+          city: "Patancheru",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        3660: {
+          outletName: "Radha Krishna  Dryfruits Kirana & General Stores",
+          outletAddress: "Patancheru",
+          sapCode: "362788",
+          distributorName: "Siddhi Vinayaka Agencies",
+          city: "Patancheru",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        3804: {
+          outletName: "Sri Vijaylakshmi  Kirana &  General Stores  Wholesale &  Retail",
+          outletAddress: "Patancheru",
+          sapCode: "362788",
+          distributorName: "Siddhi Vinayaka Agencies",
+          city: "Patancheru",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        3673: {
+          outletName: "Sri Om Kirana & General Store",
+          outletAddress: "Patancheru",
+          sapCode: "362788",
+          distributorName: "Siddhi Vinayaka Agencies",
+          city: "Patancheru",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        141171: {
+          outletName: "Mathaji Kgs",
+          outletAddress: "Hyderabad",
+          sapCode: "363796",
+          distributorName: "SRIVENINC",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        141216: {
+          outletName: "Veerabhadra Kgs",
+          outletAddress: "Hyderabad",
+          sapCode: "363796",
+          distributorName: "SRIVENINC",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        141221: {
+          outletName: "Renuka Kirana",
+          outletAddress: "Hyderabad",
+          sapCode: "363796",
+          distributorName: "SRIVENINC",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        5533: {
+          outletName: "Vinayaka Kirana And General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        140851: {
+          outletName: "Om Saj Kirana",
+          outletAddress: "Hyderabad",
+          sapCode: "363796",
+          distributorName: "SRIVENINC",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        5590: {
+          outletName: "Raj Laxmi Kirana And General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        121767: {
+          outletName: "zam zam kirana",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        142354: {
+          outletName: "GOLD KIAR MARKETING",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        122682: {
+          outletName: "M A GAFFAR",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        122725: {
+          outletName: "Yousuf And Sons",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        98801: {
+          outletName: "Jai Balaji traders",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        122660: {
+          outletName: "v mart",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        140801: {
+          outletName: "Gajanand Kirana",
+          outletAddress: "Hyderabad",
+          sapCode: "363796",
+          distributorName: "SRIVENINC",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        122597: {
+          outletName: "Bharat Traders",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        130479: {
+          outletName: "SVS traders",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        130490: {
+          outletName: "New Bharat Traders",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        3383: {
+          outletName: "Harsh Agencies",
+          outletAddress: "Hyderabad",
+          sapCode: "363267",
+          distributorName: "Sri Mega Oil Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        3341: {
+          outletName: "Mamatha Oil Depot",
+          outletAddress: "Hyderabad",
+          sapCode: "363267",
+          distributorName: "Sri Mega Oil Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        3424: {
+          outletName: "Sri Balaji Kirana & Oil Merchant",
+          outletAddress: "Hyderabad",
+          sapCode: "363267",
+          distributorName: "Sri Mega Oil Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        3456: {
+          outletName: "Sri Mannarayana Traders",
+          outletAddress: "Hyderabad",
+          sapCode: "363267",
+          distributorName: "Sri Mega Oil Agencies",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        4467: {
+          outletName: "Shiva Sai Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "363267",
+          distributorName: "Sri Mega Oil Agencies",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        3885: {
+          outletName: "Sri Hari Om Kirana General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362728",
+          distributorName: "Sri Srinivasa Agencies",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        14405: {
+          outletName: "B Mart Kirana & General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "360777",
+          distributorName: "Sri Bhavani Traders",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1113: {
+          outletName: "Sri Sai Venkataramana Kirana & General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "362728",
+          distributorName: "Sri Srinivasa Agencies",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        1325: {
+          outletName: "Balaji Punamchand Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362728",
+          distributorName: "Sri Srinivasa Agencies",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        1432: {
+          outletName: "Hamed Oil  Merchant",
+          outletAddress: "Hyderabad",
+          sapCode: "361314",
+          distributorName: "Sri Siva Sai Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1442: {
+          outletName: "K.Mallaiah & Sons Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "361314",
+          distributorName: "Sri Siva Sai Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        6301: {
+          outletName: "Sri Laxmi Ramana Rice Depot",
+          outletAddress: "Hyderabad",
+          sapCode: "361046",
+          distributorName: "Prime Marketing",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        6203: {
+          outletName: "Sudha Grand Bazar",
+          outletAddress: "Hyderabad",
+          sapCode: "361046",
+          distributorName: "Prime Marketing",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        2431: {
+          outletName: "Manikanta Traders",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        2459: {
+          outletName: "Sri Sai Shruthi Kirana And General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        145292: {
+          outletName: "sai prabha kirana",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        126579: {
+          outletName: "ram dev dry fruit",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        2430: {
+          outletName: "Sri Veerabadra Pooja Samagri Kirana And General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        5252: {
+          outletName: "Fine traders",
+          outletAddress: "Hyderabad",
+          sapCode: "360563",
+          distributorName: "Lohiya Agro Industries",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        120026: {
+          outletName: "Santosh kirana ",
+          outletAddress: "Hyderabad",
+          sapCode: "360563",
+          distributorName: "Lohiya Agro Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        19754: {
+          outletName: "Basad kirana ",
+          outletAddress: "Hyderabad",
+          sapCode: "360563",
+          distributorName: "Lohiya Agro Industries",
+          city: "Hyderabad",
+          district: "Mancherial - TG",
+          subzone: "HYD METRO"
+        },
+        742: {
+          outletName: "Zamzam kirana ",
+          outletAddress: "Hyderabad",
+          sapCode: "360563",
+          distributorName: "Lohiya Agro Industries",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        119946: {
+          outletName: "Basera traders ",
+          outletAddress: "Hyderabad",
+          sapCode: "360563",
+          distributorName: "Lohiya Agro Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        155097: {
+          outletName: "ARM TRADERS ",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        5137: {
+          outletName: "GRAND GOOD LUCK STORE ",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        153754: {
+          outletName: "NEW M.B.M TRADERS ",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        144607: {
+          outletName: "AL AMAN TRADERS ",
+          outletAddress: "Hyderabad",
+          sapCode: "363331",
+          distributorName: "CK Industries",
+          city: "Hyderabad",
+          district: "Rangareddi - TG",
+          subzone: "HYD METRO"
+        },
+        520: {
+          outletName: "AL AZEEM TRADERS KIRANA  ",
+          outletAddress: "Hyderabad",
+          sapCode: "363267",
+          distributorName: "Sri Mega Oil Agencies",
+          city: "Hyderabad",
+          district: "West Godavari - AP",
+          subzone: "HYD METRO"
+        },
+        1871: {
+          outletName: "Balaji mart",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        2093: {
+          outletName: "Laxmi Ganapathi Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        124426: {
+          outletName: "Jagadamba KGS",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        763: {
+          outletName: "venkatsai vegetables",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        4544: {
+          outletName: "Maya Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1265: {
+          outletName: "New Kakatiya Rice Depot",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        70413: {
+          outletName: "Sandhip Krirana Ganaral Store",
+          outletAddress: "Hyderabad",
+          sapCode: "362242",
+          distributorName: "Yagna Sai Enterprises",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        70081: {
+          outletName: "Narender Kirana & Ganaral Store",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        70077: {
+          outletName: "Tachi Super Mraket",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad - TG",
+          subzone: "HYD METRO"
+        },
+        4132: {
+          outletName: "Sri V.B.S  Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "360293",
+          distributorName: "Vriddhi Associates",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1733: {
+          outletName: "Sri Balaji Birdichand Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362042",
+          distributorName: "Sri Balaji Birdichand Kirana & General Stores",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1571: {
+          outletName: "S.K. Ali Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362042",
+          distributorName: "Venkata Ramana Traders",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1586: {
+          outletName: "Sri Balaji Rampal Kirana & General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "362042",
+          distributorName: "Venkata Ramana Traders",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1642: {
+          outletName: "New Balaji Provision Store",
+          outletAddress: "Hyderabad",
+          sapCode: "362042",
+          distributorName: "Venkata Ramana Traders",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1712: {
+          outletName: "Sri Laxmi Venkateshwara Kirana & General Stores",
+          outletAddress: "Hyderabad",
+          sapCode: "362042",
+          distributorName: "Venkata Ramana Traders",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        1808: {
+          outletName: "Padmavati Food Grains",
+          outletAddress: "Hyderabad",
+          sapCode: "362042",
+          distributorName: "Venkata Ramana Traders",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        73613: {
+          outletName: "Sri Balaji Sunil Kirana & General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "361314",
+          distributorName: "Sri Siva Sai Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        2243: {
+          outletName: "Sri Kuber Traders",
+          outletAddress: "Hyderabad",
+          sapCode: "361314",
+          distributorName: "Sri Siva Sai Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        5735: {
+          outletName: "Bhagawathi Kirana & General Store",
+          outletAddress: "Hyderabad",
+          sapCode: "361314",
+          distributorName: "Sri Siva Sai Agencies",
+          city: "Hyderabad",
+          district: "Hyderabad",
+          subzone: "HYD METRO"
+        },
+        31591: {
+          "outletName": "Durga Pavithra Kiranam And General Merchant",
+          "outletAddress": "Kothagudem",
+          "sapCode": "362547",
+          "distributorName": "Ravikanth Agencies",
+          "city": "B Kothagudem  TG",
+          "district": "B Kothagudem  TG",
+          "subzone": "ROTS"
+        },
+        31611: {
+          "outletName": "Sri Sai Shakthi Kiranam And General Merchent",
+          "outletAddress": "Kothagudem",
+          "sapCode": "362547",
+          "distributorName": "Ravikanth Agencies",
+          "city": "B Kothagudem  TG",
+          "district": "B Kothagudem  TG",
+          "subzone": "ROTS"
+        },
+        21688: {
+          "outletName": "Ravuri Hanumantha Rao Kiranam",
+          "outletAddress": "Khammam",
+          "sapCode": "360441",
+          "distributorName": "Shri Anjaneya Enterprises",
+          "city": "Khammam-TG",
+          "district": "Khammam-TG",
+          "subzone": "ROTS"
+        },
+        21693: {
+          "outletName": "Peddi Srinivas Kirana And General Stores",
+          "outletAddress": "Karimnagar.",
+          "sapCode": "362033",
+          "distributorName": "Radhakrishna Oils",
+          "city": "Karimnagar  TG",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        21743: {
+          "outletName": "Muninder Kiranam",
+          "outletAddress": "Choppadandi",
+          "sapCode": "362032",
+          "distributorName": "Mahesh Kiranam And General Store",
+          "city": "Karimnagar  TG",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        21893: {
+          "outletName": "Qadri Kirana",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad-TG",
+          "district": "Nizamabad-TG",
+          "subzone": "ROTS"
+        },
+        21940: {
+          "outletName": "AL Kareem Kirana",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad-TG",
+          "district": "Nizamabad-TG",
+          "subzone": "ROTS"
+        },
+        22450: {
+          "outletName": "M Chandraiah Kiranam",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangala-TG",
+          "district": "Warangala-TG",
+          "subzone": "ROTS"
+        },
+        22465: {
+          "outletName": "Kumar Ep",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangala-TG",
+          "district": "Warangala-TG",
+          "subzone": "ROTS"
+        },
+        22496: {
+          "outletName": "Sri Rama Kirana And General Stores",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Warangala-TG",
+          "district": "Warangala-TG",
+          "subzone": "ROTS"
+        },
+        22516: {
+          "outletName": "Sri Bhadrakali Kiranam And General Stores stationary",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Warangala-TG",
+          "district": "Warangala-TG",
+          "subzone": "ROTS"
+        },
+        22519: {
+          "outletName": "Mohana Krishna Traders",
+          "outletAddress": "Karimnagar.",
+          "sapCode": "362033",
+          "distributorName": "Radhakrishna Oils",
+          "city": "Karimnagar  TG",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        22535: {
+          "outletName": "Balaji Traders Oil And General Merchants",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangala-TG",
+          "district": "Warangala-TG",
+          "subzone": "ROTS"
+        },
+        22613: {
+          "outletName": "Sri Dhatri Kiranam And General Stores",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Warangala-TG",
+          "district": "Warangala-TG",
+          "subzone": "ROTS"
+        },
+        23504: {
+          "outletName": "New Navanath Traders",
+          "outletAddress": "Armoor",
+          "sapCode": "362223",
+          "distributorName": "Santosh Traders",
+          "city": "Nizamabad-TG",
+          "district": "Nizamabad-TG",
+          "subzone": "ROTS"
+        },
+        23548: {
+          "outletName": "Laxmi Prasanna Traders",
+          "outletAddress": "Armoor",
+          "sapCode": "362223",
+          "distributorName": "Santosh Traders",
+          "city": "Nizamabad-TG",
+          "district": "Nizamabad-TG",
+          "subzone": "ROTS"
+        },
+        23884: {
+          "outletName": "Anil Kiranam",
+          "outletAddress": "Thorrur",
+          "sapCode": "361998",
+          "distributorName": "Sri Bagyalaxmi Industries",
+          "city": "Khammam-TG",
+          "district": "Khammam-TG",
+          "subzone": "ROTS"
+        },
+        23895: {
+          "outletName": "Padma Kiranam And General Stores",
+          "outletAddress": "Thorrur",
+          "sapCode": "361998",
+          "distributorName": "Sri Bagyalaxmi Industries",
+          "city": "Khammam-TG",
+          "district": "Khammam-TG",
+          "subzone": "ROTS"
+        },
+        23991: {
+          "outletName": "Srinivasa Kiranam",
+          "outletAddress": "Godavari Khani",
+          "sapCode": "362683",
+          "distributorName": "Balaji Agencies",
+          "city": "Peddapalli  TG",
+          "district": "Peddapalli  TG",
+          "subzone": "ROTS"
+        },
+        23992: {
+          "outletName": "Anjani Kiranam",
+          "outletAddress": "Sulthanabad",
+          "sapCode": "362553",
+          "distributorName": "Yashodakrishna Agencies",
+          "city": "Peddapalli  TG",
+          "district": "Peddapalli  TG",
+          "subzone": "ROTS"
+        },
+        24009: {
+          "outletName": "Sri Santhoshimatha Kiranam",
+          "outletAddress": "Sulthanabad",
+          "sapCode": "362553",
+          "distributorName": "Yashodakrishna Agencies",
+          "city": "Peddapalli  TG",
+          "district": "Peddapalli  TG",
+          "subzone": "ROTS"
+        },
+        24064: {
+          "outletName": "Prabhakar Kiranam",
+          "outletAddress": "Godavari Khani",
+          "sapCode": "362683",
+          "distributorName": "Balaji Agencies",
+          "city": "Peddapalli  TG",
+          "district": "Peddapalli  TG",
+          "subzone": "ROTS"
+        }
+      };
 
+      function login() {
+        const loginOutletId = document.getElementById("login-outlet-id").value;
+        const data = outletData[loginOutletId];
+        if (data) {
+          document.getElementById("hero-section").style.display = "block";
+          document.getElementById("form").style.display = "block";
+          document.getElementById("login-container").style.display = "none";
+
+          document.querySelector("input[name='Outlet ID']").value = loginOutletId;
+          document.querySelector("input[name='Outlet Name']").value = data.outletName;
+          document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
+          document.querySelector("input[name='SAP Code']").value = data.sapCode;
+          document.querySelector("input[name='Distributor Name']").value = data.distributorName;
+          document.querySelector("input[name='City']").value = data.city;
+          document.querySelector("input[name='District']").value = data.district;
+          document.querySelector("input[name='Subzone']").value = data.subzone;
+
+          updatePreview();
+        } else {
+          alert("Invalid Outlet ID");
+        }
+      }
+
+      function updatePreview() {
+        const previewTableBody = document.getElementById("preview-table-body");
+        const formData = new FormData(document.getElementById("form"));
+        const row = document.createElement("tr");
+        formData.forEach((value) => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+        previewTableBody.innerHTML = "";
+        previewTableBody.appendChild(row);
+        document.getElementById("preview-container").style.display = "block";
+      }
+
+      document.getElementById("form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        document.getElementById("message").style.display = "block";
+        document.getElementById("message").className = "message-success";
+        document.getElementById("message").innerText = "Stock data submitted successfully!";
+      });
+    </script>
+  </body>
 </html>
