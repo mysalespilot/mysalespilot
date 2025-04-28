@@ -155,7 +155,6 @@
       </div>
       <button class="button is-primary" onclick="login()">Login</button>
     </div>
-
     <section class="hero is-primary is-bold" id="hero-section" style="display: none;">
       <div class="hero-body">
         <div class="container">
@@ -163,46 +162,77 @@
         </div>
       </div>
     </section>
-
     <form id="form" method="POST" style="display: none;">
-      <div class="field"><label class="label">Outlet ID</label>
-        <div class="control"><input class="input" type="number" name="Outlet ID" readonly /></div>
+      <div class="field">
+        <label class="label">Outlet ID</label>
+        <div class="control">
+          <input class="input" type="number" name="Outlet ID" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">Outlet Name</label>
-        <div class="control"><input class="input" type="text" name="Outlet Name" readonly /></div>
+      <div class="field">
+        <label class="label">Outlet Name</label>
+        <div class="control">
+          <input class="input" type="text" name="Outlet Name" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">Outlet Address</label>
-        <div class="control"><input class="input" type="text" name="Outlet Address" readonly /></div>
+      <div class="field">
+        <label class="label">Outlet Address</label>
+        <div class="control">
+          <input class="input" type="text" name="Outlet Address" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">SAP Code</label>
-        <div class="control"><input class="input" type="number" name="SAP Code" readonly /></div>
+      <div class="field">
+        <label class="label">SAP Code</label>
+        <div class="control">
+          <input class="input" type="number" name="SAP Code" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">Distributor Name</label>
-        <div class="control"><input class="input" type="text" name="Distributor Name" readonly /></div>
+      <div class="field">
+        <label class="label">Distributor Name</label>
+        <div class="control">
+          <input class="input" type="text" name="Distributor Name" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">City</label>
-        <div class="control"><input class="input" type="text" name="City" readonly /></div>
+      <div class="field">
+        <label class="label">City</label>
+        <div class="control">
+          <input class="input" type="text" name="City" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">District</label>
-        <div class="control"><input class="input" type="text" name="District" readonly /></div>
+      <div class="field">
+        <label class="label">District</label>
+        <div class="control">
+          <input class="input" type="text" name="District" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">Subzone</label>
-        <div class="control"><input class="input" type="text" name="Subzone" readonly /></div>
+      <div class="field">
+        <label class="label">Subzone</label>
+        <div class="control">
+          <input class="input" type="text" name="Subzone" readonly />
+        </div>
       </div>
-      <div class="field"><label class="label">Quantity in Cases</label>
-        <div class="control"><input class="input" type="number" name="Quantity in Cases" oninput="updatePreview()" /></div>
+      <div class="field">
+        <label class="label">Quantity in Cases</label>
+        <div class="control">
+          <input class="input" type="number" name="Quantity in Cases" oninput="updatePreview()" />
+        </div>
       </div>
-      <div class="field"><label class="label">Quantity in Pieces</label>
-        <div class="control"><input class="input" type="number" name="Quantity in Pieces" oninput="updatePreview()" /></div>
+      <div class="field">
+        <label class="label">Quantity in Pieces</label>
+        <div class="control">
+          <input class="input" type="number" name="Quantity in Pieces" oninput="updatePreview()" />
+        </div>
       </div>
       <div class="field is-grouped">
-        <div class="control"><button type="submit" class="button is-primary">Submit</button></div>
-        <div class="control"><button type="button" class="button is-danger" onclick="window.location.reload()">Cancel</button></div>
+        <div class="control">
+          <button type="submit" class="button is-primary">Submit</button>
+        </div>
+        <div class="control">
+          <button type="button" class="button is-danger" onclick="window.location.reload()">Cancel</button>
+        </div>
       </div>
     </form>
-
     <div id="message"></div>
-
     <div class="container" id="preview-container" style="display: none;">
       <table class="table preview-table">
         <thead>
@@ -222,7 +252,6 @@
         <tbody id="preview-table-body"></tbody>
       </table>
     </div>
-
     <script>
       const outletData = {
         63020: {
@@ -1422,6 +1451,15 @@
           "district": "Peddapalli  TG",
           "subzone": "ROTS"
         },
+        22707: {
+          "outletName": "Triveni Super Market",
+          "outletAddress": "HANAMKONDA",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders  ",
+          "city": "Peddapalli  TG",
+          "district": "HANAMKONDA  TG",
+          "subzone": "ROTS"
+        },
         24064: {
           "outletName": "Prabhakar Kiranam",
           "outletAddress": "Godavari Khani",
@@ -1429,6 +1467,267 @@
           "distributorName": "Balaji Agencies",
           "city": "Peddapalli  TG",
           "district": "Peddapalli  TG",
+          "subzone": "ROTS"
+        },
+        30614: {
+          "outletName": "santhosh kirana",
+          "outletAddress": "Karimnagar",
+          "sapCode": "361792",
+          "distributorName": "Laxmi Ganapthi Distributors",
+          "city": "Karimnagar",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        30643: {
+          "outletName": "R R MART",
+          "outletAddress": "Karimnagar",
+          "sapCode": "361792",
+          "distributorName": "Laxmi Ganapthi Distributors",
+          "city": "Karimnagar",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        30761: {
+          "outletName": "Thirumala Kirana",
+          "outletAddress": "Karimnagar",
+          "sapCode": "361792",
+          "distributorName": "Laxmi Ganapthi Distributors",
+          "city": "Karimnagar",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        30790: {
+          "outletName": "Ganesh Kiranam",
+          "outletAddress": "Karimnagar",
+          "sapCode": "361792",
+          "distributorName": "Laxmi Ganapthi Distributors",
+          "city": "Karimnagar",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        30811: {
+          "outletName": "Srivani Kirana And General Stores",
+          "outletAddress": "Karimnagar",
+          "sapCode": "361792",
+          "distributorName": "Laxmi Ganapthi Distributors",
+          "city": "Karimnagar",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        22325: {
+          "outletName": "Nagendra Traders",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        22347: {
+          "outletName": "A S H Kiranam",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        22369: {
+          "outletName": "Gampa Radhakishan Kirana And General Merchants",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        22386: {
+          "outletName": "Sri Laxmi Kirana And General Stores",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        22438: {
+          "outletName": "S Devender Kirana And General",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        21718: {
+          "outletName": "Umar kirana And Super Market",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad",
+          "district": "Nizamabad  TG",
+          "subzone": "ROTS"
+        },
+        21745: {
+          "outletName": "y s Kiranam And General stores",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad",
+          "district": "Nizamabad  TG",
+          "subzone": "ROTS"
+        },
+        21763: {
+          "outletName": "SR mart",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad",
+          "district": "Nizamabad  TG",
+          "subzone": "ROTS"
+        },
+        21784: {
+          "outletName": "Grand J K  Super Market",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad",
+          "district": "Nizamabad  TG",
+          "subzone": "ROTS"
+        },
+        21819: {
+          "outletName": "A R  Super Market",
+          "outletAddress": "Nizamabad",
+          "sapCode": "361760",
+          "distributorName": "Krishna Trading Company",
+          "city": "Nizamabad",
+          "district": "Nizamabad  TG",
+          "subzone": "ROTS"
+        },
+        22375: {
+          "outletName": "Nataraja Traders",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
+          "subzone": "ROTS"
+        },
+        22396: {
+          "outletName": "Kumar Enterprises Kiranam And General Merchant",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
+          "subzone": "ROTS"
+        },
+        22408: {
+          "outletName": "Mani Kiranam",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
+          "subzone": "ROTS"
+        },
+        22420: {
+          "outletName": "Vamshikrishna Kiranam And General",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
+          "subzone": "ROTS"
+        },
+        22439: {
+          "outletName": "Sri Raja rajeswari Kiranam And General Merchant",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
+          "subzone": "ROTS"
+        },
+        30579: {
+          "outletName": "Sandeep Super Market",
+          "outletAddress": "HANAMKONDA",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "HANAMKONDA",
+          "district": "HANAMKONDA  TG",
+          "subzone": "ROTS"
+        },
+        24402: {
+          "outletName": "Lalitha General Stores",
+          "outletAddress": "HANAMKONDA",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "HANAMKONDA",
+          "district": "HANAMKONDA  TG",
+          "subzone": "ROTS"
+        },
+        27910: {
+          "outletName": "Vijayalaxmi Kirana Merchant",
+          "outletAddress": "HANAMKONDA",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "HANAMKONDA",
+          "district": "HANAMKONDA  TG",
+          "subzone": "ROTS"
+        },
+        82974: {
+          "outletName": "Gunda Nageshwarrao Super Market",
+          "outletAddress": "HANAMKONDA",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "HANAMKONDA",
+          "district": "HANAMKONDA  TG",
+          "subzone": "ROTS"
+        },
+        26807: {
+          "outletName": "Anjana traders kiranam",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        22461: {
+          "outletName": "VP Reddy",
+          "outletAddress": "Hanamkonda",
+          "sapCode": "362703",
+          "distributorName": "Mahendra Oil Traders",
+          "city": "Hanamkonda",
+          "district": "Hanamkonda  TG",
+          "subzone": "ROTS"
+        },
+        60251: {
+          "outletName": "A Shankaraiah Kiranam",
+          "outletAddress": "Karimnagar",
+          "sapCode": "361792",
+          "distributorName": "Laxmi Ganapthi Distributors",
+          "city": "Karimnagar",
+          "district": "Karimnagar  TG",
+          "subzone": "ROTS"
+        },
+        22465: {
+          "outletName": "Kumar Ep",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
+          "subzone": "ROTS"
+        },
+        22535: {
+          "outletName": "Balaji Traders Oil And General Merchants",
+          "outletAddress": "Warangal",
+          "sapCode": "360604",
+          "distributorName": "Thota Ramakrishna Ganaral Merchants",
+          "city": "Warangal",
+          "district": "Warangal  TG",
           "subzone": "ROTS"
         }
       };
@@ -1440,7 +1739,6 @@
           document.getElementById("hero-section").style.display = "block";
           document.getElementById("form").style.display = "block";
           document.getElementById("login-container").style.display = "none";
-
           document.querySelector("input[name='Outlet ID']").value = loginOutletId;
           document.querySelector("input[name='Outlet Name']").value = data.outletName;
           document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
@@ -1449,7 +1747,6 @@
           document.querySelector("input[name='City']").value = data.city;
           document.querySelector("input[name='District']").value = data.district;
           document.querySelector("input[name='Subzone']").value = data.subzone;
-
           updatePreview();
         } else {
           alert("Invalid Outlet ID");
@@ -1469,8 +1766,7 @@
         previewTableBody.appendChild(row);
         document.getElementById("preview-container").style.display = "block";
       }
-
-      document.getElementById("form").addEventListener("submit", function (event) {
+      document.getElementById("form").addEventListener("submit", function(event) {
         event.preventDefault();
         document.getElementById("message").style.display = "block";
         document.getElementById("message").className = "message-success";
