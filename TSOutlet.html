@@ -1,260 +1,278 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Outlet Stocks</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlet Stocks</title>
+  
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
 
-      *,
-      *:before,
-      *:after {
-        box-sizing: border-box;
-      }
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: #384047;
+    }
 
-      body {
-        font-family: 'Poppins', sans-serif;
-        color: #384047;
-        margin: 0;
-        padding: 0;
-        background: #fffdf5;
-      }
+    .hero {
+      margin-bottom: 20px;
+    }
 
-      .hero {
-        margin-bottom: 20px;
-      }
+    form {
+      max-width: 480px;
+      margin: 10px auto;
+      padding: 20px;
+      background: #FCE181;
+      border-radius: 8px;
+    }
 
+    h1 {
+      margin: 0 0 30px 0;
+      text-align: center;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      background-color: #EDEAE5;
+      border: none;
+      font-size: 16px;
+      padding: 15px;
+      width: 100%;
+      color: #121110;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+      margin-bottom: 20px;
+    }
+
+    input[readonly] {
+      background-color: #f4f4f4;
+      cursor: not-allowed;
+    }
+
+    button {
+      padding: 19px 39px;
+      color: #FFF;
+      background-color: #026670;
+      font-size: 18px;
+      text-align: center;
+      border-radius: 5px;
+      width: auto; /* Ensure button width is automatic */
+      border: 1px solid #026670;
+      border-width: 1px 1px 3px;
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+      margin-bottom: 10px;
+    }
+
+    .preview-table {
+      border: 1px solid #e4ede7;
+      border-collapse: collapse;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .preview-table th, .preview-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    #message {
+      display: none;
+      margin: 20px;
+      font-weight: bold;
+      padding: 8px;
+      border-radius: 4px;
+      border-color: aquamarine;
+    }
+
+    .message-success {
+      color: beige;
+      background-color: green;
+      border: 1px solid green;
+    }
+
+    .message-error {
+      color: red;
+      background-color: lightcoral;
+      border: 1px solid red;
+    }
+
+    .login-container {
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 20px;
+      background: #f4f7f8;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .login-container input {
+      margin-bottom: 10px;
+    }
+
+    .header-title {
+      background: linear-gradient(135deg, #026670 0%, #026670 100%);
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    @media screen and (min-width: 480px) {
       form {
         max-width: 480px;
-        margin: 10px auto;
-        padding: 20px;
-        background: #fce181;
-        border-radius: 8px;
       }
+    }
 
-      h1 {
-        margin: 0 0 30px 0;
-        text-align: center;
-      }
+    .field.is-grouped {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
 
-      input[type="text"],
-      input[type="number"],
-      textarea,
-      select {
-        background-color: #edeae5;
-        border: none;
-        font-size: 16px;
-        padding: 15px;
-        width: 100%;
-        color: #121110;
-        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-        margin-bottom: 20px;
-      }
+    .field.is-grouped .control {
+      flex: 1;
+      margin: 0 5px;
+    }
 
-      input[readonly] {
-        background-color: #f4f4f4;
-        cursor: not-allowed;
-      }
-
-      button {
-        padding: 14px 30px;
-        color: #fff;
-        background-color: #026670;
-        font-size: 16px;
-        border-radius: 5px;
-        border: 1px solid #026670;
-        border-width: 1px 1px 3px;
-        box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
-        margin-bottom: 10px;
-        cursor: pointer;
-      }
-
-      .preview-table {
-        border: 1px solid #e4ede7;
-        border-collapse: collapse;
-        margin-top: 10px;
-        width: 100%;
-      }
-
-      .preview-table th,
-      .preview-table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: center;
-      }
-
-      #message {
-        display: none;
-        margin: 20px auto;
-        max-width: 480px;
-        font-weight: bold;
-        padding: 10px;
-        border-radius: 4px;
-        text-align: center;
-      }
-
-      .message-success {
-        color: beige;
-        background-color: green;
-        border: 1px solid green;
-      }
-
-      .message-error {
-        color: red;
-        background-color: lightcoral;
-        border: 1px solid red;
-      }
-
-      .login-container {
-        max-width: 300px;
-        margin: 50px auto;
-        padding: 20px;
-        background: #f4f7f8;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .login-container input {
-        margin-bottom: 10px;
-      }
-
-      .header-title {
-        background: linear-gradient(135deg, #026670 0%, #026670 100%);
-        color: #ffffff;
-        padding: 20px;
-        text-align: center;
-        border-radius: 8px;
-      }
-
-      .field.is-grouped {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
-
-      .field.is-grouped .control {
-        flex: 1;
-        margin: 0 5px;
-      }
-
-      .container {
-        max-width: 800px;
-        margin: auto;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="login-container" class="login-container">
-      <h1 class="title">Login</h1>
-      <div class="field">
-        <label class="label">Outlet ID</label>
-        <div class="control">
-          <input class="input" type="number" id="login-outlet-id" placeholder="Enter Outlet ID" />
-        </div>
+    .field.is-grouped .button {
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-container" class="login-container">
+    <h1 class="title">Login</h1>
+    <div class="field">
+      <label class="label">Outlet ID</label>
+      <div class="control">
+        <input class="input" type="number" id="login-outlet-id" placeholder="Enter Outlet ID">
       </div>
-      <button class="button is-primary" onclick="login()">Login</button>
     </div>
-    <section class="hero is-primary is-bold" id="hero-section" style="display: none;">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="header-title">Outlet Stocks</h1>
-        </div>
+    <button class="button is-primary" onclick="login()">Login</button>
+  </div>
+
+  <section class="hero is-primary is-bold" id="hero-section" style="display: none;">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="header-title">Outlet Stocks</h1>
       </div>
-    </section>
-    <form id="form" method="POST" style="display: none;">
-      <div class="field">
-        <label class="label">Outlet ID</label>
-        <div class="control">
-          <input class="input" type="number" name="Outlet ID" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Outlet Name</label>
-        <div class="control">
-          <input class="input" type="text" name="Outlet Name" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Outlet Address</label>
-        <div class="control">
-          <input class="input" type="text" name="Outlet Address" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">SAP Code</label>
-        <div class="control">
-          <input class="input" type="number" name="SAP Code" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Distributor Name</label>
-        <div class="control">
-          <input class="input" type="text" name="Distributor Name" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">City</label>
-        <div class="control">
-          <input class="input" type="text" name="City" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">District</label>
-        <div class="control">
-          <input class="input" type="text" name="District" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Subzone</label>
-        <div class="control">
-          <input class="input" type="text" name="Subzone" readonly />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Quantity in Cases</label>
-        <div class="control">
-          <input class="input" type="number" name="Quantity in Cases" oninput="updatePreview()" />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Quantity in Pieces</label>
-        <div class="control">
-          <input class="input" type="number" name="Quantity in Pieces" oninput="updatePreview()" />
-        </div>
-      </div>
-      <div class="field is-grouped">
-        <div class="control">
-          <button type="submit" class="button is-primary">Submit</button>
-        </div>
-        <div class="control">
-          <button type="button" class="button is-danger" onclick="window.location.reload()">Cancel</button>
-        </div>
-      </div>
-    </form>
-    <div id="message"></div>
-    <div class="container" id="preview-container" style="display: none;">
-      <table class="table preview-table">
-        <thead>
-          <tr>
-            <th>Outlet ID</th>
-            <th>Outlet Name</th>
-            <th>Outlet Address</th>
-            <th>SAP Code</th>
-            <th>Distributor Name</th>
-            <th>City</th>
-            <th>District</th>
-            <th>Subzone</th>
-            <th>Quantity in Cases</th>
-            <th>Quantity in Pieces</th>
-          </tr>
-        </thead>
-        <tbody id="preview-table-body"></tbody>
-      </table>
     </div>
-    <script>
-      const outletData = {
-        63020: {
+  </section>
+
+  <form id="form" method="POST" style="display: none;">
+    <div class="field">
+      <label class="label">Outlet ID</label>
+      <div class="control">
+        <input class="input" type="number" placeholder="Outlet ID" name="Outlet ID" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Outlet Name</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Outlet Name" name="Outlet Name" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Outlet Address</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Outlet Address" name="Outlet Address" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">SAP Code</label>
+      <div class="control">
+        <input class="input" type="number" placeholder="SAP Code" name="SAP Code" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Distributor Name</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Distributor Name" name="Distributor Name" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">City</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="City" name="City" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">District</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="District" name="District" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Subzone</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Subzone" name="Subzone" oninput="updatePreview()" readonly>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Quantity in Cases</label>
+      <div class="control">
+        <input class="input" type="number" placeholder="Quantity in Cases" name="Quantity in Cases" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Quantity in Pieces</label>
+      <div class="control">
+        <input class="input" type="number" placeholder="Quantity in Pieces" name="Quantity in Pieces" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-primary" type="submit" id="submit-button">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-danger" type="button" id="cancel-button">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <div id="message" class="message-success"></div>
+
+  <!-- Preview Container -->
+  <div class="container" id="preview-container" style="display: none;">
+    <table class="table preview-table">
+      <thead>
+        <tr>
+          <th>Outlet Id</th>
+          <th>Outlet Name</th>
+          <th>Outlet Address</th>
+          <th>SAP Code</th>
+          <th>Distributor Name</th>
+          <th>City</th>
+          <th>District</th>
+          <th>Subzone</th>
+          <th>Quantity in Cases</th>
+          <th>Quantity in Pieces</th>
+        </tr>
+      </thead>
+      <tbody id="preview-table-body">
+        <!-- Preview data will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Sample data for multiple Outlet IDs
+    const outletData = {
+      63020: {
           outletName: "S K M Kiranam",
           outletAddress: "Medak",
           sapCode: "362877",
@@ -1730,48 +1748,143 @@
           "district": "Warangal  TG",
           "subzone": "ROTS"
         }
-      };
+      // Add up to 10 outlet data entries here...
+    };
 
-      function login() {
-        const loginOutletId = document.getElementById("login-outlet-id").value;
-        const data = outletData[loginOutletId];
-        if (data) {
-          document.getElementById("hero-section").style.display = "block";
-          document.getElementById("form").style.display = "block";
-          document.getElementById("login-container").style.display = "none";
-          document.querySelector("input[name='Outlet ID']").value = loginOutletId;
-          document.querySelector("input[name='Outlet Name']").value = data.outletName;
-          document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
-          document.querySelector("input[name='SAP Code']").value = data.sapCode;
-          document.querySelector("input[name='Distributor Name']").value = data.distributorName;
-          document.querySelector("input[name='City']").value = data.city;
-          document.querySelector("input[name='District']").value = data.district;
-          document.querySelector("input[name='Subzone']").value = data.subzone;
-          updatePreview();
-        } else {
-          alert("Invalid Outlet ID");
-        }
-      }
+    function login() {
+      const loginOutletId = document.getElementById("login-outlet-id").value;
+      const data = outletData[loginOutletId];
 
-      function updatePreview() {
-        const previewTableBody = document.getElementById("preview-table-body");
-        const formData = new FormData(document.getElementById("form"));
-        const row = document.createElement("tr");
-        formData.forEach((value) => {
-          const cell = document.createElement("td");
-          cell.textContent = value;
-          row.appendChild(cell);
-        });
-        previewTableBody.innerHTML = "";
-        previewTableBody.appendChild(row);
-        document.getElementById("preview-container").style.display = "block";
+      if (data) {
+        document.getElementById("hero-section").style.display = "block";
+        document.getElementById("form").style.display = "block";
+        document.getElementById("login-container").style.display = "none";
+
+        // Autofill the form fields
+        document.querySelector("input[name='Outlet ID']").value = loginOutletId;
+        document.querySelector("input[name='Outlet Name']").value = data.outletName;
+        document.querySelector("input[name='Outlet Address']").value = data.outletAddress;
+        document.querySelector("input[name='SAP Code']").value = data.sapCode;
+        document.querySelector("input[name='Distributor Name']").value = data.distributorName;
+        document.querySelector("input[name='City']").value = data.city;
+        document.querySelector("input[name='District']").value = data.district;
+        document.querySelector("input[name='Subzone']").value = data.Subzone;
+
+        updatePreview();
+      } else {
+        alert("Invalid Outlet ID");
       }
-      document.getElementById("form").addEventListener("submit", function(event) {
-        event.preventDefault();
+    }
+
+    function updatePreview() {
+      const previewTableBody = document.getElementById("preview-table-body");
+      const formData = new FormData(document.getElementById("form"));
+      const row = document.createElement("tr");
+
+      formData.forEach((value) => {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+        row.appendChild(cell);
+      });
+
+      previewTableBody.innerHTML = "";
+      previewTableBody.appendChild(row);
+      document.getElementById("preview-container").style.display = "block";
+    }
+
+    document.getElementById("form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      document.getElementById("message").style.display = "block";
+      document.getElementById("message").className = "message-success";
+      document.getElementById("message").innerHTML = "Form submitted successfully!";
+    });
+
+    document.getElementById("form").addEventListener("reset", function() {
+      document.getElementById("preview-table-body").innerHTML = "";
+      document.getElementById("preview-container").style.display = "none";
+      document.getElementById("message").style.display = "none";
+    });
+
+    document.getElementById("cancel-button").addEventListener("click", function() {
+      // Hide the "Outlet Stocks" header
+      document.getElementById("hero-section").style.display = "none";
+      
+      // Show the login container
+      document.getElementById("login-container").style.display = "block";
+      
+      // Hide the form
+      document.getElementById("form").style.display = "none";
+      
+      // Hide the preview container
+      document.getElementById("preview-container").style.display = "none";
+      
+      // Clear form and preview data
+      document.getElementById("form").reset();
+      document.getElementById("preview-table-body").innerHTML = "";
+      
+      // Hide the success message
+      document.getElementById("message").style.display = "none";
+    });
+  </script>
+  <script>
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        document.getElementById("message").textContent = "Submitting..";
         document.getElementById("message").style.display = "block";
-        document.getElementById("message").className = "message-success";
-        document.getElementById("message").innerText = "Stock data submitted successfully!";
+        document.getElementById("submit-button").disabled = true;
+
+        // Collect the form data
+        var formData = new FormData(this);
+        var keyValuePairs = [];
+        for (var pair of formData.entries()) {
+          keyValuePairs.push(pair[0] + "=" + pair[1]);
+        }
+
+        var formDataString = keyValuePairs.join("&");
+
+        // Send a POST request to your Google Apps Script
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwYaEAPDbb7JsPDa9128D5lJwAD-TaWBpn8tdiKFUsTYTBShLCWeeL_3DRNpW74nAHY/exec",
+          {
+            redirect: "follow",
+            method: "POST",
+            body: formDataString,
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          }
+        )
+          .then(function (response) {
+            // Check if the request was successful
+            if (response) {
+              return response; // Assuming your script returns JSON response
+            } else {
+              throw new Error("Failed to submit the form.");
+            }
+          })
+          .then(function (data) {
+            // Display a success message
+            document.getElementById("message").textContent =
+              "Data submitted successfully!";
+            document.getElementById("message").style.display = "block";
+            document.getElementById("message").style.backgroundColor = "green";
+            document.getElementById("message").style.color = "beige";
+            document.getElementById("submit-button").disabled = false;
+            document.getElementById("form").reset();
+
+            setTimeout(function () {
+              document.getElementById("message").textContent = "";
+              document.getElementById("message").style.display = "none";
+            }, 2600);
+          })
+          .catch(function (error) {
+            // Handle errors, you can display an error message here
+            console.error(error);
+            document.getElementById("message").textContent =
+              "An error occurred while submitting the form.";
+            document.getElementById("message").style.display = "block";
+          });
       });
     </script>
-  </body>
+</body>
 </html>
