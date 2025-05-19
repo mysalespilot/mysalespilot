@@ -17,6 +17,14 @@
       text-align: center;
       padding: 12px;
       font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header img {
+      height: 50px; /* Increased logo size */
+      margin-right: 10px;
     }
 
     .container {
@@ -56,6 +64,12 @@
       background-color: #005b9f;
     }
 
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
     .report-frame {
       width: 100%;
       height: 90vh;
@@ -63,18 +77,29 @@
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
+
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      padding: 10px;
+      color: gray;
+    }
   </style>
 </head>
 <body>
-  <header>📊 Hourly Sales</header>
+  <header>
+    <img src="https://www.gefindia.com/assets/img/GEF_Logo.png" alt="GEF Logo"/>
+    <span>Hourly Sales</span>
+  </header>
 
   <!-- Login Section -->
   <div class="container" id="login-section">
     <div class="login-box">
       <h3>Login with Employee ID</h3>
-      <input type="text" id="employeeId" placeholder="Enter Employee ID" />
+      <input type="text" id="employeeId" placeholder="Enter Employee ID" aria-label="Employee ID" />
       <br/>
       <button onclick="login()">Login</button>
+      <div id="error" class="error-message"></div>
     </div>
   </div>
 
@@ -87,18 +112,22 @@
     </iframe>
   </div>
 
+  <footer>© 2025 GEF Internal Dashboard v1.0</footer>
+
   <script>
     const validIds = ["900898", "901062", "Acc3ss@123"];
     let idleTimer;
 
     function login() {
       const empId = document.getElementById('employeeId').value.trim();
+      const errorDiv = document.getElementById('error');
       if (validIds.includes(empId)) {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('report-section').style.display = 'block';
+        errorDiv.textContent = "";
         startIdleTimer();
       } else {
-        alert("Access denied. Invalid Employee ID.");
+        errorDiv.textContent = "Access denied. Invalid Employee ID.";
       }
     }
 
@@ -107,6 +136,7 @@
       document.getElementById('report-section').style.display = 'none';
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('employeeId').value = "";
+      document.getElementById('error').textContent = "";
       clearTimeout(idleTimer);
     }
 
@@ -122,6 +152,13 @@
           startIdleTimer();
         }
       });
+    });
+
+    // Allow login on Enter key
+    document.getElementById('employeeId').addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        login();
+      }
     });
   </script>
 </body>
