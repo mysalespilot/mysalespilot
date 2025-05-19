@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Power BI Mobile View</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #0072c6;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header img {
+      height: 50px; /* Increased logo size */
+      margin-right: 10px;
+    }
+
+    .container {
+      padding: 10px;
+    }
+
+    .login-box {
+      max-width: 400px;
+      margin: 80px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .login-box input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    .login-box button {
+      padding: 10px 20px;
+      background-color: #0072c6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #005b9f;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    .report-frame {
+      width: 100%;
+      height: 90vh;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      padding: 10px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://www.gefindia.com/assets/img/GEF_Logo.png" alt="GEF Logo"/>
+    <span>Hourly Sales</span>
+  </header>
+
+  <!-- Login Section -->
+  <div class="container" id="login-section">
+    <div class="login-box">
+      <h3>Login with Employee ID</h3>
+      <input type="text" id="employeeId" placeholder="Enter Employee ID" aria-label="Employee ID" />
+      <br/>
+      <button onclick="login()">Login</button>
+      <div id="error" class="error-message"></div>
+    </div>
+  </div>
+
+  <!-- Report Section -->
+  <div class="container" id="report-section" style="display: none;">
+    <iframe 
+      class="report-frame" 
+      src="https://app.powerbi.com/view?r=eyJrIjoiNDM4MjBmNWMtNDA5ZC00MjgyLWJjOTYtM2QyODlhYmMxN2UwIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9" 
+      allowFullScreen="true">
+    </iframe>
+  </div>
+
+  <footer>© 2025 GEF Internal Dashboard v1.0</footer>
+
+  <script>
+    const validIds = ["900898", "900912","Acc3ss@123"];
+    let idleTimer;
+
+    function login() {
+      const empId = document.getElementById('employeeId').value.trim();
+      const errorDiv = document.getElementById('error');
+      if (validIds.includes(empId)) {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('report-section').style.display = 'block';
+        errorDiv.textContent = "";
+        startIdleTimer();
+      } else {
+        errorDiv.textContent = "Access denied. Invalid Employee ID.";
+      }
+    }
+
+    function logout() {
+      alert("Logged out due to inactivity.");
+      document.getElementById('report-section').style.display = 'none';
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('employeeId').value = "";
+      document.getElementById('error').textContent = "";
+      clearTimeout(idleTimer);
+    }
+
+    function startIdleTimer() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(logout, 2 * 60 * 1000); // 2 minutes
+    }
+
+    // Reset the idle timer on user activity
+    ['mousemove', 'keydown', 'touchstart'].forEach(event => {
+      document.addEventListener(event, () => {
+        if (document.getElementById('report-section').style.display === 'block') {
+          startIdleTimer();
+        }
+      });
+    });
+
+    // Allow login on Enter key
+    document.getElementById('employeeId').addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        login();
+      }
+    });
+  </script>
+</body>
+</html>
