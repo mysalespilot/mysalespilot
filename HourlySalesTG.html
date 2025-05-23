@@ -23,7 +23,7 @@
     }
 
     header img {
-      height: 50px; /* Increased logo size */
+      height: 50px;
       margin-right: 10px;
     }
 
@@ -145,7 +145,7 @@
       idleTimer = setTimeout(logout, 2 * 60 * 1000); // 2 minutes
     }
 
-    // Reset the idle timer on user activity
+    // Reset idle timer on user activity
     ['mousemove', 'keydown', 'touchstart'].forEach(event => {
       document.addEventListener(event, () => {
         if (document.getElementById('report-section').style.display === 'block') {
@@ -154,7 +154,7 @@
       });
     });
 
-    // Allow login on Enter key
+    // Trigger login on Enter key
     document.getElementById('employeeId').addEventListener("keyup", function(event) {
       if (event.key === "Enter") {
         login();
