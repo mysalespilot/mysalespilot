@@ -23,7 +23,7 @@
     }
 
     header img {
-      height: 50px; /* Increased logo size */
+      height: 50px;
       margin-right: 10px;
     }
 
@@ -106,9 +106,11 @@
   <!-- Report Section -->
   <div class="container" id="report-section" style="display: none;">
     <iframe 
-      class="report-frame" 
-      src="https://app.powerbi.com/view?r=eyJrIjoiNWYzMDk4NjUtY2U0NC00MDUyLWEwNzAtNDdhMTE5ZmZlZDM1IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9" 
-      allowFullScreen="true">
+      id="reportFrame"
+      class="report-frame"
+      allowFullScreen="true"
+      loading="lazy"
+      src="">
     </iframe>
   </div>
 
@@ -116,6 +118,7 @@
 
   <script>
     const validIds = ["900029", "900898", "Acc3ss@123"];
+    const reportBaseUrl = "https://app.powerbi.com/view?r=eyJrIjoiNWYzMDk4NjUtY2U0NC00MDUyLWEwNzAtNDdhMTE5ZmZlZDM1IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
     let idleTimer;
 
     function login() {
@@ -125,6 +128,12 @@
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('report-section').style.display = 'block';
         errorDiv.textContent = "";
+
+        // Delay iframe src assignment slightly for better performance
+        setTimeout(() => {
+          document.getElementById('reportFrame').src = reportBaseUrl + "&ts=" + new Date().getTime();
+        }, 100);
+
         startIdleTimer();
       } else {
         errorDiv.textContent = "Access denied. Invalid Employee ID.";
@@ -137,6 +146,7 @@
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('employeeId').value = "";
       document.getElementById('error').textContent = "";
+      document.getElementById('reportFrame').src = "";
       clearTimeout(idleTimer);
     }
 
@@ -145,7 +155,6 @@
       idleTimer = setTimeout(logout, 2 * 60 * 1000); // 2 minutes
     }
 
-    // Reset the idle timer on user activity
     ['mousemove', 'keydown', 'touchstart'].forEach(event => {
       document.addEventListener(event, () => {
         if (document.getElementById('report-section').style.display === 'block') {
@@ -154,7 +163,6 @@
       });
     });
 
-    // Allow login on Enter key
     document.getElementById('employeeId').addEventListener("keyup", function(event) {
       if (event.key === "Enter") {
         login();
