@@ -70,7 +70,6 @@
 
     iframe {
       width: 100%;
-      height: 100%;
       border: none;
       flex: 1;
     }
@@ -109,7 +108,7 @@
     </div>
   </div>
 
-  <!-- Power BI Full Screen with Toggle Buttons -->
+  <!-- Power BI Viewer Page -->
   <div id="reportPage" style="display: none; width: 100%;">
     <div id="toggleButtons">
       <button id="summaryBtn" style="display: none;" onclick="showReport('summary')">Summary</button>
@@ -122,7 +121,7 @@
 
   <script>
     const summaryURL = "https://app.powerbi.com/view?r=eyJrIjoiNTM5ZDhjN2ItZWY0OC00MTMzLWE4MTMtN2U3NmQzNWRiYjQ5IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
-    const customerWiseURL = "https://app.powerbi.com/view?r=eyJrIjoiOTljOTQyODItYjg1Ni00YmUyLTk2MjMtZDM3YjY1N2Y4YzZlIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+    const customerWiseURL = "https://app.powerbi.com/view?r=eyJrIjoiNTI2Yjk4ODgtN2FhYS00ZTM0LWExZDAtNTRhODE1OGVkZWIxIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
 
     function validateLogin() {
       const allowedNumbers = ['900021', '900898'];
@@ -142,18 +141,21 @@
       const summaryBtn = document.getElementById('summaryBtn');
       const customerBtn = document.getElementById('customerBtn');
 
-      const timestamp = new Date().getTime(); // Force refresh by appending a unique query
+      const timestamp = new Date().getTime();
 
       if (type === 'summary') {
         reportFrame.src = summaryURL + `&ts=${timestamp}`;
+        reportFrame.style.height = "100%";
         summaryBtn.style.display = 'none';
         customerBtn.style.display = 'inline-block';
       } else {
         reportFrame.src = customerWiseURL + `&ts=${timestamp}`;
+        reportFrame.style.height = "1500px";
         summaryBtn.style.display = 'inline-block';
         customerBtn.style.display = 'none';
       }
     }
   </script>
+
 </body>
 </html>
