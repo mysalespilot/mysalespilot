@@ -10,7 +10,7 @@
       padding: 0;
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
       color: white;
       overflow: hidden;
     }
@@ -76,7 +76,7 @@
     }
 
     #error {
-      color: red;
+      color: #ffcccc;
       display: none;
       margin-top: 10px;
     }
@@ -142,12 +142,14 @@
       const summaryBtn = document.getElementById('summaryBtn');
       const customerBtn = document.getElementById('customerBtn');
 
+      const timestamp = new Date().getTime(); // Force refresh by appending a unique query
+
       if (type === 'summary') {
-        reportFrame.src = summaryURL;
+        reportFrame.src = summaryURL + `&ts=${timestamp}`;
         summaryBtn.style.display = 'none';
         customerBtn.style.display = 'inline-block';
       } else {
-        reportFrame.src = customerWiseURL;
+        reportFrame.src = customerWiseURL + `&ts=${timestamp}`;
         summaryBtn.style.display = 'inline-block';
         customerBtn.style.display = 'none';
       }
