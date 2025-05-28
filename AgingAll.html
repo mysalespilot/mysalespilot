@@ -50,6 +50,7 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s, transform 0.2s;
+      margin: 10px;
     }
 
     button:hover {
@@ -60,18 +61,27 @@
     .report-container {
       width: 100%;
       height: 100%;
+      overflow: auto;
     }
 
     iframe {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 60px);
       border: none;
+      transition: transform 0.3s ease;
     }
 
     #error {
       color: red;
       display: none;
       margin-top: 10px;
+    }
+
+    #toggleButtons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
     }
   </style>
 </head>
@@ -88,14 +98,21 @@
     </div>
   </div>
 
-  <!-- Power BI Full Screen -->
+  <!-- Power BI Full Screen with Toggle Buttons -->
   <div id="reportPage" style="display: none;">
+    <div id="toggleButtons">
+      <button id="summaryBtn" style="display: none;" onclick="showReport('summary')">Summary</button>
+      <button id="customerBtn" style="display: none;" onclick="showReport('customer')">Customer Wise</button>
+    </div>
     <div class="report-container">
-      <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYWFkNzA5ZDAtMzU4My00ZmYyLWFhYzgtMzYwZWNiNTliYzBlIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9" allowfullscreen></iframe>
+      <iframe id="reportFrame" src="" allowfullscreen></iframe>
     </div>
   </div>
 
   <script>
+    const summaryURL = "https://app.powerbi.com/view?r=eyJrIjoiYWFkNzA5ZDAtMzU4My00ZmYyLWFhYzgtMzYwZWNiNTliYzBlIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+    const customerWiseURL = "https://app.powerbi.com/view?r=eyJrIjoiM2I1ZjExZTktNzVjZC00ZGRmLWIwNWEtOTk1NDE5ZjgxMThlIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+
     function validateLogin() {
       const allowedNumbers = ['900021', '900898'];
       const enteredNumber = document.getElementById('loginNumber').value;
@@ -103,8 +120,31 @@
       if (allowedNumbers.includes(enteredNumber)) {
         document.getElementById('loginBox').style.display = 'none';
         document.getElementById('reportPage').style.display = 'block';
+        showReport('summary');
       } else {
         document.getElementById('error').style.display = 'block';
+      }
+    }
+
+    function showReport(type) {
+      const reportFrame = document.getElementById('reportFrame');
+      const summaryBtn = document.getElementById('summaryBtn');
+      const customerBtn = document.getElementById('customerBtn');
+
+      if (type === 'summary') {
+        reportFrame.src = summaryURL;
+        reportFrame.style.transform = 'scale(1)';
+        reportFrame.style.transformOrigin = '0 0';
+        reportFrame.style.height = 'calc(100% - 60px)';
+        summaryBtn.style.display = 'none';
+        customerBtn.style.display = 'inline-block';
+      } else {
+        reportFrame.src = customerWiseURL;
+        reportFrame.style.transform = 'scale(0.85)';
+        reportFrame.style.transformOrigin = '0 0';
+        reportFrame.style.height = 'calc(100% / 0.85 - 60px)';
+        summaryBtn.style.display = 'inline-block';
+        customerBtn.style.display = 'none';
       }
     }
   </script>
