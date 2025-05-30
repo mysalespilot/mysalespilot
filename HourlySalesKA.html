@@ -23,7 +23,7 @@
     }
 
     header img {
-      height: 50px; /* Increased logo size */
+      height: 50px;
       margin-right: 10px;
     }
 
@@ -76,6 +76,28 @@
       border: none;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: none;
+    }
+
+    #spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #0072c6;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     footer {
@@ -105,9 +127,10 @@
 
   <!-- Report Section -->
   <div class="container" id="report-section" style="display: none;">
+    <div id="spinner"><div class="loader"></div></div>
     <iframe 
-      class="report-frame" 
-      src="https://app.powerbi.com/view?r=eyJrIjoiZTMyMzE0ZDMtZGU0Zi00M2M2LTk4YzUtMDZmN2VjYTY4YjQ5IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9" 
+      id="powerbi-report"
+      class="report-frame"
       allowFullScreen="true">
     </iframe>
   </div>
@@ -121,10 +144,20 @@
     function login() {
       const empId = document.getElementById('employeeId').value.trim();
       const errorDiv = document.getElementById('error');
+
       if (validIds.includes(empId)) {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('report-section').style.display = 'block';
         errorDiv.textContent = "";
+
+        const iframe = document.getElementById('powerbi-report');
+        iframe.src = "https://app.powerbi.com/view?r=eyJrIjoiZTMyMzE0ZDMtZGU0Zi00M2M2LTk4YzUtMDZmN2VjYTY4YjQ5IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+
+        iframe.onload = () => {
+          document.getElementById('spinner').style.display = 'none';
+          iframe.style.display = 'block';
+        };
+
         startIdleTimer();
       } else {
         errorDiv.textContent = "Access denied. Invalid Employee ID.";
@@ -137,6 +170,7 @@
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('employeeId').value = "";
       document.getElementById('error').textContent = "";
+      document.getElementById('powerbi-report').src = "";
       clearTimeout(idleTimer);
     }
 
@@ -145,7 +179,6 @@
       idleTimer = setTimeout(logout, 2 * 60 * 1000); // 2 minutes
     }
 
-    // Reset the idle timer on user activity
     ['mousemove', 'keydown', 'touchstart'].forEach(event => {
       document.addEventListener(event, () => {
         if (document.getElementById('report-section').style.display === 'block') {
@@ -154,7 +187,6 @@
       });
     });
 
-    // Allow login on Enter key
     document.getElementById('employeeId').addEventListener("keyup", function(event) {
       if (event.key === "Enter") {
         login();
