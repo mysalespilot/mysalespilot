@@ -14,8 +14,8 @@
     .container-form {
       max-width: 100%;
       margin: 0 auto;
-      border: 1px solid #ccc;
-      padding: 20px;
+      border: 1px solid #ccc; /* Added border style */
+      padding: 20px; /* Added padding for better visualization */
     }
     .message {
       display: none;
@@ -45,13 +45,12 @@
     <div class="hero-body">
       <div class="container">
         <div style="display: flex; align-items: center;">
-          <img src="https://gefindia.com/assets/img/GEF_Logo.png" alt="Your Logo" style="max-width: 150px; border: 2px solid #31081F; padding: 5px; border-radius: 10px;">
-          <h1 class="title" style="margin-left: 10px;">HYD Competitor Price</h1>
-        </div>
-      </div>
+    <img src="https://gefindia.com/assets/img/GEF_Logo.png" alt="Your Logo" style="max-width: 150px; border: 2px solid #31081F; padding: 5px; border-radius: 10px;">
+    <h1 class="title" style="margin-left: 10px;" >HYD Competitor Price </h1>
+</div>
     </div>
   </section>
-
+  <!-- Employee ID Input -->
   <div class="container">
     <div class="field">
       <label class="label" for="employeeID">Employee ID</label>
@@ -65,14 +64,9 @@
         <input class="input" type="text" id="employeeName" style="width:40%" placeholder="Employee Name" readonly>
       </div>
     </div>
-    <div class="field">
-      <label class="label" for="headquarter">Head Quarter</label>
-      <div class="control">
-        <input class="input" type="text" id="headquarter" style="width:40%" placeholder="Head Quarter" readonly>
-      </div>
-    </div>
   </div>
 
+  <!-- Button to open the form -->
   <button class="button is-info is-fullwidth" id="open-form-button" disabled>Open Form</button>
 
   <div class="container container-form" id="form-container" style="display: none;">
@@ -80,156 +74,198 @@
       <div class="field">
         <label class="label" style="width:25%" for="subzone">Subzone</label>
         <div class="control">
-          <input class="input" type="text" name="Subzone" id="subzone" readonly value="Hyderabad">
+          <input class="input" type="text" name="Subzone" id="subzone"  readonly value="Hyderabad">
         </div>
       </div>
 
+      <!-- Hidden input fields for Employee ID and Name -->
       <input type="hidden" id="hiddenEmployeeID" name="EmployeeID">
       <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
 
       <div class="field">
-        <label class="label" style="width:35%" for="districtName">Area Name</label>
+        <label class="label" style="width:35%" for="townName">Town Name</label>
         <div class="control">
           <div class="select">
-            <select id="district" name="DistrictName" required>
-              <option disabled hidden selected>Select One</option>
-              <option value="Abids">Abids</option>
-              <option value="Abdullapurmet">Abdullapurmet</option>
-              <option value="Alwal">Alwal</option>
-              <option value="Alwyn Colony">Alwyn Colony</option>
-              <option value="Amberpet">Amberpet</option>
-              <option value="Ameerpet">Ameerpet</option>
-              <option value="As Rao Nagar">As Rao Nagar</option>
-              <option value="Ashoknagar">Ashoknagar</option>
-              <option value="Bachupally">Bachupally</option>
-              <option value="Begumpet">Begumpet</option>
-              <option value="Balapur">Balapur</option>
-              <option value="Bandlaguda">Bandlaguda</option>
-              <option value="Banjarahills">Banjarahills</option>
-              <option value="Barkatpura">Barkatpura</option>
-              <option value="Boduppal">Boduppal</option>
-              <option value="Bollaram">Bollaram</option>
-              <option value="Borabanda">Borabanda</option>
-              <option value="B N Reddy">B N Reddy</option>
-              <option value="Bahadurpura">Bahadurpura</option>
-              <option value="Chaitanyapuri">Chaitanyapuri</option>
-              <option value="Cheriyal">Cheriyal</option>
-              <option value="Chandanagar">Chandanagar</option>
-              <option value="Cherlapally">Cherlapally</option>
-              <option value="Choutuppal">Choutuppal</option>
-              <option value="Damaiguda">Damaiguda</option>
-              <option value="Dilsukhnagar">Dilsukhnagar</option>
-              <option value="Domalguda">Domalguda</option>
-              <option value="East Maredpally">East Maredpally</option>
-              <option value="Erragadda">Erragadda</option>
-              <option value="Falaknuma">Falaknuma</option>
-              <option value="Gachibowli">Gachibowli</option>
-              <option value="Ghatkesar">Ghatkesar</option>
-              <option value="Ghanpur">Ghanpur</option>
-              <option value="Golconda">Golconda</option>
-              <option value="Gajwel">Gajwel</option>
-              <option value="Hafeezpet">Hafeezpet</option>
-              <option value="Hayathnagar">Hayathnagar</option>
-              <option value="Ibrahmipatnam">Ibrahmipatnam</option>
-              <option value="Isnapur">Isnapur</option>
-              <option value="Jagadgirigutta">Jagadgirigutta</option>
-              <option value="Jiyaguda">Jiyaguda</option>
-              <option value="Jubleehills">Jubleehills</option>
-              <option value="Kalapather">Kalapather</option>
-              <option value="Kapra">Kapra</option>
-              <option value="Karkhana">Karkhana</option>
-              <option value="Karmanghat">Karmanghat</option>
-              <option value="Kattedhan">Kattedhan</option>
-              <option value="Kesara">Kesara</option>
-              <option value="Khairatabad">Khairatabad</option>
-              <option value="Kishanbagh">Kishanbagh</option>
-              <option value="Koheda">Koheda</option>
-              <option value="Kothapet">Kothapet</option>
-              <option value="Kompally">Kompally</option>
-              <option value="Kukatpally">Kukatpally</option>
-              <option value="Kushaiguda">Kushaiguda</option>
-              <option value="L.B.Nagar">L.B.Nagar</option>
-              <option value="Lingampally">Lingampally</option>
-              <option value="Lothkunta">Lothkunta</option>
-              <option value="Mangalhat">Mangalhat</option>
-              <option value="Madinaguda">Madinaguda</option>
-              <option value="Malakpet">Malakpet</option>
-              <option value="Maal">Maal</option>
-              <option value="Manikoda">Manikoda</option>
-              <option value="Medchal">Medchal</option>
-              <option value="Meerpet">Meerpet</option>
-              <option value="Mehdipatnam">Mehdipatnam</option>
-              <option value="Miyapur">Miyapur</option>
-              <option value="Moulali">Moulali</option>
-              <option value="Musheerabad">Musheerabad</option>
-              <option value="Nacharam">Nacharam</option>
-              <option value="Nagaram">Nagaram</option>
-              <option value="Nagole">Nagole</option>
-              <option value="Nampally">Nampally</option>
-              <option value="Ngos Colony">Ngos Colony</option>
-              <option value="Nizampet">Nizampet</option>
-              <option value="Panjagutta">Panjagutta</option>
-              <option value="Parsigutta">Parsigutta</option>
-              <option value="Patancheruv">Patancheruv</option>
-              <option value="Peerjadiguda">Peerjadiguda</option>
-              <option value="Pragathi Nagar">Pragathi Nagar</option>
-              <option value="Qutbullapur">Qutbullapur</option>
-              <option value="R.K.Puram">R.K.Puram</option>
-              <option value="Ramanthapur">Ramanthapur</option>
-              <option value="Ramnagar">Ramnagar</option>
-              <option value="Rajendra Nagar">Rajendra Nagar</option>
-              <option value="Rasoolpura">Rasoolpura</option>
-              <option value="Saidabad">Saidabad</option>
-              <option value="Santosh Nagar">Santosh Nagar</option>
-              <option value="Saroornagar">Saroornagar</option>
-              <option value="Shamirpet">Shamirpet</option>
-              <option value="Shamshabad">Shamshabad</option>
-              <option value="Shankarpally">Shankarpally</option>
-              <option value="Shivam Road">Shivam Road</option>
-              <option value="Sr Nagar">Sr Nagar</option>
-              <option value="Tolichowki">Tolichowki</option>
-              <option value="Tarnaka">Tarnaka</option>
-              <option value="Tukkuguda">Tukkuguda</option>
-              <option value="Tumkunta">Tumkunta</option>
-              <option value="Uppal">Uppal</option>
-              <option value="Uppuguda">Uppuguda</option>
-              <option value="Vanastallipuram">Vanastallipuram</option>
-              <option value="Venkatagiri">Venkatagiri</option>
-              <option value="West Maredpally">West Maredpally</option>
-              <option value="Yakupura">Yakupura</option>
-              <option value="Yamjal">Yamjal</option>
-              <option value="Yusufguda">Yusufguda</option>
-              <option value="Bhongir">Bhongir</option>
-              <option value="Chityala">Chityala</option>
-              <option value="Devarakonda">Devarakonda</option>
-              <option value="Ghatkesar">Ghatkesar</option>
-              <option value="Haliya">Haliya</option>
-              <option value="Huzurnagar">Huzurnagar</option>
-              <option value="Jangoan">Jangoan</option>
-              <option value="Jogipet">Jogipet</option>
-              <option value="Kalwakurthy">Kalwakurthy</option>
-              <option value="Kodad">Kodad</option>
-              <option value="Makhtal">Makhtal</option>
-              <option value="Medak">Medak</option>
-              <option value="Miryalaguda">Miryalaguda</option>
-              <option value="Nagarkurnool">Nagarkurnool</option>
-              <option value="Nakrekal">Nakrekal</option>
-              <option value="Nalgonda">Nalgonda</option>
-              <option value="Narayankhed">Narayankhed</option>
-              <option value="Narsapur">Narsapur</option>
-              <option value="Rangareddy">Rangareddy</option>
-              <option value="Sangareddy">Sangareddy</option>
-              <option value="Shadnagar">Shadnagar</option>
-              <option value="Siddipet">Siddipet</option>
-              <option value="Suryapet">Suryapet</option>
-              <option value="Tandur">Tandur</option>
-              <option value="Thirumalagiri">Thirumalagiri</option>
-              <option value="Toopran">Toopran</option>
-              <option value="Valigonda">Valigonda</option>
-              <option value="Vikarabad">Vikarabad</option>
-              <option value="Wanaparthy">Wanaparthy</option>
-              <option value="Yadagirigutta">Yadagirigutta</option>
-              <option value="Zaheerabad">Zaheerabad</option>
+            <select id="townName" name="TownName">
+               <option disabled hidden selected>Select One</option>
+<option value="Abids">Abids</option>
+<option value="Abdullapurmet">Abdullapurmet</option>
+<option value="Alwal">Alwal</option>
+<option value="Alwyn Colony">Alwyn Colony</option>
+<option value="Amberpet">Amberpet</option>
+<option value="Ameerpet">Ameerpet</option>
+<option value="Anandhbagh">Anandhbagh</option>
+<option value="As Rao Nagar">As Rao Nagar</option>
+<option value="Ashoknagar">Ashoknagar</option>
+<option value="Attapur">Attapur</option>
+<option value="Bachupally">Bachupally</option>
+<option value="Baghamberpet">Baghamberpet</option>
+<option value="Begumpet">Begumpet</option>
+<option value="Balapur">Balapur</option>
+<option value="Bandlaguda">Bandlaguda</option>
+<option value="Banjarahills">Banjarahills</option>
+<option value="Barkatpura">Barkatpura</option>
+<option value="Boduppal">Boduppal</option>
+<option value="Bollaram">Bollaram</option>
+<option value="Borabanda">Borabanda</option>
+<option value="B N Reddy">B N Reddy</option>
+<option value="Bahadurpura">Bahadurpura</option>
+<option value="Chaitanyapuri">Chaitanyapuri</option>
+<option value="Cheriyal">Cheriyal</option>
+<option value="Chandanagar">Chandanagar</option>
+<option value="Cherlapally">Cherlapally</option>
+<option value="Chilkanagar">Chilkanagar</option>
+<option value="Choutuppal">Choutuppal</option>
+<option value="Damaiguda">Damaiguda</option>
+<option value="Dilsukhnagar">Dilsukhnagar</option>
+<option value="Domalguda">Domalguda</option>
+<option value="Doodhbowli">Doodhbowli</option>
+<option value="East Maredpally">East Maredpally</option>
+<option value="Erragadda">Erragadda</option>
+<option value="Falaknuma">Falaknuma</option>
+<option value="Filmnagar">Filmnagar</option>
+<option value="Gachibowli">Gachibowli</option>
+<option value="Ghatkesar">Ghatkesar</option>
+<option value="Ghanpur">Ghanpur</option>
+<option value="Golconda">Golconda</option>
+<option value="Gajwel">Gajwel</option>
+<option value="Hafeezpet">Hafeezpet</option>
+<option value="Hayathnagar">Hayathnagar</option>
+<option value="Ibrahmipatnam">Ibrahmipatnam</option>
+<option value="Idpl">Idpl</option>
+<option value="Isnapur">Isnapur</option>
+<option value="Jagadgirigutta">Jagadgirigutta</option>
+<option value="Jiyaguda">Jiyaguda</option>
+<option value="Jp Nagar">Jp Nagar</option>
+<option value="Jubleehills">Jubleehills</option>
+<option value="Kalapather">Kalapather</option>
+<option value="Kapra">Kapra</option>
+<option value="Karkhana">Karkhana</option>
+<option value="Karmanghat">Karmanghat</option>
+<option value="Kattedhan">Kattedhan</option>
+<option value="Kesara">Kesara</option>
+<option value="Khairatabad">Khairatabad</option>
+<option value="Kishanbagh">Kishanbagh</option>
+<option value="Koheda">Koheda</option>
+<option value="Kothapet">Kothapet</option>
+<option value="Kompally">Kompally</option>
+<option value="Kphb">Kphb</option>
+<option value="Kukatpally">Kukatpally</option>
+<option value="Kushaiguda">Kushaiguda</option>
+<option value="L.B.Nagar">L.B.Nagar</option>
+<option value="Lalapet">Lalapet</option>
+<option value="Lalaguda">Lalaguda</option>
+<option value="Lingampally">Lingampally</option>
+<option value="Lothkunta">Lothkunta</option>
+<option value="Lungerhouse">Lungerhouse</option>
+<option value="Mangalhat">Mangalhat</option>
+<option value="Madannapet">Madannapet</option>
+<option value="Madinaguda">Madinaguda</option>
+<option value="Malakpet">Malakpet</option>
+<option value="Maal">Maal</option>
+<option value="Manikoda">Manikoda</option>
+<option value="Mansoorabad">Mansoorabad</option>
+<option value="Medchal">Medchal</option>
+<option value="Meerpet">Meerpet</option>
+<option value="Mehdipatnam">Mehdipatnam</option>
+<option value="Miyapur">Miyapur</option>
+<option value="Moulali">Moulali</option>
+<option value="Musheerabad">Musheerabad</option>
+<option value="Nacharam">Nacharam</option>
+<option value="Nagaram">Nagaram</option>
+<option value="Nagole">Nagole</option>
+<option value="Nampally">Nampally</option>
+<option value="Ngos Colony">Ngos Colony</option>
+<option value="Nizampet">Nizampet</option>
+<option value="Panjagutta">Panjagutta</option>
+<option value="Parsigutta">Parsigutta</option>
+<option value="padmaraonagar">padmaraonagar</option>
+<option value="Patancheruv">Patancheruv</option>
+<option value="Peerjadiguda">Peerjadiguda</option>
+<option value="Peerjadiguda">Peerjadiguda</option>
+<option value="Pragathi Nagar">Pragathi Nagar</option>
+<option value="Qutbullapur">Qutbullapur</option>
+<option value="R.K.Puram">R.K.Puram</option>
+<option value="Ramanthapur">Ramanthapur</option>
+<option value="Ramayampet">Ramayampet</option>
+<option value="Ramnagar">Ramnagar</option>
+<option value="Rajendra Nagar">Rajendra Nagar</option>
+<option value="Rasoolpura">Rasoolpura</option>
+<option value="Saidabad">Saidabad</option>
+<option value="Sri Nagar Colony">Sri Nagar Colony</option>
+<option value="Santosh Nagar">Santosh Nagar</option>
+<option value="Saroornagar">Saroornagar</option>
+<option value="Shamirpet">Shamirpet</option>
+<option value="Shamshabad">Shamshabad</option>
+<option value="Shankarpally">Shankarpally</option>
+<option value="Shivam Road">Shivam Road</option>
+<option value="Sr Nagar">Sr Nagar</option>
+<option value="Tolichowki">Tolichowki</option>
+<option value="Talabkatta">Talabkatta</option>
+<option value="Tarnaka">Tarnaka</option>
+<option value="Tukkuguda">Tukkuguda</option>
+<option value="Tumkunta">Tumkunta</option>
+<option value="Uppal">Uppal</option>
+<option value="Uppuguda">Uppuguda</option>
+<option value="Vanastallipuram">Vanastallipuram</option>
+<option value="Venkatagiri">Venkatagiri</option>
+<option value="West Maredpally">West Maredpally</option>
+<option value="Yakupura">Yakupura</option>
+<option value="Yamjal">Yamjal</option>
+<option value="Yusufguda">Yusufguda</option>
+<option value="Achampet">Achampet</option>
+<option value="Aler">Aler</option>
+<option value="Bhongir">Bhongir</option>
+<option value="Chandur">Chandur</option>
+<option value="Chityala">Chityala</option>
+<option value="Damarcharla">Damarcharla</option>
+<option value="Devarakonda">Devarakonda</option>
+<option value="Gadwal">Gadwal</option>
+<option value="Ghatkesar">Ghatkesar</option>
+<option value="Haliya">Haliya</option>
+<option value="Huzurnagar">Huzurnagar</option>
+<option value="Ieeja">Ieeja</option>
+<option value="Jangoan">Jangoan</option>
+<option value="Jadcherla">Jadcherla</option>
+<option value="JALLAPUR">JALLAPUR</option>
+<option value="Jogipet">Jogipet</option>
+<option value="Palakurthy">Palakurthy</option>
+<option value="Kalwakurthy">Kalwakurthy</option>
+<option value="Kodad">Kodad</option>
+<option value="Kollapur">Kollapur</option>
+<option value="KOSGI">KOSGI</option>
+<option value="Kothakota">Kothakota</option>
+<option value="Mahabubabad">Mahabubabad</option>
+<option value="Mahabubnagar">Mahabubnagar</option>
+<option value="Makhtal">Makhtal</option>
+<option value="Medak">Medak</option>
+<option value="Medchal">Medchal</option>
+<option value="Miryalaguda">Miryalaguda</option>
+<option value="Mothkur">Mothkur</option>
+<option value="Nagarkurnool">Nagarkurnool</option>
+<option value="Nakrekal">Nakrekal</option>
+<option value="Nalgonda">Nalgonda</option>
+<option value="Narayankhed">Narayankhed</option>
+<option value="Narayanpet">Narayanpet</option>
+<option value="Narsapur">Narsapur</option>
+<option value="Neruducherla">Neruducherla</option>
+<option value="Pebbair">Pebbair</option>
+<option value="Peddavoora">Peddavoora</option>
+<option value="Rangareddy">Rangareddy</option>
+<option value="Sangareddy">Sangareddy</option>
+<option value="Shadnagar">Shadnagar</option>
+<option value="Siddipet">Siddipet</option>
+<option value="Suryapet">Suryapet</option>
+<option value="Tandur">Tandur</option>
+<option value="Thirumalagiri">Thirumalagiri</option>
+<option value="Toopran">Toopran</option>
+<option value="Valigonda">Valigonda</option>
+<option value="Vatpally">Vatpally</option>
+<option value="Vikarabad">Vikarabad</option>
+<option value="Wanaparthy">Wanaparthy</option>
+<option value="Yadagirigutta">Yadagirigutta</option>
+<option value="Zaheerabad">Zaheerabad</option>
+
             </select>
           </div>
         </div>
@@ -239,19 +275,27 @@
         <label class="label" style="width:35%" for="brandName">Brand Name</label>
         <div class="control">
           <div class="select">
-            <select id="brandName" name="BrandName" required>
-              <option disabled hidden selected>Select One</option>
-              <option value="Freedom">Freedom</option>
-              <option value="Fortune">Fortune</option>
-              <option value="Gold Drop">Gold Drop</option>
-              <option value="Vijaya">Vijaya</option>
-              <option value="Gold Winner">Gold Winner</option>
-              <option value="Priya Gold">Priya Gold</option>
-               <option value="Hello Life">Hello Life</option>
-              <option value="Naturalle">Naturalle</option>
-              <option value="Sunsollite">Sunsollite</option>
-              <option value="Dalda">Dalda</option>
-              <option value="Fiona">Fiona</option>
+            <select id="brandName" name="BrandName">
+               <option disabled hidden selected>Select One</option>
+                <option value="Freedom">Freedom</option>
+             <option value="Aadhaar">Aadhaar</option>
+<option value="Dalda">Dalda</option>
+<option value="Fortune">Fortune</option>
+<option value="Gold Drop">Gold Drop</option>
+<option value="Gold Winner">Gold Winner</option>
+<option value="Healthy Gold">Healthy Gold</option>
+<option value="Priya Gold">Priya Gold</option>
+<option value="Naturalle">Naturalle</option>
+<option value="Saffolla">Saffolla</option>
+<option value="Shubham">Shubham</option>
+<option value="Sunsollite">Sunsollite</option>
+<option value="Super Life">Super Life</option>
+<option value="Teasty drop">Teasty drop</option>
+<option value="Teasty Gold">Teasty Gold</option>
+<option value="Vijaya">Vijaya</option>
+<option value="Venu Gold">Venu Gold</option>
+<option value="Hello LIfe">Hello LIfe</option>
+<option value="Fiona">Fiona</option>
             </select>
           </div>
         </div>
@@ -272,49 +316,50 @@
       </div>
 
       <div class="field">
-        <label class="label" for="ltrPTR">SF 1 Ltr PTR</label>
-        <div class="control">
-          <input class="input" type="number" id="ltrPTR" placeholder="Enter 1 Ltr PTR (3 digits only)" name="1LtrPTR" min="90" max="299" style="width:45%" oninput="checkInput(this)" required>
-          <div id="ltrPTR-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+    <label class="label" for="ltrPTR">SF 1 Ltr PTR</label>
+    <div class="control">
+        <input class="input" type="number" id="ltrPTR" placeholder="Enter 1 Ltr PTR (3 digits only)" name="1LtrPTR" min="90" max="299" style="width:45%" oninput="checkInput(this)" required>
+        <div id="ltrPTR-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
 
-      <div class="field">
-        <label class="label" for="ltrPTC">SF 1 Ltr PTC</label>
-        <div class="control">
-          <input class="input" type="number" id="ltrPTC" placeholder="Enter 1 Ltr PTC (3 digits only)" name="1LtrPTC" min="100" max="299" style="width:45%" oninput="checkInput(this)" required>
-          <div id="ltrPTC-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+<div class="field">
+    <label class="label" for="ltrPTC">SF 1 Ltr PTC</label>
+    <div class="control">
+        <input class="input" type="number" id="ltrPTC" placeholder="Enter 1 Ltr PTC (3 digits only)" name="1LtrPTC" min="100" max="299" style="width:45%" oninput="checkInput(this)" required>
+        <div id="ltrPTC-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
 
-      <div class="field">
-        <label class="label" for="5trPTR">SF 5 Ltr PTR</label>
-        <div class="control">
-          <input class="input" type="number" id="5trPTR" placeholder="Enter 5 Ltr PTR (3 digits only)" name="5LtrPTR" min="400" max="1000" style="width:45%" oninput="checkInput(this)" required>
-          <div id="5trPTR-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+<div class="field">
+    <label class="label" for="5trPTR">SF 5 Ltr PTR</label>
+    <div class="control">
+        <input class="input" type="number" id="5trPTR" placeholder="Enter 5 Ltr PTR (3 digits only)" name="5LtrPTR" min="400" max="1000" style="width:45%" oninput="checkInput(this)" required>
+        <div id="5trPTR-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
 
-      <div class="field">
-        <label class="label" for="5trPTC">SF 5 Ltr PTC</label>
-        <div class="control">
-          <input class="input" type="number" id="5trPTC" placeholder="Enter 5 Ltr PTC (3 digits only)" name="5LtrPTC" min="450" max="1000" style="width:45%" oninput="checkInput(this)" required>
-          <div id="5trPTC-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+<div class="field">
+    <label class="label" for="5trPTC">SF 5 Ltr PTC</label>
+    <div class="control">
+        <input class="input" type="number" id="5trPTC" placeholder="Enter 5 Ltr PTC (3 digits only)" name="5LtrPTC" min="450" max="1000" style="width:45%" oninput="checkInput(this)" required>
+        <div id="5trPTC-error" class="error-message" style="color: red;"></div>
+    </div>
+</div>
 
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary" type="submit" id="submit-button">Submit</button>
         </div>
         <div class="control">
-          <button class="button is-danger" type="button" id="cancel-button">Refresh</button>
+          <button class="button is-danger" type="button" id="cancel-button">Refresh </button>
         </div>
       </div>
     </form>
     <div id="message" class="message"></div>
   </div>
 
+  <!-- Preview Container -->
   <div class="container" id="preview-container" style="display: none;">
     <table class="table preview-table">
       <thead>
@@ -328,6 +373,7 @@
           <th>1 Ltr PTC</th>
           <th>5 Ltr PTR</th>
           <th>5 Ltr PTC</th>
+          <!-- Add other table headers as needed -->
         </tr>
       </thead>
       <tbody id="preview-table-body">
@@ -337,194 +383,169 @@
   </div>
 
   <script>
-    var submissionCount = 0;
-const allowedEmployeeIDs = [
-  "2003385532",
-"2003385533",
-"2003385527",
-"2003385540",
-"901142",
-"2003385516",
-"2003385502",
-"2003385487",
-"2003385492",
-"2003385491",
-"901052",
-"2003385480",
-"2003385483",
-"2003385515",
-"2003385609",
-"2003385607",
-"2003385529",
-"2003385588",
-"2003385597",
-"2003385468",
-"2003257546",
-"2003306189",
-"2003353473",
-"2003353485",
-"2003353486",
-"2003353487",
-"2003353472",
-"2003353489",
-"2003385611",
-"2003421599",
-"2003423213",
-"2003421607",
-"2003421596",
-"2003454930",
-"2003454916"
-];
+  var submissionCount = 0;
+var freedomSubmissionCount = 0; // Track the number of "Freedom" submissions
+var allowedEmployeeIDs = ["900233", "1355272", "900428", "1355185", "900417", "900425", "900051", "1355243", "1355182", "1386509", "900725", "1492997", "1604029", "1611496", "1620925", "1641151", "901052", "1656723", "1661108", "1669798", "1683864", "1683864", "1689469", "1689725", "1673556", "1678249","2003454916","2003454916","2003546255","2003584763","2003454930","2003454930","2003584768"]; // Predefined list of Employee IDs
+var employeeNames = {
+    "900233": "GUNDEGONI HARI SHANKER",
+    "1355272": "Bheemagani Sandeep",
+    "900428": "BOJJA ASHWANTH ",
+    "1355185": "Sudhakar Karingu",
+    "900417": "BETTALA NAGA SANDEEP",
+    "900425": "P VEERESH",
+    "900051": "PASEDDULA PRASAD ",
+    "1355243": "Avula Ashok Kumar Yadav",
+    "1355182": "Thota  Anil",
+    "1386509": "Vavilala Sampath",
+    "900725": "NIDIGONDA SRINIVAS",
+    "1492997": "Beerla Kiran Kumar",
+    "1604029": "Mohd Mubeen Khan  ",
+    "1611496": "Mohammed Nawaz Shareef ",
+    "1620925": " Kotagiri Ravi",
+    "1641151": "M.NAVEEN KUMAR",
+    "901052": "k.Venkata sai srinadh",
+    "1656723": "Aravind ",
+    "1661108": "K.Harish",
+    "1669798": "BOLLEDLA PARUSHARAMULU",
+    "1683864": "Muhammed Azam",
+    "1683864": "Muhammed Azam",
+    "1689469": "Vishnu Punnam",
+    "1689725": "Gulam Mohammed Abdullah",
+    "1673556": "B ASHOK",
+    "1678249": "V RANITH KUMAR",
+    "2003454916":  "Gurram Bhargav",
+    "2003546257":  "SRIGADHA ASHOK",
+    "2003546255":  "KOMMU AMBEDHKAR",
+    "2003584763":  "M VIKRAM REDDY",
+    "2003454930":  "M SRINIVAS",
+    "2003546256":  "BUCHAMMAGARI PRADEEP REDDY",
+    "2003584768":  "SHIVACHANDER G"
+}; // Predefined Employee Names
 
-// Mapping employee IDs to their details
-const employeeNames = {
-  "2003385532":  {name:"Bheemagani Sandeep", hq:"Hyderabad"},
-"2003385533":  {name:"Sudhakar Karingu", hq:"Hyderabad"},
-"2003385527":  {name:"Avula Ashok Kumar Yadav", hq:"Hyderabad"},
-"2003385540":  {name:"Thota Anil", hq:"Medchal"},
-"901142":  {name:"Vavilala Sampath", hq:"Hyderabad"},
-"2003385516":  {name:"Beerla Kiran Kumar", hq:"Medchal"},
-"2003385502":  {name:"Mohd Mubeen Khan", hq:"Hyderabad"},
-"2003385487":  {name:"Mohammed Nawaz Shareef", hq:"Hyderabad"},
-"2003385492":  {name:"Kotagiri Ravi", hq:"Hyderabad"},
-"2003385491":  {name:"M NAVEEN KUMAR", hq:"Khammam"},
-"901052":  {name:"k.Venkata sai srinadh", hq:"Medchal-Hyderabad"},
-"2003385480":  {name:"Koneti Harish", hq:"Medak"},
-"2003385483":  {name:"BOLLEDLA PARUSHARAMULU", hq:"Hyderabad"},
-"2003385515":  {name:"B ASHOK", hq:"Wanaparthy"},
-"2003385609":  {name:"Voruganti Ranjith Kumar", hq:"Surypet"},
-"2003385607":  {name:"Mohd Azam", hq:"Hyderabad"},
-"2003385529":  {name:"Punnam Vishnu", hq:"Hyderabad"},
-"2003385588":  {name:"Gulam Mohammed Abdullah", hq:"Hyderabad"},
-"2003385597":  {name:"BENJARAM SATEESH", hq:"Hyderabad"},
-"2003385468":  {name:"Chiluveru Suresh", hq:"Jangaon"},
-"2003257546":  {name:"B. Ramakrishna", hq:"Miryalguda"},
-"2003306189":  {name:"K Sai Kiran", hq:"Shadnagar"},
-"2003353473":  {name:"V RAJENDRA BABU", hq:"Hyderabad"},
-"2003353485":  {name:"LINGALA SAGAR", hq:"Hyderabad"},
-"2003353486":  {name:"GOLLAPUDI NAGA SAI KRISHNA", hq:"Hyderabad"},
-"2003353487":  {name:"MD ISMAIL ABID", hq:"Hyderabad"},
-"2003353472":  {name:"Mohammed Jaleel", hq:"Hyderabad"},
-"2003353489":  {name:"K Harish", hq:"Hyderabad"},
-"2003385611":  {name:"KATTELA VIJAY KUMAR", hq:"Sangareddy"},
-"2003421599":  {name:"Samala Anil Kumar",hq:""},
-"2003423213":  {name:"Kodi Vamsi",hq:""},
-"2003421607":  {name:"Kotte Mallesh",hq:""},
-"2003421596":  {name:"Gajula Sai Kumar",hq:""},
-"2003454930":  {name:"M Srinivas",hq:""},
-"2003454916":  {name:"Gurram Bhargav",hq:""}
+document.getElementById("employeeID").addEventListener("input", function() {
+  var employeeID = this.value.trim();
+  document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
+  document.getElementById("employeeName").value = employeeNames[employeeID] || '';
+  // Set hidden fields for Employee ID and Name
+  document.getElementById("hiddenEmployeeID").value = employeeID;
+  document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
+});
 
-};
+document.getElementById("form").addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent the default form submission
 
-    document.getElementById("employeeID").addEventListener("input", function() {
-      var employeeID = this.value.trim();
-      var employeeData = employeeNames[employeeID];
-      document.getElementById("open-form-button").disabled = !allowedEmployeeIDs.includes(employeeID);
-      document.getElementById("employeeName").value = employeeData ? employeeData.name : '';
-      document.getElementById("headquarter").value = employeeData ? employeeData.hq : '';
-      document.getElementById("hiddenEmployeeID").value = employeeID;
-      document.getElementById("hiddenEmployeeName").value = employeeData ? employeeData.name : '';
-    });
+  // Check if submission count has reached the limit
+  if (submissionCount >= 7) {
+    alert("You can only submit 7 times.");
+    return;
+  }
 
-    document.getElementById("form").addEventListener("submit", function(e) {
-      e.preventDefault();
+  document.getElementById("message").textContent = "Submitting..";
+  document.getElementById("message").style.display = "block";
+  document.getElementById("submit-button").disabled = true;
 
-      if (submissionCount >= 7) {
-        alert("You can only submit 7 times.");
-        return;
-      }
+  submissionCount++;
 
-      document.getElementById("message").textContent = "Submitting..";
-      document.getElementById("message").style.display = "block";
-      document.getElementById("submit-button").disabled = true;
+  // Collect the form data
+  var formData = new FormData(this);
+  var keyValuePairs = [];
+  for (var pair of formData.entries()) {
+    keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
+  }
 
-      submissionCount++;
+  var formDataString = keyValuePairs.join("&");
 
-      var formData = new FormData(this);
-      var keyValuePairs = [];
-      for (var pair of formData.entries()) {
-        keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
-      }
-
-      var formDataString = keyValuePairs.join("&");
-
-      fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
-        redirect: "follow",
-        method: "POST",
-        body: formDataString,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      })
-      .then(function(response) {
-        if (response.ok) {
-          return response.text();
-        } else {
-          throw new Error("Failed to submit the form.");
-        }
-      })
-      .then(function(data) {
-        document.getElementById("message").textContent = "Data submitted successfully!";
-        document.getElementById("message").style.backgroundColor = "green";
-        document.getElementById("message").style.color = "beige";
-        document.getElementById("submit-button").disabled = false;
-        document.getElementById("form").reset();
-        showPreview(formData);
-
-        setTimeout(function() {
-          document.getElementById("message").textContent = "";
-          document.getElementById("message").style.display = "none";
-        }, 2600);
-      })
-      .catch(function(error) {
-        console.error(error);
-        document.getElementById("message").textContent = "An error occurred while submitting the form.";
-        document.getElementById("message").style.display = "block";
-      });
-    });
-
-    document.getElementById("open-form-button").addEventListener("click", function() {
-      document.getElementById("form-container").style.display = "block";
-    });
-
-    document.getElementById("cancel-button").addEventListener("click", function() {
-      document.getElementById("form-container").style.display = "none";
-    });
-
-    function showPreview(formData) {
-      var previewTableBody = document.getElementById("preview-table-body");
-      var dataRow = document.createElement("tr");
-
-      var serialNumberCell = document.createElement("td");
-      serialNumberCell.textContent = submissionCount;
-      dataRow.appendChild(serialNumberCell);
-
-      var headers = ['Subzone', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
-
-      headers.forEach(function(header) {
-        var dataCell = document.createElement("td");
-        dataCell.textContent = formData.get(header);
-        dataRow.appendChild(dataCell);
-      });
-
-      previewTableBody.appendChild(dataRow);
-      document.getElementById("preview-container").style.display = "block";
+  // Send a POST request to your Google Apps Script
+  fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
+    redirect: "follow",
+    method: "POST",
+    body: formDataString,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
     }
-
-    function checkInput(input) {
-      let value = input.value;
-      let min = parseInt(input.min);
-      let max = parseInt(input.max);
-      let errorMessage = document.getElementById(input.id + "-error");
-
-      if (value.length !== 3 || isNaN(value) || value < min || value > max) {
-        errorMessage.textContent = "Please enter a valid number";
-        input.setCustomValidity("Invalid input");
-      } else {
-        errorMessage.textContent = "";
-        input.setCustomValidity("");
-      }
+  })
+  .then(function(response) {
+    // Check if the request was successful
+    if (response.ok) {
+      return response.text(); // Assuming your script returns text response
+    } else {
+      throw new Error("Failed to submit the form.");
     }
+  })
+  .then(function(data) {
+    // Display a success message
+    document.getElementById("message").textContent = "Data submitted successfully!";
+    document.getElementById("message").style.backgroundColor = "green";
+    document.getElementById("message").style.color = "beige";
+    document.getElementById("submit-button").disabled = false;
+    document.getElementById("form").reset();
+
+    // Show preview
+    showPreview(formData);
+
+    setTimeout(function() {
+      document.getElementById("message").textContent = "";
+      document.getElementById("message").style.display = "none";
+    }, 2600);
+  })
+  .catch(function(error) {
+    // Handle errors, you can display an error message here
+    console.error(error);
+    document.getElementById("message").textContent = "An error occurred while submitting the form.";
+    document.getElementById("message").style.display = "block";
+  });
+});
+
+document.getElementById("open-form-button").addEventListener("click", function() {
+  document.getElementById("form-container").style.display = "block";
+});
+
+document.getElementById("cancel-button").addEventListener("click", function() {
+  document.getElementById("form-container").style.display = "none";
+});
+
+// Function to display preview
+function showPreview(formData) {
+  var previewTableBody = document.getElementById("preview-table-body");
+
+  // Create a row for data
+  var dataRow = document.createElement("tr");
+
+  var serialNumberCell = document.createElement("td");
+  serialNumberCell.textContent = submissionCount;
+  dataRow.appendChild(serialNumberCell);
+
+  var headers = ['TownName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+
+  headers.forEach(function(header) {
+    var dataCell = document.createElement("td");
+    dataCell.textContent = formData.get(header);
+    dataRow.appendChild(dataCell);
+  });
+
+  previewTableBody.appendChild(dataRow);
+
+  document.getElementById("preview-container").style.display = "block";
+}
+
   </script>
+
+  <script>
+    function checkInput(input) {
+        let value = input.value;
+        let min = parseInt(input.min);
+        let max = parseInt(input.max);
+        let errorMessage = document.getElementById(input.id + "-error");
+
+        if (value.length !== 3 || isNaN(value) || value < min || value > max) {
+            errorMessage.textContent = "Please enter Valid number";
+            input.setCustomValidity("Invalid input");
+        } else {
+            errorMessage.textContent = "";
+            input.setCustomValidity("");
+        }
+    }
+</script>
+
 </body>
 </html>
