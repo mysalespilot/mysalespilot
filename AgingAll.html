@@ -61,17 +61,24 @@
     }
 
     .report-container {
-      width: 100%;
+      width: 95%;
+      max-width: 1200px;
       flex: 1;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      border: 6px solid #ffffff80;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     iframe {
       width: 100%;
+      height: 100%;
       border: none;
       flex: 1;
+      border-radius: 10px;
     }
 
     #error {
@@ -80,17 +87,14 @@
       margin-top: 10px;
     }
 
-    #toggleButtons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 10px;
-      gap: 10px;
-    }
-
     @media (max-width: 768px) {
       iframe {
         height: 100%;
+      }
+
+      .report-container {
+        width: 98%;
+        border-width: 4px;
       }
     }
   </style>
@@ -100,7 +104,7 @@
   <!-- Login Screen -->
   <div id="loginBox">
     <div class="login-box">
-      <h2>Login to View Power BI Dashboard</h2>
+      <h2>Login to View Sale Order Aging Dashboard</h2>
       <input type="number" id="loginNumber" placeholder="Enter Your Number" />
       <br />
       <button onclick="validateLogin()">Login</button>
@@ -110,50 +114,31 @@
 
   <!-- Power BI Viewer Page -->
   <div id="reportPage" style="display: none; width: 100%;">
-    <div id="toggleButtons">
-      <button id="summaryBtn" style="display: none;" onclick="showReport('summary')">Summary</button>
-      <button id="customerBtn" style="display: none;" onclick="showReport('customer')">Customer Wise</button>
-    </div>
     <div class="report-container">
       <iframe id="reportFrame" src="" allowfullscreen></iframe>
     </div>
   </div>
 
   <script>
-    const summaryURL = "https://app.powerbi.com/view?r=eyJrIjoiNTM5ZDhjN2ItZWY0OC00MTMzLWE4MTMtN2U3NmQzNWRiYjQ5IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
-    const customerWiseURL = "https://app.powerbi.com/view?r=eyJrIjoiN2IyYTgwYzItZWYwNS00Y2E2LTllMWYtNTI1NjY5NzUyMGFiIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+    const summaryURL = "https://app.powerbi.com/view?r=eyJrIjoiYTRiMjIxMjMtYzM3Zi00MTMxLWEwNTktODRiODI1ZGJkNTVmIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
 
     function validateLogin() {
-      const allowedNumbers = ['900021', '900898'];
+      const allowedNumbers = ['900421', '900898','900021' ,'901044' ,'',''];
       const enteredNumber = document.getElementById('loginNumber').value;
 
       if (allowedNumbers.includes(enteredNumber)) {
         document.getElementById('loginBox').style.display = 'none';
         document.getElementById('reportPage').style.display = 'flex';
-        showReport('summary');
+        showReport();
       } else {
         document.getElementById('error').style.display = 'block';
       }
     }
 
-    function showReport(type) {
+    function showReport() {
       const reportFrame = document.getElementById('reportFrame');
-      const summaryBtn = document.getElementById('summaryBtn');
-      const customerBtn = document.getElementById('customerBtn');
-
       const timestamp = new Date().getTime();
-
-      if (type === 'summary') {
-        reportFrame.src = summaryURL + `&ts=${timestamp}`;
-        reportFrame.style.height = "100%";
-        summaryBtn.style.display = 'none';
-        customerBtn.style.display = 'inline-block';
-      } else {
-        reportFrame.src = customerWiseURL + `&ts=${timestamp}`;
-        reportFrame.style.height = "1500px";
-        summaryBtn.style.display = 'inline-block';
-        customerBtn.style.display = 'none';
-      }
+      reportFrame.src = summaryURL + `&ts=${timestamp}`;
     }
   </script>
 
