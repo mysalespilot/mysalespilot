@@ -338,100 +338,92 @@
 
   <script>
     var submissionCount = 0;
-const allowedEmployeeIDs = [
-  "2003385532",
-"2003385533",
-"2003385527",
-"2003385540",
-"901142",
-"2003385516",
-"2003385502",
-"2003385487",
-"2003385492",
-"2003385491",
-"901052",
-"2003385480",
-"2003385483",
-"2003385515",
-"2003385609",
-"2003385607",
-"2003385529",
-"2003385588",
-"2003385597",
-"2003385468",
-"2003257546",
-"2003306189",
-"2003353473",
-"2003353485",
-"2003353486",
-"2003353487",
-"2003353472",
-"2003353489",
-"2003385611",
-"2003421599",
-"2003423213",
-"2003421607",
-"2003421596",
-"2003454930",
-"2003454916",
-"2003454916",
-"2003454916",
-"2003546255",
-"2003584763",
-"2003454930",
-"2003454930",
-"2003584768"
+    const allowedEmployeeIDs = [
+      "2003385532",
+      "2003385533",
+      "2003385527",
+      "2003385540",
+      "901142",
+      "2003385516",
+      "2003385502",
+      "2003385487",
+      "2003385492",
+      "2003385491",
+      "901052",
+      "2003385480",
+      "2003385483",
+      "2003385515",
+      "2003385609",
+      "2003385607",
+      "2003385529",
+      "2003385588",
+      "2003385597",
+      "2003385468",
+      "2003257546",
+      "2003306189",
+      "2003353473",
+      "2003353485",
+      "2003353486",
+      "2003353487",
+      "2003353472",
+      "2003353489",
+      "2003385611",
+      "2003421599",
+      "2003423213",
+      "2003421607",
+      "2003421596",
+      "2003454930",
+      "2003454916",
+      "2003546255",
+      "2003584763",
+      "2003584768"
+    ];
 
-];
-
-// Mapping employee IDs to their details
-const employeeNames = {
-  "2003385532":  "Bheemagani Sandeep",
-"2003385533":  "Sudhakar Karingu", 
-"2003385527":  "Avula Ashok Kumar Yadav",
-"2003385540":  "Thota Anil",
-"901142":  "Vavilala Sampath",
-"2003385516": "Beerla Kiran Kumar", 
-"2003385502":  "Mohd Mubeen Khan",
-"2003385487": "Mohammed Nawaz Shareef",
-"2003385492":  "Kotagiri Ravi",
-"2003385491":  "M NAVEEN KUMAR",
-"901052":  "k.Venkata sai srinadh",
-"2003385480":  "Koneti Harish", 
-"2003385483":  "BOLLEDLA PARUSHARAMULU", 
-"2003385515":  "B ASHOK",
-"2003385609":  "Voruganti Ranjith Kumar",
-"2003385607":  "Mohd Azam",
-"2003385529":  "Punnam Vishnu", 
-"2003385588":  "Gulam Mohammed Abdullah", 
-"2003385597":  "BENJARAM SATEESH", 
-"2003385468": "Chiluveru Suresh", 
-"2003257546":  "B. Ramakrishna", 
-"2003306189":  "K Sai Kiran", 
-"2003353473":  "V RAJENDRA BABU",
-"2003353485":  "LINGALA SAGAR",
-"2003353486":  "GOLLAPUDI NAGA SAI KRISHNA", 
-"2003353487":  "MD ISMAIL ABID",
-"2003353472": "Mohammed Jaleel",
-"2003353489":  "K Harish", 
-"2003385611":  "KATTELA VIJAY KUMAR",
-"2003421599": "Samala Anil Kumar",
-"2003423213":  "Kodi Vamsi",
-"2003421607":  "Kotte Mallesh",
-"2003421596": "Gajula Sai Kumar",
-"2003454930":  "M Srinivas",
-"2003454916":  "Gurram Bhargav",
-"2003546257": "SRIGADHA ASHOK",
-"2003546255":  "KOMMU AMBEDHKAR",
-"2003584763": "M VIKRAM REDDY",
-"2003454930":  "M SRINIVAS",
-"2003546256":  "BUCHAMMAGARI PRADEEP REDDY",
-"2003584768":  "SHIVACHANDER G"
-
-};    
+    // Mapping employee IDs to their names (simplified structure)
+    const employeeDetails = {
+      "2003385532": { name: "Bheemagani Sandeep", hq: "Hyderabad" },
+      "2003385533": { name: "Sudhakar Karingu", hq: "Hyderabad" },
+      "2003385527": { name: "Avula Ashok Kumar Yadav", hq: "Hyderabad" },
+      "2003385540": { name: "Thota Anil", hq: "Hyderabad" },
+      "901142": { name: "Vavilala Sampath", hq: "Hyderabad" },
+      "2003385516": { name: "Beerla Kiran Kumar", hq: "Hyderabad" },
+      "2003385502": { name: "Mohd Mubeen Khan", hq: "Hyderabad" },
+      "2003385487": { name: "Mohammed Nawaz Shareef", hq: "Hyderabad" },
+      "2003385492": { name: "Kotagiri Ravi", hq: "Hyderabad" },
+      "2003385491": { name: "M NAVEEN KUMAR", hq: "Hyderabad" },
+      "901052": { name: "k.Venkata sai srinadh", hq: "Hyderabad" },
+      "2003385480": { name: "Koneti Harish", hq: "Hyderabad" },
+      "2003385483": { name: "BOLLEDLA PARUSHARAMULU", hq: "Hyderabad" },
+      "2003385515": { name: "B ASHOK", hq: "Hyderabad" },
+      "2003385609": { name: "Voruganti Ranjith Kumar", hq: "Hyderabad" },
+      "2003385607": { name: "Mohd Azam", hq: "Hyderabad" },
+      "2003385529": { name: "Punnam Vishnu", hq: "Hyderabad" },
+      "2003385588": { name: "Gulam Mohammed Abdullah", hq: "Hyderabad" },
+      "2003385597": { name: "BENJARAM SATEESH", hq: "Hyderabad" },
+      "2003385468": { name: "Chiluveru Suresh", hq: "Hyderabad" },
+      "2003257546": { name: "B. Ramakrishna", hq: "Hyderabad" },
+      "2003306189": { name: "K Sai Kiran", hq: "Hyderabad" },
+      "2003353473": { name: "V RAJENDRA BABU", hq: "Hyderabad" },
+      "2003353485": { name: "LINGALA SAGAR", hq: "Hyderabad" },
+      "2003353486": { name: "GOLLAPUDI NAGA SAI KRISHNA", hq: "Hyderabad" },
+      "2003353487": { name: "MD ISMAIL ABID", hq: "Hyderabad" },
+      "2003353472": { name: "Mohammed Jaleel", hq: "Hyderabad" },
+      "2003353489": { name: "K Harish", hq: "Hyderabad" },
+      "2003385611": { name: "KATTELA VIJAY KUMAR", hq: "Hyderabad" },
+      "2003421599": { name: "Samala Anil Kumar", hq: "Hyderabad" },
+      "2003423213": { name: "Kodi Vamsi", hq: "Hyderabad" },
+      "2003421607": { name: "Kotte Mallesh", hq: "Hyderabad" },
+      "2003421596": { name: "Gajula Sai Kumar", hq: "Hyderabad" },
+      "2003454930": { name: "M Srinivas", hq: "Hyderabad" },
+      "2003454916": { name: "Gurram Bhargav", hq: "Hyderabad" },
+      "2003546255": { name: "KOMMU AMBEDHKAR", hq: "Hyderabad" },
+      "2003584763": { name: "M VIKRAM REDDY", hq: "Hyderabad" },
+      "2003584768": { name: "SHIVACHANDER G", hq: "Hyderabad" }
+    };
+    
     document.getElementById("employeeID").addEventListener("input", function() {
       var employeeID = this.value.trim();
-      var employeeData = employeeNames[employeeID];
+      var employeeData = employeeDetails[employeeID];
       document.getElementById("open-form-button").disabled = !allowedEmployeeIDs.includes(employeeID);
       document.getElementById("employeeName").value = employeeData ? employeeData.name : '';
       document.getElementById("headquarter").value = employeeData ? employeeData.hq : '';
@@ -493,6 +485,7 @@ const employeeNames = {
         console.error(error);
         document.getElementById("message").textContent = "An error occurred while submitting the form.";
         document.getElementById("message").style.display = "block";
+        document.getElementById("submit-button").disabled = false;
       });
     });
 
@@ -502,6 +495,7 @@ const employeeNames = {
 
     document.getElementById("cancel-button").addEventListener("click", function() {
       document.getElementById("form-container").style.display = "none";
+      document.getElementById("form").reset();
     });
 
     function showPreview(formData) {
@@ -512,7 +506,7 @@ const employeeNames = {
       serialNumberCell.textContent = submissionCount;
       dataRow.appendChild(serialNumberCell);
 
-      var headers = ['Subzone', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+      var headers = ['DistrictName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
 
       headers.forEach(function(header) {
         var dataCell = document.createElement("td");
@@ -530,8 +524,8 @@ const employeeNames = {
       let max = parseInt(input.max);
       let errorMessage = document.getElementById(input.id + "-error");
 
-      if (value.length !== 3 || isNaN(value) || value < min || value > max) {
-        errorMessage.textContent = "Please enter a valid number";
+      if (isNaN(value) || value < min || value > max) {
+        errorMessage.textContent = "Please enter a valid number between " + min + " and " + max;
         input.setCustomValidity("Invalid input");
       } else {
         errorMessage.textContent = "";
