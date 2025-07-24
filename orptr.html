@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Competitor Price</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
   <style>
-    /* Custom CSS */
     .hero.is-primary {
       background-color: #70A9A1;
       color: #000;
@@ -51,6 +50,7 @@
       </div>
     </div>
   </section>
+
   <div class="container">
     <div class="field">
       <label class="label" for="employeeID">Employee ID</label>
@@ -65,73 +65,77 @@
       </div>
     </div>
   </div>
+
   <button class="button is-info is-fullwidth" id="open-form-button" disabled>Open Form</button>
+
   <div class="container container-form" id="form-container" style="display: none;">
     <form id="form">
       <div class="field">
-        <label class="label" style="width:25%" for="subzone">Subzone</label>
+        <label class="label" for="subzone">Subzone</label>
         <div class="control">
           <input class="input" type="text" name="Subzone" id="subzone" readonly value="ORISSA">
         </div>
       </div>
       <input type="hidden" id="hiddenEmployeeID" name="EmployeeID">
       <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
+
       <div class="field">
-        <label class="label" style="width:35%" for="districtName">District Name</label>
+        <label class="label" for="district">District Name</label>
         <div class="control">
           <div class="select">
             <select id="district" name="DistrictName" required>
               <option disabled hidden selected>Select One</option>
               <option value="Anugul">Anugul</option>
-<option value="Balangir">Balangir</option>
-<option value="Bhubaneshwar">Bhubaneshwar</option>
-<option value="Balasore">Balasore</option>
-<option value="Bargarh">Bargarh</option>
-<option value="Baudh">Baudh</option>
-<option value="Berhampur">Berhampur</option>
-<option value="Bhadrak">Bhadrak</option>
-<option value="Cuttack">Cuttack</option>
-<option value="Debagarh">Debagarh</option>
-<option value="Dhenkanal">Dhenkanal</option>
-<option value="Gajapati">Gajapati</option>
-<option value="Ganjam">Ganjam</option>
-<option value="Jagatsinghapur">Jagatsinghapur</option>
-<option value="Jajapur">Jajapur</option>
-<option value="Jharsuguda">Jharsuguda</option>
-<option value="Jaypur">Jaypur</option>
-<option value="Kalahandi">Kalahandi</option>
-<option value="Kandhamal">Kandhamal</option>
-<option value="Kendrapara">Kendrapara</option>
-<option value="Kendujhar">Kendujhar</option>
-<option value="Khordha">Khordha</option>
-<option value="Koraput">Koraput</option>
-<option value="Malkangiri">Malkangiri</option>
-<option value="Mayurbhanj">Mayurbhanj</option>
-<option value="Nabarangapur">Nabarangapur</option>
-<option value="Nayagarh">Nayagarh</option>
-<option value="Nuapada">Nuapada</option>
-<option value="Puri">Puri</option>
-<option value="Rayagada">Rayagada</option>
-<option value="Rourkela">Rourkela</option>
-<option value="Sambalpur">Sambalpur</option>
-<option value="Subarnapur">Subarnapur</option>
-<option value="Sundargarh">Sundargarh</option>
+              <option value="Balangir">Balangir</option>
+              <option value="Bhubaneshwar">Bhubaneshwar</option>
+              <option value="Balasore">Balasore</option>
+              <option value="Bargarh">Bargarh</option>
+              <option value="Baudh">Baudh</option>
+              <option value="Berhampur">Berhampur</option>
+              <option value="Bhadrak">Bhadrak</option>
+              <option value="Cuttack">Cuttack</option>
+              <option value="Debagarh">Debagarh</option>
+              <option value="Dhenkanal">Dhenkanal</option>
+              <option value="Gajapati">Gajapati</option>
+              <option value="Ganjam">Ganjam</option>
+              <option value="Jagatsinghapur">Jagatsinghapur</option>
+              <option value="Jajapur">Jajapur</option>
+              <option value="Jharsuguda">Jharsuguda</option>
+              <option value="Jaypur">Jaypur</option>
+              <option value="Kalahandi">Kalahandi</option>
+              <option value="Kandhamal">Kandhamal</option>
+              <option value="Kendrapara">Kendrapara</option>
+              <option value="Kendujhar">Kendujhar</option>
+              <option value="Khordha">Khordha</option>
+              <option value="Koraput">Koraput</option>
+              <option value="Malkangiri">Malkangiri</option>
+              <option value="Mayurbhanj">Mayurbhanj</option>
+              <option value="Nabarangapur">Nabarangapur</option>
+              <option value="Nayagarh">Nayagarh</option>
+              <option value="Nuapada">Nuapada</option>
+              <option value="Puri">Puri</option>
+              <option value="Rayagada">Rayagada</option>
+              <option value="Rourkela">Rourkela</option>
+              <option value="Sambalpur">Sambalpur</option>
+              <option value="Subarnapur">Subarnapur</option>
+              <option value="Sundargarh">Sundargarh</option>
             </select>
           </div>
         </div>
       </div>
-<div class="field">
-        <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
+
+      <div class="field">
+        <label class="label" for="townAreaName">Town / Area Name</label>
         <div class="control">
-          <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town" style="width:75%" required>
+          <input class="input" type="text" id="townAreaName" placeholder="Type Town / Area Name" name="TownAreaName" style="width:75%" required>
         </div>
       </div>
-      
+
       <div class="field">
-        <label class="label" style="width:35%" for="brandName">Brand Name</label>
+        <label class="label" for="brandName">Brand Name</label>
         <div class="control">
           <div class="select">
-            <select id="brandName" name="BrandName">
+            <select id="brandName" name="BrandName" required>
               <option disabled hidden selected>Select One</option>
               <option value="Freedom">Freedom</option>
               <option value="Double Hiran">Double Hiran</option>
@@ -163,46 +167,54 @@
           </div>
         </div>
       </div>
+
       <div class="field">
-        <label class="label" style="width:65%" for="beatName">Beat Name</label>
+        <label class="label" for="beatName">Beat Name</label>
         <div class="control">
           <input class="input" type="text" id="beatName" placeholder="Enter Beat Name" name="BeatName" style="width:75%" required>
         </div>
       </div>
+
       <div class="field">
         <label class="label" for="outletName">Outlet Name</label>
         <div class="control">
           <input class="input" type="text" id="outletName" placeholder="Enter Outlet Name" name="OutletName" style="width:75%" required>
         </div>
       </div>
+
+      <!-- PTR and PTC Fields -->
       <div class="field">
         <label class="label" for="ltrPTR">SF 1 Ltr PTR</label>
         <div class="control">
-          <input class="input" type="number" id="ltrPTR" placeholder="Enter 1 Ltr PTR (3 digits only)" name="1LtrPTR" min="90" max="299" style="width:45%" oninput="checkInput(this)" required>
+          <input class="input" type="number" id="ltrPTR" name="1LtrPTR" placeholder="Enter 1 Ltr PTR" min="90" max="299" oninput="checkInput(this)" required style="width:45%">
           <div id="ltrPTR-error" class="error-message" style="color: red;"></div>
         </div>
       </div>
+
       <div class="field">
         <label class="label" for="ltrPTC">SF 1 Ltr PTC</label>
         <div class="control">
-          <input class="input" type="number" id="ltrPTC" placeholder="Enter 1 Ltr PTC (3 digits only)" name="1LtrPTC" min="100" max="299" style="width:45%" oninput="checkInput(this)" required>
+          <input class="input" type="number" id="ltrPTC" name="1LtrPTC" placeholder="Enter 1 Ltr PTC" min="100" max="299" oninput="checkInput(this)" required style="width:45%">
           <div id="ltrPTC-error" class="error-message" style="color: red;"></div>
         </div>
       </div>
+
       <div class="field">
         <label class="label" for="5trPTR">SF 5 Ltr PTR</label>
         <div class="control">
-          <input class="input" type="number" id="5trPTR" placeholder="Enter 5 Ltr PTR (3 digits only)" name="5LtrPTR" min="400" max="1000" style="width:45%" oninput="checkInput(this)" required>
+          <input class="input" type="number" id="5trPTR" name="5LtrPTR" placeholder="Enter 5 Ltr PTR" min="400" max="1000" oninput="checkInput(this)" required style="width:45%">
           <div id="5trPTR-error" class="error-message" style="color: red;"></div>
         </div>
       </div>
+
       <div class="field">
         <label class="label" for="5trPTC">SF 5 Ltr PTC</label>
         <div class="control">
-          <input class="input" type="number" id="5trPTC" placeholder="Enter 5 Ltr PTC (3 digits only)" name="5LtrPTC" min="450" max="1000" style="width:45%" oninput="checkInput(this)" required>
+          <input class="input" type="number" id="5trPTC" name="5LtrPTC" placeholder="Enter 5 Ltr PTC" min="450" max="1000" oninput="checkInput(this)" required style="width:45%">
           <div id="5trPTC-error" class="error-message" style="color: red;"></div>
         </div>
       </div>
+
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary" type="submit" id="submit-button">Submit</button>
@@ -212,29 +224,30 @@
         </div>
       </div>
     </form>
+
     <div id="message" class="message"></div>
   </div>
+
   <div class="container" id="preview-container" style="display: none;">
     <table class="table preview-table">
       <thead>
         <tr>
           <th>Serial No</th>
-          <th>District Name</th>
-          <th>Town/Area Name</th>
-          <th>Brand Name</th>
-          <th>Beat Name</th>
-          <th>Outlet Name</th>
-          <th>1 Ltr PTR</th>
-          <th>1 Ltr PTC</th>
-          <th>5 Ltr PTR</th>
-          <th>5 Ltr PTC</th>
+          <th>District</th>
+          <th>Town/Area</th>
+          <th>Brand</th>
+          <th>Beat</th>
+          <th>Outlet</th>
+          <th>1Ltr PTR</th>
+          <th>1Ltr PTC</th>
+          <th>5Ltr PTR</th>
+          <th>5Ltr PTC</th>
         </tr>
       </thead>
-      <tbody id="preview-table-body">
-      </tbody>
+      <tbody id="preview-table-body"></tbody>
     </table>
   </div>
-  <script>
+<script>
     var submissionCount = 0;
 
     var allowedEmployeeIDs = [
