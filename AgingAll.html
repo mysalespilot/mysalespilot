@@ -3,8 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Power BI Dashboard Viewer</title>
+  <title>Power BI Dashboard Viewer & Excel Data</title>
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4895ef;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --danger-color: #f72585;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -60,43 +77,78 @@
       transform: scale(1.05);
     }
 
-    .report-container {
-      width: 95%;
-      max-width: 1200px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      border: 6px solid #ffffff80;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      flex: 1;
-      border-radius: 10px;
-    }
-
     #error {
       color: #ffcccc;
       display: none;
       margin-top: 10px;
     }
 
-    @media (max-width: 768px) {
-      iframe {
-        height: 100%;
-      }
-
-      .report-container {
-        width: 98%;
-        border-width: 4px;
-      }
+    /* Layout after login */
+    .dashboard-layout {
+      display: flex;
+      height: 100%;
+      width: 100%;
     }
+
+    /* Sidebar Menu */
+    .sidebar {
+      width: 220px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-item {
+      padding: 15px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 1.1rem;
+    }
+
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main content area */
+    .content-area {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: var(--dark-color);
+    }
+
+    .report-container {
+      flex: 1;
+      border: 6px solid #ffffff80;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: var(--border-radius);
+    }
+
+    /* Excel Table Styles */
+    h1 { text-align: center; font-size: 2rem; color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
+    #sheetTable thead th { background-color: var(--primary-color); color: white; font-weight: 600; padding: 10px; }
+    thead input, thead select { width: 100%; padding: 3px 5px; font-size: 12px; margin-top: 2px; }
+    .dt-buttons .dt-button { background-color: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 4px; }
+    .btn { background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; margin-bottom: 15px; }
+    .btn i { margin-right: 5px; }
+
   </style>
 </head>
 <body>
@@ -112,24 +164,57 @@
     </div>
   </div>
 
-  <!-- Power BI Viewer Page -->
-  <div id="reportPage" style="display: none; width: 100%;">
-    <div class="report-container">
-      <iframe id="reportFrame" src="" allowfullscreen></iframe>
+  <!-- Dashboard Page -->
+  <div id="reportPage" style="display: none;">
+    <div class="dashboard-layout">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="menu-item" onclick="showSection('powerbi')">📊 Power BI Report</div>
+        <div class="menu-item" onclick="showSection('excel')">📥 Excel Data View</div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="content-area">
+
+        <!-- Power BI Section -->
+        <div id="powerbiSection" class="report-container">
+          <iframe id="reportFrame" src="" allowfullscreen></iframe>
+        </div>
+
+        <!-- Excel Section -->
+        <div id="excelSection" class="report-container" style="display:none;">
+          <h1>Dump Data</h1>
+          <iframe src="https://docs.google.com/spreadsheets/d/1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY/preview"></iframe>
+
+          <a href="https://docs.google.com/spreadsheets/d/1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY/export?format=csv&id=1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY&gid=0" download class="btn">
+            <i class="fa fa-download"></i> Download Original CSV
+          </a>
+          <div id="loading" class="loading-spinner"></div>
+          <table id="sheetTable" class="display" style="width:100%">
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+      </div>
     </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+
   <script>
     const summaryURL = "https://app.powerbi.com/view?r=eyJrIjoiYTRiMjIxMjMtYzM3Zi00MTMxLWEwNTktODRiODI1ZGJkNTVmIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+    const allowedNumbers = ['900421', '900898', '900021', '901044'];
 
     function validateLogin() {
-      const allowedNumbers = ['900421', '900898','900021' ,'901044' ,'',''];
       const enteredNumber = document.getElementById('loginNumber').value;
-
       if (allowedNumbers.includes(enteredNumber)) {
         document.getElementById('loginBox').style.display = 'none';
         document.getElementById('reportPage').style.display = 'flex';
         showReport();
+        loadSheetData();
       } else {
         document.getElementById('error').style.display = 'block';
       }
@@ -140,7 +225,78 @@
       const timestamp = new Date().getTime();
       reportFrame.src = summaryURL + `&ts=${timestamp}`;
     }
-  </script>
 
+    function showSection(section) {
+      document.getElementById('powerbiSection').style.display = section === 'powerbi' ? 'flex' : 'none';
+      document.getElementById('excelSection').style.display = section === 'excel' ? 'flex' : 'none';
+    }
+
+    // Google Sheet Data
+    const sheetURL = "https://script.google.com/macros/s/AKfycbzr_c_fuUamcs8oW-b2HEdjG-ctkqdehvDVzNDYubmG00yXEkWsPV7vx6U_da6Stprd/exec";
+    const wantedHeaders = ["Contract No","Created On Date","Created on Time","Contract Type","PO No.","User Id","Sales Organization","Distribution Channel","Division","Sold to Party","Sold to Party Name","Ship to Party","Ship to Party Name","Ship to Party City","Ship to Party Region","Ship to Party District","Bill to Party","Bill to Party Name","Payer","Payer Name","Customer Group","Customer Grp. Description","Cutomer Group-1","Cutomer Group-1 Description","Cutomer Group-2","Cutomer Group-2 Description","Cutomer Group-3","Cutomer Group-3 Description","Cutomer Group-4","Cutomer Group-4 Description","Cutomer Group-5","Cutomer Group-5 Description","Contract Item","Contract Item_1","Material","Material Desc","Inco Term 1","Inco Term 2","Payment Term","Quantity","Uom","Quantity in MTS","Plant","Plant State","Material group1","Material group_1","Material group2","Material group_2","Material group3","Material group_3","Material group4","Material group_4","Material group5","Material group_5","Material group__5","PACK_TYPE","Rate Before Discount","Discount","Net Selling Rate (ZASS)","Net Weight per Unit","Net Weight unit","ZFRC For Component","Packing Cost per Unit","Freight Charges","Depot Expense","Other expenses","Scheme & FI Cost per SKU","Additional Cost","(ZTPD)- Terms of Paymt DISC","Total Add On","ZDPD-Price Discount","ZPRI - Sale Price","Price Difference","Freight After ZPRI-M","Duty","Roll Over Cost","Realized Rate","Realized Value","Realization Per MTS","Balance Invoice Qty","Balance Invoice Qty Uom","Bal Inv Qty in Sale Unit","Bal Inv Qty Sales Unit Uom","Pen.Rel Value","Status","Refrence Contract","Sum Contract","Valid From","Valid To"];
+
+    function loadSheetData() {
+      fetch(sheetURL)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('loading').style.display = 'none';
+          if(data.length===0){
+              document.getElementById('tableBody').innerHTML = '<tr><td colspan="'+wantedHeaders.length+'">No data</td></tr>';
+              return;
+          }
+
+          // Build table head with search inputs
+          let theadHTML = "<tr>";
+          wantedHeaders.forEach(h => theadHTML += `<th>${h}</th>`);
+          theadHTML += "</tr><tr>";
+          wantedHeaders.forEach(h => theadHTML += `<th><input type="text" placeholder="Search ${h}" /></th>`);
+          theadHTML += "</tr>";
+          document.getElementById("tableHead").innerHTML = theadHTML;
+
+          // Build table body
+          let tbodyHTML = "";
+          data.forEach(row => {
+              tbodyHTML += "<tr>";
+              wantedHeaders.forEach(h => tbodyHTML += `<td>${row[h] || ""}</td>`);
+              tbodyHTML += "</tr>";
+          });
+          document.getElementById("tableBody").innerHTML = tbodyHTML;
+
+          // Initialize DataTable
+          let table = $('#sheetTable').DataTable({
+              orderCellsTop: true,
+              pageLength: 10,
+              initComplete: function () {
+                  this.api().columns().every(function () {
+                      var column = this;
+                      $('input', this.header()).on('keyup change clear', function () {
+                          if (column.search() !== this.value) column.search(this.value).draw();
+                      });
+                  });
+              }
+          });
+
+          // CSV export
+          document.getElementById("exportCSV").addEventListener("click", function(){
+              let csv = [];
+              let headers = [];
+              $("#sheetTable thead tr:first-child th").each(function(){ headers.push($(this).text().trim()); });
+              csv.push(headers.join(","));
+              table.rows({search:'applied'}).every(function(){
+                  let row = [];
+                  $(this.node()).find("td").each(function(){ row.push('"' + $(this).text().replace(/"/g,'""') + '"'); });
+                  csv.push(row.join(","));
+              });
+              let csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+              let downloadLink = document.createElement("a");
+              downloadLink.download = "Filtered_Data_" + new Date().toISOString().slice(0,10) + ".csv";
+              downloadLink.href = window.URL.createObjectURL(csvFile);
+              document.body.appendChild(downloadLink);
+              downloadLink.click();
+          });
+        })
+        .catch(err => console.error("Error loading data:", err));
+    }
+  </script>
 </body>
 </html>
