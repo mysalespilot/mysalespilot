@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Power BI Dashboard Viewer & Excel Data</title>
+  <title>Power BI Dashboard</title>
 
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -140,8 +140,8 @@
   </style>
 </head>
 <body>
-
-  <!-- Login Screen -->
+  
+ <!-- Login Screen -->
   <div id="loginBox">
     <div class="login-box">
       <h2>Login to View Sale Order Aging Dashboard</h2>
@@ -151,14 +151,13 @@
       <p id="error">Invalid number. Try again.</p>
     </div>
   </div>
-
   <!-- Dashboard Page -->
   <div id="reportPage" style="display: none;">
     <div class="dashboard-layout">
       <!-- Sidebar -->
       <div class="sidebar">
         <div class="menu-item" onclick="showSection('powerbi')">📊 Power BI Report</div>
-        <div class="menu-item" onclick="showSection('excel')">📥 Excel Data View</div>
+        <div class="menu-item" onclick="showSection('excel')">📥 Excel Export</div>
       </div>
 
       <!-- Main Content Area -->
@@ -169,12 +168,19 @@
           <iframe id="reportFrame" src="" allowfullscreen></iframe>
         </div>
 
-        <!-- Excel Section with Export -->
-<div id="excelSection" class="report-container" style="display:none; flex-direction: column;">
-  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTsCPqfjtbX78fqypZKDzdTTZ6dbZv3WJ3C_Bsfg7i8VEGfwTKYSauTcaA7ybqXD8REepI4bpU0omLA/pubhtml?gid=1661462643&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
-  <button id="exportCSVBtn">⬇️ Export as CSV</button>
-</div>
+        <!-- Google Sheet Section -->
+        <div id="excelSection" class="report-container" style="display:none; flex-direction: column;">
+         
 
+          <!-- Download Excel Button -->
+          <a class="download-btn" href="https://docs.google.com/spreadsheets/d/1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY/export?format=xlsx" target="_blank">
+            📥 Download as Excel
+          </a>
+
+          
+          <!-- Google Sheet Embed -->
+          <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTsCPqfjtbX78fqypZKDzdTTZ6dbZv3WJ3C_Bsfg7i8VEGfwTKYSauTcaA7ybqXD8REepI4bpU0omLA/pubhtml?gid=1661462643&single=true"></iframe>
+        </div>
 
       </div>
     </div>
@@ -206,16 +212,16 @@
       document.getElementById('excelSection').style.display = section === 'excel' ? 'flex' : 'none';
     }
 
-    // CSV Export Button
-    document.getElementById('exportCSVBtn').addEventListener('click', function() {
-      const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTsCPqfjtbX78fqypZKDzdTTZ6dbZv3WJ3C_Bsfg7i8VEGfwTKYSauTcaA7ybqXD8REepI4bpU0omLA/pub?gid=0&single=true&output=csv";
+    // CSV Download
+    function downloadCSV() {
+      const csvURL = "https://docs.google.com/spreadsheets/d/1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY/pub?output=csv";
       const link = document.createElement('a');
       link.href = csvURL;
       link.download = "Sale_Order_Aging.csv";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    });
+    }
   </script>
 
 </body>
