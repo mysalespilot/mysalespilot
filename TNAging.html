@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Power BI Dashboard</title>
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4895ef;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --danger-color: #f72585;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      overflow: hidden;
+    }
+    #loginBox, #reportPage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      padding: 10px;
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+    input[type="number"] {
+      width: 90%;
+      padding: 12px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #ffffff33;
+      color: white;
+      border: 2px solid white;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      margin: 10px;
+    }
+    button:hover {
+      background-color: #ffffff55;
+      transform: scale(1.05);
+    }
+    #exportCSVBtn {
+      color: black;
+      font-weight: bold;
+      background-color: #ffffffaa; /* optional for better contrast */
+      border: 2px solid black;
+    }
+    #error {
+      color: #ffcccc;
+      display: none;
+      margin-top: 10px;
+    }
+    .dashboard-layout {
+      display: flex;
+      height: 100%;
+      width: 100%;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-item {
+      padding: 15px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 1.1rem;
+    }
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .content-area {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: var(--dark-color);
+    }
+    .report-container {
+      flex: 1;
+      border: 6px solid #ffffff80;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: var(--border-radius);
+      background: white;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  
+ <!-- Login Screen -->
+  <div id="loginBox">
+    <div class="login-box">
+      <h2>Login to View Sale Order Aging Dashboard</h2>
+      <input type="number" id="loginNumber" placeholder="Enter Your Number" />
+      <br />
+      <button onclick="validateLogin()">Login</button>
+      <p id="error">Invalid number. Try again.</p>
+    </div>
+  </div>
+  <!-- Dashboard Page -->
+  <div id="reportPage" style="display: none;">
+    <div class="dashboard-layout">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="menu-item" onclick="showSection('powerbi')">📊 Power BI Report</div>
+        <div class="menu-item" onclick="showSection('excel')">📥 Excel Export</div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="content-area">
+
+        <!-- Power BI Section -->
+        <div id="powerbiSection" class="report-container">
+          <iframe id="reportFrame" src="" allowfullscreen></iframe>
+        </div>
+
+        <!-- Google Sheet Section -->
+        <div id="excelSection" class="report-container" style="display:none; flex-direction: column;">
+         
+
+          <!-- Download Excel Button -->
+          <a class="download-btn" href="https://docs.google.com/spreadsheets/d/1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY/export?format=xlsx" target="_blank">
+            📥 Download as Excel
+          </a>
+
+          
+          <!-- Google Sheet Embed -->
+          <iframe src="https://docs.google.com/spreadsheets/d/1781nTOidp4IFSnIMn3xPTBuPl6bU4PrhCySh1BQgATw/edit?gid=0#gid=0"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const summaryURL = "https://app.powerbi.com/view?r=eyJrIjoiNzE5MTNiNTktZTlmYy00NzAzLTg1NTMtZTI5OTVmMGZkYzg2IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+    const allowedNumbers = ['900421', '900898', '900021', '901044','901231'];
+
+    function validateLogin() {
+      const enteredNumber = document.getElementById('loginNumber').value;
+      if (allowedNumbers.includes(enteredNumber)) {
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('reportPage').style.display = 'flex';
+        showReport();
+      } else {
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+
+    function showReport() {
+      const reportFrame = document.getElementById('reportFrame');
+      const timestamp = new Date().getTime();
+      reportFrame.src = summaryURL + `&ts=${timestamp}`;
+    }
+
+    function showSection(section) {
+      document.getElementById('powerbiSection').style.display = section === 'powerbi' ? 'flex' : 'none';
+      document.getElementById('excelSection').style.display = section === 'excel' ? 'flex' : 'none';
+    }
+
+    // CSV Download
+    function downloadCSV() {
+      const csvURL = "https://docs.google.com/spreadsheets/d/1T4u1P9oyb9Hsq_A_Z7iJDQz5dypXSGlueOdla0aNnTY/pub?output=csv";
+      const link = document.createElement('a');
+      link.href = csvURL;
+      link.download = "Sale_Order_Aging.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+
+</body>
+</html>
