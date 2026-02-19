@@ -129,7 +129,7 @@
         errorDiv.textContent = "";
 
         // Refresh iframe with fresh Power BI link to ensure it's not cached
-        const reportUrl = "https://app.powerbi.com/view?r=eyJrIjoiY2E4MjNjZDgtM2E0My00YjAyLTg1NGEtYmY4MTkyZGI4ZjdlIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+        const reportUrl = "https://app.powerbi.com/view?r=eyJrIjoiYmY2YWYwNmYtOTYzZC00MzBmLWJhNTktNGE1MDU5ZWI1MDQ2IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
         frame.src = reportUrl + "&timestamp=" + new Date().getTime();  // prevent caching
 
         startIdleTimer();
