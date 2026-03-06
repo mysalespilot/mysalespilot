@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Confirmation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#e6c067,#f6c342);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.form-container{
+background:#ffffff;
+width:440px;
+padding:70px 35px 35px 35px;
+border-radius:18px;
+box-shadow:0 20px 35px rgba(0,0,0,0.15);
+position:relative;
+text-align:center;
+}
+
+.company-logo{
+position:absolute;
+top:18px;
+left:20px;
+width:50px;
+}
+
+.meal-logo{
+width:65px;
+display:block;
+margin:0 auto 10px auto;
+}
+
+h2{
+margin-bottom:25px;
+color:#2d2d2d;
+font-weight:600;
+}
+
+.input-group{
+text-align:left;
+margin-bottom:18px;
+}
+
+label{
+font-weight:500;
+font-size:14px;
+display:block;
+margin-bottom:6px;
+}
+
+input[type="text"]{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #d4d4d4;
+outline:none;
+font-size:14px;
+}
+
+.radio-group{
+display:flex;
+gap:25px;
+margin-top:5px;
+}
+
+button{
+width:100%;
+margin-top:20px;
+padding:14px;
+background:#f3b300;
+border:none;
+border-radius:8px;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+button:hover{
+background:#e3a600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+<img src="https://www.gefindia.com/assets/img/GEF_Logo.png" class="company-logo">
+
+<img src="https://img.icons8.com/?size=100&id=123642&format=png&color=000000" class="meal-logo">
+
+<h2>Meal Confirmation</h2>
+
+<form id="mealForm">
+
+<div class="input-group">
+<label>Employee ID</label>
+<input type="text" id="employeeId" required>
+</div>
+
+<div class="input-group">
+<label>Employee Name</label>
+<input type="text" id="employeeName" required>
+</div>
+
+<div class="input-group">
+<label>Lunch Confirmation</label>
+
+<div class="radio-group">
+<label><input type="radio" name="lunch" value="Yes" required> Yes</label>
+<label><input type="radio" name="lunch" value="No"> No</label>
+</div>
+
+</div>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+<script>
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbwMktsO38U6Bn40wR2vS9jEpsIXspkfbhjiXshWOdd8YE_EQdDcoqfcQREZlMxij0ky/exec";
+
+document.getElementById("mealForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const employeeId = document.getElementById("employeeId").value;
+const employeeName = document.getElementById("employeeName").value;
+const lunch = document.querySelector('input[name="lunch"]:checked').value;
+
+fetch(scriptURL,{
+method:"POST",
+body:JSON.stringify({
+employeeId:employeeId,
+employeeName:employeeName,
+lunch:lunch
+})
+})
+.then(res=>{
+alert("Meal / Lunch Confirmed");
+document.getElementById("mealForm").reset();
+})
+.catch(err=>alert("Error submitting form"));
+
+});
+
+</script>
+
+</body>
+</html>
