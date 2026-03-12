@@ -93,229 +93,277 @@ button:disabled{
 <body>
 
 <div class="container">
-    <div class="header">Marketing Expense Entry Form</div>
+<div class="header">Marketing Expense Entry Form</div>
 
-    <div class="content">
+<div class="content">
 
-        <!-- ROW 1 -->
-        <div class="row">
-            <div class="field">
-                <label>Activity</label>
-                <select id="activity" onchange="onActivityChange()">
-                    <option value="">Select</option>
-                    <option>ATL</option>
-                    <option>BTL</option>
-                    <option>Mktg Admin & Others</option>
-                </select>
-            </div>
+<!-- ROW 1 -->
+<div class="row">
 
-            <div class="field">
-                <label>Sub Activity</label>
-                <select id="subActivity" onchange="onSubActivityChange()">
-                    <option value="">Select</option>
-                </select>
-            </div>
+<div class="field">
+<label>Activity</label>
+<select id="activity" onchange="onActivityChange()">
+<option value="">Select</option>
+<option>ATL</option>
+<option>BTL</option>
+<option>Mktg Admin & Others</option>
+</select>
+</div>
 
-            <div class="field">
-                <label>Head Of Account</label>
-                <select id="head">
-                    <option value="">Select</option>
-                </select>
-            </div>
-        </div>
+<div class="field">
+<label>Sub Activity</label>
+<select id="subActivity" onchange="onSubActivityChange()">
+<option value="">Select</option>
+</select>
+</div>
 
-        <!-- ROW 2 -->
-        <div class="row">
-            <div class="field">
-                <label>State</label>
-                <select id="state">
-                    <option>AP</option>
-                    <option>TS</option>
-                    <option>KA</option>
-                    <option>TN</option>
-                </select>
-            </div>
+<div class="field">
+<label>Head Of Account</label>
+<select id="head">
+<option value="">Select</option>
+</select>
+</div>
 
-            <div class="field">
-                <label>Variant</label>
-                <select id="variant">
-                    <option>Sunflower</option>
-                    <option>RiceBran</option>
-                    <option>Groundnut</option>
-                    <option>Mustard</option>
-                </select>
-            </div>
+</div>
 
-            <div class="field">
-                <label>Year</label>
-                <select id="year">
-                    <option>2019</option><option>2020</option><option>2021</option>
-                    <option>2022</option><option>2023</option><option>2024</option>
-                    <option>2025</option><option>2026</option><option>2027</option>
-                    <option>2028</option><option>2029</option><option>2030</option>
-                </select>
-            </div>
+<!-- ROW 2 -->
+<div class="row">
 
-            <div class="field">
-                <label>Month</label>
-                <select id="month">
-                    <option>January</option><option>February</option><option>March</option>
-                    <option>April</option><option>May</option><option>June</option>
-                    <option>July</option><option>August</option><option>September</option>
-                    <option>October</option><option>November</option><option>December</option>
-                </select>
-            </div>
+<div class="field">
+<label>State</label>
+<select id="state">
+<option>AP</option>
+<option>TS</option>
+<option>KA</option>
+<option>TN</option>
+</select>
+</div>
 
-            <div class="field">
-                <label>Sub Head</label>
-                <input type="text" id="subHead">
-            </div>
-        </div>
+<div class="field">
+<label>Variant</label>
+<select id="variant">
+<option>Sunflower</option>
+<option>RiceBran</option>
+<option>Groundnut</option>
+<option>Mustard</option>
+</select>
+</div>
 
-        <!-- ROW 3 -->
-        <div class="row">
-            <div class="field"><label>Number / Qty</label><input type="number" id="qty"></div>
-            <div class="field"><label>Cost</label><input type="number" id="cost"></div>
-            <div class="field"><label>GRP</label><input type="number" id="grp"></div>
-            <div class="field"><label>Budget Amt</label><input type="number" id="budget"></div>
-            <div class="field"><label>Actual Amt</label><input type="number" id="actual"></div>
-        </div>
+<div class="field">
+<label>Financial Year</label>
+<select id="year">
+<option value="">Select</option>
+<option>2019-2020</option>
+<option>2020-2021</option>
+<option>2021-2022</option>
+<option>2022-2023</option>
+<option>2023-2024</option>
+<option>2024-2025</option>
+<option>2025-2026</option>
+<option>2026-2027</option>
+<option>2027-2028</option>
+<option>2028-2029</option>
+<option>2029-2030</option>
+<option>2030-2031</option>
+</select>
+</div>
 
-        <!-- ROW 4 -->
-        <div class="row">
-            <div class="field comment-box">
-                <label>Comment</label>
-                <input type="text" id="comment" placeholder="Short comment">
-            </div>
-        </div>
+<div class="field">
+<label>Month</label>
+<select id="month">
+<option>January</option><option>February</option><option>March</option>
+<option>April</option><option>May</option><option>June</option>
+<option>July</option><option>August</option><option>September</option>
+<option>October</option><option>November</option><option>December</option>
+</select>
+</div>
 
-        <div class="actions">
-            <button id="saveBtn" onclick="addEntry()">Add Entry</button>
-        </div>
+<div class="field">
+<label>Sub Head</label>
+<select id="subHead">
+<option value="">Select</option>
+<option>Meta</option>
+<option>Youtube</option>
+<option>Google Display</option>
+<option>APPs</option>
+<option>Influncers</option>
+<option>eCommerce</option>
+<option>OTT</option>
+<option>TV Channel Events sponsorships</option>
+<option>Print Publications Events sponsorship</option>
+<option>FM Radio Events Sponsorship</option>
+<option>Event Sponsorships</option>
+<option>Other Consumer Activations</option>
+<option>GRP</option>
+</select>
+</div>
 
-    </div>
+</div>
+
+<!-- ROW 3 -->
+<div class="row">
+<div class="field">
+<label>Quantity</label>
+<input type="number" id="qty">
+</div>
+
+<div class="field">
+<label>Budget Amt</label>
+<input type="number" id="budget">
+</div>
+
+<div class="field">
+<label>Actual Amt</label>
+<input type="number" id="actual">
+</div>
+</div>
+
+<!-- ROW 4 -->
+<div class="row">
+
+<div class="field comment-box">
+<label>Comment</label>
+<input type="text" id="comment" placeholder="Short comment">
+</div>
+
+</div>
+
+<div class="actions">
+<button id="saveBtn" onclick="addEntry()">Add Entry</button>
+</div>
+
+</div>
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxk9G4tOG9SnYWnLQ-VO4iTfx0EsQoaHGV113VeQ_YSSb9CJp_g0sFq-X0Uix4nwWXd8Q/exec";
 
-const headLists = {
-    ATL:[
-        "TVC Making/Editing/Dubbing",
-        "Satelite Channels/Cabel TV",
-        "Print media",
-        "FM Radio",
-        "Cinema Theatres",
-        "Digital Advertising",
-        "Press Conference",
-        "Hoardings",
-        "Bus/Auto Branding"
-    ],
-    POS:[
-        "Posters /Danglers",
-        "Display Charges/Quick Commerce",
-        "Leaflets",
-        "Banners",
-        "Dealer Boards/Arch Gates",
-        "T-Shirts"
-    ],
-    PROMO:[
-        "Calenders/Dairies/Gifts",
-        "Miscellaneous",
-        "Consumer Offer",
-        "Consumer Contest Gift",
-        "Roadshow",
-        "Consumer Activation",
-        "Exhibitions",
-        "Free Sampling",
-        "Distributor/ Retailer Meet"
-    ],
-    ADMIN:[
-        "AgenFY Retainer-Creative",
-        "AgenFY Retainer-PR",
-        "AgenFY Retainer-Digital",
-        "Consumer/ Retail l Audit",
-        "Communication expenses & Misc",
-        "Market Research"
-    ]
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycby42hinb5S3JFHCPhb0VLTXiciORN5Szn8QOwbyYB7IVoFlomXDU05_BOJ5u5V8yngSRw/exec";
+
+const headLists={
+ATL:[
+"TVC Making/Editing/Dubbing",
+"Satelite Channels/Cabel TV",
+"Print media",
+"FM Radio",
+"Cinema Theatres",
+"Digital Advertising",
+"Press Conference",
+"Hoardings",
+"Bus/Auto Branding"
+],
+POS:[
+"Posters /Danglers",
+"Display Charges/Quick Commerce",
+"Leaflets",
+"Banners",
+"Dealer Boards/Arch Gates",
+"T-Shirts"
+],
+PROMO:[
+"Calenders/Dairies/Gifts",
+"Miscellaneous",
+"Consumer Offer",
+"Consumer Contest Gift",
+"Roadshow",
+"Consumer Activation",
+"Exhibitions",
+"Free Sampling",
+"Distributor/ Retailer Meet"
+],
+ADMIN:[
+"AgenFY Retainer-Creative",
+"AgenFY Retainer-PR",
+"AgenFY Retainer-Digital",
+"Consumer/ Retail l Audit",
+"Communication expenses & Misc",
+"Market Research"
+]
 };
 
 function onActivityChange(){
-    subActivity.innerHTML="";
-    head.innerHTML="<option>Select</option>";
-    subActivity.disabled=false;
 
-    if(activity.value==="ATL"){
-        subActivity.innerHTML="<option>ATL</option>";
-        subActivity.disabled=true;
-        loadHeads(headLists.ATL);
-    }
-    else if(activity.value==="BTL"){
-        subActivity.innerHTML="<option value='POS'>POS</option><option value='PROMO'>Promotional Activities</option>";
-    }
-    else if(activity.value==="Mktg Admin & Others"){
-        subActivity.innerHTML="<option>Mktg Admin & Others</option>";
-        subActivity.disabled=true;
-        loadHeads(headLists.ADMIN);
-    }
+subActivity.innerHTML="";
+head.innerHTML="<option>Select</option>";
+subActivity.disabled=false;
+
+if(activity.value==="ATL"){
+subActivity.innerHTML="<option>ATL</option>";
+subActivity.disabled=true;
+loadHeads(headLists.ATL);
+}
+else if(activity.value==="BTL"){
+subActivity.innerHTML="<option value='POS'>POS</option><option value='PROMO'>Promotional Activities</option>";
+}
+else if(activity.value==="Mktg Admin & Others"){
+subActivity.innerHTML="<option>Mktg Admin & Others</option>";
+subActivity.disabled=true;
+loadHeads(headLists.ADMIN);
+}
+
 }
 
 function onSubActivityChange(){
-    if(subActivity.value==="POS") loadHeads(headLists.POS);
-    if(subActivity.value==="PROMO") loadHeads(headLists.PROMO);
+
+if(subActivity.value==="POS") loadHeads(headLists.POS);
+
+if(subActivity.value==="PROMO") loadHeads(headLists.PROMO);
+
 }
 
 function loadHeads(list){
-    head.innerHTML="<option>Select</option>";
-    list.forEach(h=>{
-        const o=document.createElement("option");
-        o.textContent=h;
-        head.appendChild(o);
-    });
+
+head.innerHTML="<option>Select</option>";
+
+list.forEach(h=>{
+const o=document.createElement("option");
+o.textContent=h;
+head.appendChild(o);
+});
+
 }
 
 function addEntry(){
 
-    if(!activity.value || !head.value){
-        alert("Please select Activity and Head Of Account");
-        return;
-    }
-
-    document.getElementById("saveBtn").disabled = true;
-
-    const payload = {
-        activity: activity.value,
-        subActivity: subActivity.value,
-        head: head.value,
-        state: state.value,
-        variant: variant.value,
-        year: year.value,
-        month: month.value,
-        subHead: subHead.value,
-        qty: qty.value,
-        cost: cost.value,
-        grp: grp.value,
-        budget: budget.value,
-        actual: actual.value,
-        comment: comment.value
-    };
-
-    fetch(WEB_APP_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(() => {
-        alert("✅ Data saved to Google Sheet successfully");
-        document.querySelectorAll("input").forEach(i => i.value = "");
-        document.getElementById("saveBtn").disabled = false;
-    })
-    .catch(() => {
-        alert("❌ Error saving data");
-        document.getElementById("saveBtn").disabled = false;
-    });
+if(!activity.value || !head.value){
+alert("Please select Activity and Head Of Account");
+return;
 }
+
+document.getElementById("saveBtn").disabled=true;
+
+const payload={
+activity:activity.value,
+subActivity:subActivity.value,
+head:head.value,
+state:state.value,
+variant:variant.value,
+year:year.value,
+month:month.value,
+subHead:subHead.value,
+qty:qty.value,
+budget:budget.value,
+actual:actual.value,
+comment:comment.value
+};
+
+fetch(WEB_APP_URL,{
+method:"POST",
+mode:"no-cors",
+body:JSON.stringify(payload),
+headers:{"Content-Type":"application/json"}
+})
+.then(()=>{
+alert("✅ Data saved to Google Sheet successfully");
+document.querySelectorAll("input").forEach(i=>i.value="");
+document.getElementById("saveBtn").disabled=false;
+})
+.catch(()=>{
+alert("❌ Error saving data");
+document.getElementById("saveBtn").disabled=false;
+});
+
+}
+
 </script>
 
 </body>
