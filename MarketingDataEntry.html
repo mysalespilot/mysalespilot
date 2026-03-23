@@ -43,6 +43,19 @@ body{
     display:flex;
     flex-direction:column;
 }
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.mode-toggle label {
+    cursor: pointer;
+    font-size: 15px;
+    color: #c86464;
+}
 label{
     font-size:13px;
     font-weight:500;
@@ -62,6 +75,10 @@ input:focus,select:focus{
     border-color:#c86464;
     background:#fff7f7;
     box-shadow:0 0 0 3px rgba(200,100,100,0.25);
+}
+input[readonly] {
+    background: #f0f0f0;
+    cursor: not-allowed;
 }
 .comment-box{
     max-width:360px;
@@ -97,8 +114,22 @@ button:disabled{
 
 <div class="content">
 
+<!-- MODE TOGGLE -->
+<div class="row mode-toggle">
+  <label>
+    <input type="radio" name="formMode" value="new" checked onchange="toggleMode()"> Create New Entry
+  </label>
+  <label>
+    <input type="radio" name="formMode" value="modify" onchange="toggleMode()"> Modify Existing Entry
+  </label>
+</div>
+
 <!-- ROW 1 -->
 <div class="row">
+<div class="field">
+<label>Serial Number</label>
+<input type="text" id="serialNo" placeholder="Auto-generated on submit" readonly>
+</div>
 
 <div class="field">
 <label>Activity</label>
@@ -168,6 +199,7 @@ button:disabled{
 </select>
 </div>
 
+
 <div class="field">
 <label>Month</label>
 <select id="month">
@@ -178,6 +210,11 @@ button:disabled{
 </select>
 </div>
 
+</div>
+
+<!-- ROW 3 -->
+<div class="row">
+    
 <div class="field">
 <label>Sub Head</label>
 <select id="subHead">
@@ -198,10 +235,6 @@ button:disabled{
 </select>
 </div>
 
-</div>
-
-<!-- ROW 3 -->
-<div class="row">
 <div class="field">
 <label>Quantity</label>
 <input type="number" id="qty">
@@ -229,7 +262,7 @@ button:disabled{
 </div>
 
 <div class="actions">
-<button id="saveBtn" onclick="addEntry()">Add Entry</button>
+<button id="saveBtn" onclick="submitForm()">Add Entry</button>
 </div>
 
 </div>
@@ -237,134 +270,141 @@ button:disabled{
 
 <script>
 
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycby42hinb5S3JFHCPhb0VLTXiciORN5Szn8QOwbyYB7IVoFlomXDU05_BOJ5u5V8yngSRw/exec";
+// IMPORTANT: Ensure this URL holds the latest deployment of your Google Apps Script
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbzHk8GAZx7fBv0_-lLcZLHwbXX36UX_E2tJ6hVN8MGHBtTPuRbycWYeUV8M_SS87eYJ3A/exec";
 
 const headLists={
-ATL:[
-"TVC Making/Editing/Dubbing",
-"Satelite Channels/Cabel TV",
-"Print media",
-"FM Radio",
-"Cinema Theatres",
-"Digital Advertising",
-"Press Conference",
-"Hoardings",
-"Bus/Auto Branding"
-],
-POS:[
-"Posters /Danglers",
-"Display Charges/Quick Commerce",
-"Leaflets",
-"Banners",
-"Dealer Boards/Arch Gates",
-"T-Shirts"
-],
-PROMO:[
-"Calenders/Dairies/Gifts",
-"Miscellaneous",
-"Consumer Offer",
-"Consumer Contest Gift",
-"Roadshow",
-"Consumer Activation",
-"Exhibitions",
-"Free Sampling",
-"Distributor/ Retailer Meet"
-],
-ADMIN:[
-"AgenFY Retainer-Creative",
-"AgenFY Retainer-PR",
-"AgenFY Retainer-Digital",
-"Consumer/ Retail l Audit",
-"Communication expenses & Misc",
-"Market Research"
-]
+ATL:["TVC Making/Editing/Dubbing","Satelite Channels/Cabel TV","Print media","FM Radio","Cinema Theatres","Digital Advertising","Press Conference","Hoardings","Bus/Auto Branding"],
+POS:["Posters /Danglers","Display Charges/Quick Commerce","Leaflets","Banners","Dealer Boards/Arch Gates","T-Shirts"],
+PROMO:["Calenders/Dairies/Gifts","Miscellaneous","Consumer Offer","Consumer Contest Gift","Roadshow","Consumer Activation","Exhibitions","Free Sampling","Distributor/ Retailer Meet"],
+ADMIN:["AgenFY Retainer-Creative","AgenFY Retainer-PR","AgenFY Retainer-Digital","Consumer/ Retail l Audit","Communication expenses & Misc","Market Research"]
 };
 
+// Generates a Serial Number based on Timestamp (e.g. SN-20231025-143022)
+function generateSerialNumber() {
+    const now = new Date();
+
+    const datePart =
+        now.getFullYear().toString().slice(-2) +   // YY
+        (now.getMonth() + 1).toString().padStart(2, '0') +  // MM
+        now.getDate().toString().padStart(2, '0'); // DD
+
+    const randomPart = Math.floor(100 + Math.random() * 900); // 3-digit
+
+    return `SN-${datePart}-${randomPart}`;
+}
+
+function toggleMode() {
+    const mode = document.querySelector('input[name="formMode"]:checked').value;
+    const serialInput = document.getElementById("serialNo");
+    const saveBtn = document.getElementById("saveBtn");
+
+    if (mode === "new") {
+        serialInput.value = "";
+        serialInput.readOnly = true;
+        serialInput.placeholder = "Auto-generated on submit";
+        saveBtn.textContent = "Add Entry";
+    } else {
+        serialInput.value = "";
+        serialInput.readOnly = false;
+        serialInput.placeholder = "Enter exact Serial No to update...";
+        saveBtn.textContent = "Update Entry";
+    }
+}
+
 function onActivityChange(){
+    subActivity.innerHTML="";
+    head.innerHTML="<option>Select</option>";
+    subActivity.disabled=false;
 
-subActivity.innerHTML="";
-head.innerHTML="<option>Select</option>";
-subActivity.disabled=false;
-
-if(activity.value==="ATL"){
-subActivity.innerHTML="<option>ATL</option>";
-subActivity.disabled=true;
-loadHeads(headLists.ATL);
-}
-else if(activity.value==="BTL"){
-subActivity.innerHTML="<option value='POS'>POS</option><option value='PROMO'>Promotional Activities</option>";
-}
-else if(activity.value==="Mktg Admin & Others"){
-subActivity.innerHTML="<option>Mktg Admin & Others</option>";
-subActivity.disabled=true;
-loadHeads(headLists.ADMIN);
-}
-
+    if(activity.value==="ATL"){
+        subActivity.innerHTML="<option>ATL</option>";
+        subActivity.disabled=true;
+        loadHeads(headLists.ATL);
+    }
+    else if(activity.value==="BTL"){
+        subActivity.innerHTML="<option value='POS'>POS</option><option value='PROMO'>Promotional Activities</option>";
+    }
+    else if(activity.value==="Mktg Admin & Others"){
+        subActivity.innerHTML="<option>Mktg Admin & Others</option>";
+        subActivity.disabled=true;
+        loadHeads(headLists.ADMIN);
+    }
 }
 
 function onSubActivityChange(){
-
-if(subActivity.value==="POS") loadHeads(headLists.POS);
-
-if(subActivity.value==="PROMO") loadHeads(headLists.PROMO);
-
+    if(subActivity.value==="POS") loadHeads(headLists.POS);
+    if(subActivity.value==="PROMO") loadHeads(headLists.PROMO);
 }
 
 function loadHeads(list){
-
-head.innerHTML="<option>Select</option>";
-
-list.forEach(h=>{
-const o=document.createElement("option");
-o.textContent=h;
-head.appendChild(o);
-});
-
+    head.innerHTML="<option>Select</option>";
+    list.forEach(h=>{
+        const o=document.createElement("option");
+        o.textContent=h;
+        head.appendChild(o);
+    });
 }
 
-function addEntry(){
+function submitForm(){
+    if(!activity.value || !head.value){
+        alert("Please select Activity and Head Of Account");
+        return;
+    }
 
-if(!activity.value || !head.value){
-alert("Please select Activity and Head Of Account");
-return;
-}
+    const mode = document.querySelector('input[name="formMode"]:checked').value;
+    let finalSerialNo = document.getElementById("serialNo").value.trim();
 
-document.getElementById("saveBtn").disabled=true;
+    if (mode === "new") {
+        finalSerialNo = generateSerialNumber();
+        document.getElementById("serialNo").value = finalSerialNo; // Show it to the user
+    } else {
+        if (!finalSerialNo) {
+            alert("Please provide the Serial Number you want to modify.");
+            return;
+        }
+    }
 
-const payload={
-activity:activity.value,
-subActivity:subActivity.value,
-head:head.value,
-state:state.value,
-variant:variant.value,
-year:year.value,
-month:month.value,
-subHead:subHead.value,
-qty:qty.value,
-budget:budget.value,
-actual:actual.value,
-comment:comment.value
-};
+    document.getElementById("saveBtn").disabled=true;
 
-fetch(WEB_APP_URL,{
-method:"POST",
-mode:"no-cors",
-body:JSON.stringify(payload),
-headers:{"Content-Type":"application/json"}
-})
-.then(()=>{
-alert("✅ Data saved to Google Sheet successfully");
-document.querySelectorAll("input").forEach(i=>i.value="");
-document.getElementById("saveBtn").disabled=false;
-})
-.catch(()=>{
-alert("❌ Error saving data");
-document.getElementById("saveBtn").disabled=false;
-});
+    // We now send 'action' and 'serialNo' so the backend knows what to do
+    const payload={
+        action: mode,          // "new" or "modify"
+        serialNo: finalSerialNo,
+        activity:activity.value,
+        subActivity:subActivity.value,
+        head:head.value,
+        state:state.value,
+        variant:variant.value,
+        year:year.value,
+        month:month.value,
+        subHead:subHead.value,
+        qty:qty.value,
+        budget:budget.value,
+        actual:actual.value,
+        comment:comment.value
+    };
 
+    fetch(WEB_APP_URL,{
+        method:"POST",
+        mode:"no-cors",
+        body:JSON.stringify(payload),
+        headers:{"Content-Type":"application/json"}
+    })
+    .then(()=>{
+        alert(`✅ Data submitted successfully!\nYour Serial No is: ${finalSerialNo}`);
+        document.querySelectorAll("input[type='number'], input[type='text']").forEach(i=>{
+            if(i.id !== 'serialNo' || mode === 'new') i.value=""; 
+        });
+        if (mode === "new") document.getElementById("serialNo").value = "";
+        document.getElementById("saveBtn").disabled=false;
+    })
+    .catch(()=>{
+        alert("❌ Error saving data");
+        document.getElementById("saveBtn").disabled=false;
+    });
 }
 
 </script>
-
 </body>
 </html>
