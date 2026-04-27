@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<HeadOfAccount>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marketing Expense Entry</title>
 
 <style>
-/* ===== CSS START ===== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #e3edfb;
@@ -16,7 +15,6 @@ body {
     align-items: center;
     min-height: 100vh;
 }
-
 .container {
     max-width: 1100px;
     width: 95%;
@@ -24,58 +22,14 @@ body {
     background: white;
     padding: 35px;
     border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 50, 100, 0.1);
 }
-
-h1 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #1a4a8e;
-}
-
-.mode {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 15px;
-    background: #f0f7ff;
-    border-radius: 8px;
-    border: 1px solid #d1e3f8;
-}
-
-.mode label {
-    margin: 0 15px;
-    font-weight: 600;
-    color: #2c5ba1;
-    cursor: pointer;
-}
-
 .form-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
-
-.field {
-    display: flex;
-    flex-direction: column;
-}
-
-.field.full {
-    grid-column: span 3;
-}
-
-label {
-    margin-bottom: 8px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-input, select {
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #cbd5e0;
-}
-
+.field { display: flex; flex-direction: column; }
+.field.full { grid-column: span 3; }
 button {
     width: 100%;
     padding: 15px;
@@ -83,18 +37,13 @@ button {
     background: #2b6cb0;
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
 }
-/* ===== CSS END ===== */
 </style>
-</HeadOfAccount>
+</head>
 
 <body>
 
 <div class="container">
-
 <h1>Marketing Expense Entry</h1>
 
 <div class="mode">
@@ -114,58 +63,30 @@ button {
 <label>Activity</label>
 <select id="activity">
 <option value="">Select</option>
-<option>ATL</option>
-<option>BTL</option>
-<option>ADMIN</option>
+<option value="ATL">ATL</option>
+<option value="BTL">BTL</option>
+<option value="ADMIN">ADMIN</option>
 </select>
 </div>
 
 <div class="field">
 <label>Sub Activity</label>
 <select id="subActivity"></select>
-<option>POS</option>
-<option>Promotional Activities</option>
 </div>
 
 <div class="field">
-<label>Head Of Account</label>
-<select id="HeadOfAccount"></select>
+<label>Head</label>
+<select id="head"></select>
 </div>
 
-<div class="field">
-<label>State</label>
-<select id="state"></select>
-</div>
+<div class="field"><label>State</label><select id="state"></select></div>
+<div class="field"><label>Variant</label><select id="variant"></select></div>
+<div class="field"><label>Year</label><select id="year"></select></div>
+<div class="field"><label>Month</label><select id="month"></select></div>
 
-<div class="field">
-<label>Variant</label>
-<select id="variant"></select>
-</div>
-
-<div class="field">
-<label>Year</label>
-<select id="year"></select>
-</div>
-
-<div class="field">
-<label>Month</label>
-<select id="month"></select>
-</div>
-
-<div class="field">
-<label>Qty</label>
-<input type="number" id="qty">
-</div>
-
-<div class="field">
-<label>Budget</label>
-<input type="number" id="budget">
-</div>
-
-<div class="field">
-<label>Actual</label>
-<input type="number" id="actual">
-</div>
+<div class="field"><label>Qty</label><input type="number" id="qty"></div>
+<div class="field"><label>Budget</label><input type="number" id="budget"></div>
+<div class="field"><label>Actual</label><input type="number" id="actual"></div>
 
 <div class="field full">
 <label>Comment</label>
@@ -175,21 +96,28 @@ button {
 </div>
 
 <button id="submitBtn">Submit</button>
-
 </div>
 
 <script>
-// ===== JS START =====
+// 🔗 WEB APP URL (keep your existing)
+const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE";
 
-// 🔗 YOUR WEB APP URL
-const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE"; // Replace if needed
+// ===== YOUR NEW HEAD LIST =====
+const headLists = {
+ATL:["TVC Making/Editing/Dubbing","Satelite Channels/Cabel TV","Print media","FM Radio","Cinema Theatres","Digital Advertising","Press Conference","Hoardings","Bus/Auto Branding"],
+POS:["Posters /Danglers","Display Charges/Quick Commerce","Leaflets","Banners","Dealer Boards/Arch Gates","T-Shirts"],
+PROMO:["Calenders/Dairies/Gifts","Miscellaneous","Consumer Offer","Consumer Contest Gift","Roadshow","Consumer Activation","Exhibitions","Free Sampling","Distributor/ Retailer Meet"],
+ADMIN:["AgenFY Retainer-Creative","AgenFY Retainer-PR","AgenFY Retainer-Digital","Consumer/ Retail l Audit","Communication expenses & Misc","Market Research"]
+};
 
-const states = ["AP", "TS", "KA", "TN"];
-const variants = ["Sunflower", "Rice Bran", "Groundnut", "Mustard"];
-const years = ["2023-24", "2024-25", "2025-26"];
+// Dropdown data
+const states = ["AP","TS","KA","TN"];
+const variants = ["Sunflower","Rice Bran","Groundnut","Mustard"];
+const years = ["2023-24","2024-25","2025-26"];
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-window.onload = function () {
+// Init
+window.onload = function(){
     generateSerial();
     fill("state", states);
     fill("variant", variants);
@@ -197,28 +125,68 @@ window.onload = function () {
     fill("month", months);
 };
 
+// Serial
 function generateSerial(){
-    const now = new Date();
-    document.getElementById("serialNo").value =
-        "SN-" + now.getTime();
+    document.getElementById("serialNo").value = "SN-" + Date.now();
 }
 
+// Fill dropdown
 function fill(id, arr){
     let el = document.getElementById(id);
-    arr.forEach(x=>{
-        el.innerHTML += `<option>${x}</option>`;
-    });
+    el.innerHTML = "<option value=''>Select</option>";
+    arr.forEach(x => el.innerHTML += `<option>${x}</option>`);
 }
 
-// Submit
+// ===== CASCADING LOGIC =====
+const activity = document.getElementById("activity");
+const subActivity = document.getElementById("subActivity");
+const head = document.getElementById("head");
+
+activity.addEventListener("change", () => {
+    subActivity.innerHTML = "<option>Select</option>";
+    head.innerHTML = "<option>Select</option>";
+
+    const val = activity.value;
+
+    if(val === "ATL"){
+        subActivity.innerHTML = "<option value='ATL'>ATL</option>";
+        subActivity.disabled = true;
+        fillHead("ATL");
+
+    } else if(val === "BTL"){
+        subActivity.disabled = false;
+        subActivity.innerHTML = "<option>Select</option><option value='POS'>POS</option><option value='PROMO'>PROMO</option>";
+
+    } else if(val === "ADMIN"){
+        subActivity.innerHTML = "<option value='ADMIN'>ADMIN</option>";
+        subActivity.disabled = true;
+        fillHead("ADMIN");
+    }
+});
+
+subActivity.addEventListener("change", () => {
+    const sub = subActivity.value;
+    fillHead(sub);
+});
+
+function fillHead(type){
+    head.innerHTML = "<option>Select</option>";
+    if(headLists[type]){
+        headLists[type].forEach(h => {
+            head.innerHTML += `<option>${h}</option>`;
+        });
+    }
+}
+
+// ===== SUBMIT =====
 document.getElementById("submitBtn").onclick = function(){
 
     const payload = {
         mode: document.querySelector("input[name='mode']:checked").value,
         serialNo: document.getElementById("serialNo").value,
-        activity: document.getElementById("activity").value,
-        subActivity: document.getElementById("subActivity").value,
-        HeadOfAccount: document.getElementById("HeadOfAccount").value,
+        activity: activity.value,
+        subActivity: subActivity.value,
+        head: head.value,
         state: document.getElementById("state").value,
         variant: document.getElementById("variant").value,
         year: document.getElementById("year").value,
@@ -231,14 +199,12 @@ document.getElementById("submitBtn").onclick = function(){
 
     fetch(WEB_APP_URL,{
         method:"POST",
-        body:JSON.stringify(payload)
+        body: JSON.stringify(payload)
     })
     .then(()=>alert("Success"))
     .catch(()=>alert("Error"));
-
 };
 
-// ===== JS END =====
 </script>
 
 </body>
