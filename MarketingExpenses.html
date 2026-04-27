@@ -1,70 +1,243 @@
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Marketing Expense Form</title><link href="https://gefindia-net.fortimailcloud.com/fmlurlsvc/?fewReq=:B:JVs5MjYwOSV1PjEtMyVqZz4zMjkzMiVwamRtYnd2cWY+NDFnN2A2YmcyMjtgM2ZnZTc6NDIxZmA2NGE3MTM0NDE1YmZmMmc1NCV3PjI0NDU3MjsyOzslcmpnPjUwSzpJTUtAMjY7MzAyNS41MEs6SU1LRzI2OzMwMjUlcWBzdz5pYnpiZ2Zmc0NkZmVqbWdqYi1tZnclYD42MSVrZ28+Mw==&url=https%3a%2f%2ffonts.googleapis.com%2fcss2%3ffamily%3dPoppins%3awght%40300%3b400%3b500%3b600%26display%3dswap" rel="stylesheet"></link><link rel="stylesheet" href="style.css"></link></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Expense Entry</title>
 
-    <div class="container">
+<style>
+/* ===== CSS START ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e3edfb;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-        <h1>Marketing Expense Entry</h1>
+.container {
+    max-width: 1100px;
+    width: 95%;
+    margin: 40px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 50, 100, 0.1);
+}
 
-        <div class="mode">
-            <label><input type="radio" name="mode" value="new" checked="checked"></input> New Entry</label>
-            <label><input type="radio" name="mode" value="update"></input> Update Entry</label>
-            <label><input type="radio" name="mode" value="addition"></input> Addition Entry</label>
-        </div>
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1a4a8e;
+}
 
-        <div class="form-grid">
+.mode {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #f0f7ff;
+    border-radius: 8px;
+    border: 1px solid #d1e3f8;
+}
 
-            <div class="field">
-                <label>Serial Number</label>
-                <input type="text" id="serialNo" placeholder="Auto-generated" readonly="readonly"></input></div>
+.mode label {
+    margin: 0 15px;
+    font-weight: 600;
+    color: #2c5ba1;
+    cursor: pointer;
+}
 
-            <div class="field">
-                <label>Activity</label>
-                <select id="activity"><option value="">Select</option><option value="ATL">ATL</option><option value="BTL">BTL</option><option value="ADMIN">Mktg Admin &amp; Others</option></select></div>
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
 
-            <div class="field">
-                <label>Sub Activity</label>
-                <select id="subActivity"><option value="">Select</option></select></div>
+.field {
+    display: flex;
+    flex-direction: column;
+}
 
-            <div class="field">
-                <label>Head</label>
-                <select id="head"><option value="">Select</option></select></div>
+.field.full {
+    grid-column: span 3;
+}
 
-            <div class="field">
-                <label>State</label>
-                <select id="state"><option value="">Select</option><option value="AP">AP</option><option value="TS">TS</option></select></div>
+label {
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
 
-            <div class="field">
-                <label>Variant</label>
-                <select id="variant"><option value="">Select</option><option value="Sunflower">Sunflower</option><option value="Groundnut">Groundnut</option></select></div>
+input, select {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+}
 
-            <div class="field">
-                <label>Financial Year</label>
-                <select id="year"><option value="">Select</option><option value="2023-24">2023-24</option><option value="2024-25">2024-25</option><option value="2025-26">2025-26</option></select></div>
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 30px;
+    background: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+/* ===== CSS END ===== */
+</style>
+</head>
 
-            <div class="field">
-                <label>Month</label>
-                <select id="month"><option value="">Select</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select></div>
+<body>
 
-            <div class="field">
-                <label>Quantity</label>
-                <input type="number" id="qty"></input></div>
+<div class="container">
 
-            <div class="field">
-                <label>Budget</label>
-                <input type="number" id="budget"></input></div>
+<h1>Marketing Expense Entry</h1>
 
-            <div class="field">
-                <label>Actual</label>
-                <input type="number" id="actual"></input></div>
+<div class="mode">
+<label><input type="radio" name="mode" value="new" checked> New</label>
+<label><input type="radio" name="mode" value="update"> Update</label>
+<label><input type="radio" name="mode" value="addition"> Addition</label>
+</div>
 
-            <div class="field full">
-                <label>Comment</label>
-                <input type="text" id="comment"></input></div>
+<div class="form-grid">
 
-        </div>
+<div class="field">
+<label>Serial No</label>
+<input type="text" id="serialNo" readonly>
+</div>
 
-        Submit
+<div class="field">
+<label>Activity</label>
+<select id="activity">
+<option value="">Select</option>
+<option>ATL</option>
+<option>BTL</option>
+<option>ADMIN</option>
+</select>
+</div>
 
-    </div>
+<div class="field">
+<label>Sub Activity</label>
+<select id="subActivity"></select>
+</div>
 
-    </body></html>
+<div class="field">
+<label>Head</label>
+<select id="head"></select>
+</div>
 
+<div class="field">
+<label>State</label>
+<select id="state"></select>
+</div>
+
+<div class="field">
+<label>Variant</label>
+<select id="variant"></select>
+</div>
+
+<div class="field">
+<label>Year</label>
+<select id="year"></select>
+</div>
+
+<div class="field">
+<label>Month</label>
+<select id="month"></select>
+</div>
+
+<div class="field">
+<label>Qty</label>
+<input type="number" id="qty">
+</div>
+
+<div class="field">
+<label>Budget</label>
+<input type="number" id="budget">
+</div>
+
+<div class="field">
+<label>Actual</label>
+<input type="number" id="actual">
+</div>
+
+<div class="field full">
+<label>Comment</label>
+<input type="text" id="comment">
+</div>
+
+</div>
+
+<button id="submitBtn">Submit</button>
+
+</div>
+
+<script>
+// ===== JS START =====
+
+// 🔗 YOUR WEB APP URL
+const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE"; // Replace if needed
+
+const states = ["AP", "TS", "KA", "TN"];
+const variants = ["Sunflower", "Rice Bran", "Groundnut", "Mustard"];
+const years = ["2023-24", "2024-25", "2025-26"];
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+window.onload = function () {
+    generateSerial();
+    fill("state", states);
+    fill("variant", variants);
+    fill("year", years);
+    fill("month", months);
+};
+
+function generateSerial(){
+    const now = new Date();
+    document.getElementById("serialNo").value =
+        "SN-" + now.getTime();
+}
+
+function fill(id, arr){
+    let el = document.getElementById(id);
+    arr.forEach(x=>{
+        el.innerHTML += `<option>${x}</option>`;
+    });
+}
+
+// Submit
+document.getElementById("submitBtn").onclick = function(){
+
+    const payload = {
+        mode: document.querySelector("input[name='mode']:checked").value,
+        serialNo: document.getElementById("serialNo").value,
+        activity: document.getElementById("activity").value,
+        subActivity: document.getElementById("subActivity").value,
+        head: document.getElementById("head").value,
+        state: document.getElementById("state").value,
+        variant: document.getElementById("variant").value,
+        year: document.getElementById("year").value,
+        month: document.getElementById("month").value,
+        qty: document.getElementById("qty").value,
+        budget: document.getElementById("budget").value,
+        actual: document.getElementById("actual").value,
+        comment: document.getElementById("comment").value
+    };
+
+    fetch(WEB_APP_URL,{
+        method:"POST",
+        body:JSON.stringify(payload)
+    })
+    .then(()=>alert("Success"))
+    .catch(()=>alert("Error"));
+
+};
+
+// ===== JS END =====
+</script>
+
+</body>
+</html>
