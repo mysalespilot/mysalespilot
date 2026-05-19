@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Validation Suite</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #899643, #dfe7b5);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1450px;
+            margin: auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .title {
+            color: #545b1d;
+            font-size: 54px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            margin-top: 12px;
+            color: #666;
+            font-size: 20px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #899643, #545b1d);
+            color: white;
+            padding: 18px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(84, 91, 29, 0.25);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+        }
+
+        .menu-title {
+            color: #545b1d;
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .menu-btn {
+            width: 100%;
+            border: none;
+            padding: 18px;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.3s;
+            background: #f3f5e6;
+            border: 2px solid #c5cf8b;
+            color: #545b1d;
+        }
+
+        .menu-btn.active,
+        .menu-btn:hover {
+            background: linear-gradient(135deg, #899643, #545b1d);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            color: #545b1d;
+            font-size: 42px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 35px;
+            font-size: 17px;
+        }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .upload-card {
+            border: 2px solid #c5cf8b;
+            border-radius: 25px;
+            padding: 30px;
+            background: #f8faef;
+        }
+
+        .upload-card h3 {
+            color: #545b1d;
+            margin-bottom: 12px;
+            font-size: 28px;
+        }
+
+        .upload-card p {
+            color: #666;
+            margin-bottom: 22px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            border: 2px solid #c5cf8b;
+            background: white;
+        }
+
+        .button-wrap {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #899643, #545b1d);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 18px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 12px 25px rgba(84, 91, 29, 0.25);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #899643, #545b1d);
+            color: white;
+        }
+
+        th {
+            padding: 20px 16px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 18px 14px;
+            text-align: center;
+            border-bottom: 1px solid #f1f1f1;
+            font-size: 15px;
+        }
+
+        tr:hover {
+            background: #f5f8e8;
+        }
+
+        .matched {
+            color: green;
+            font-weight: bold;
+        }
+
+        .mismatch {
+            color: red;
+            font-weight: bold;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #899643, #545b1d);
+            color: white;
+            text-decoration: none;
+            padding: 18px 38px;
+            border-radius: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        @media(max-width:1100px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .title {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div class="header-top">
+
+                <div>
+                    <div class="title">
+                        Media Validation Suite
+                    </div>
+
+                    <div class="subtitle">
+                        Enterprise automation platform for Estimation, Invoice and BARC validation workflows
+                    </div>
+                </div>
+
+                <div class="badge">
+                    Enterprise Validation Suite
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DASHBOARD -->
+
+        <div class="dashboard-grid">
+
+            <!-- SIDEBAR -->
+
+            <div class="sidebar">
+
+                <div class="menu-title">
+                    Validation Modules
+                </div>
+
+                <button class="menu-btn active" onclick="showSection('home', this)">
+                    Dashboard Home
+                </button>
+
+                <button class="menu-btn" onclick="showSection('estimation', this)">
+                    Estimation vs Invoice
+                </button>
+
+                <button class="menu-btn" onclick="showSection('barc', this)">
+                    BARC vs Invoice
+                </button>
+
+            </div>
+
+            <!-- CONTENT -->
+
+            <div class="content-area">
+
+                <!-- HOME SECTION -->
+
+                <div id="home" class="section active">
+
+                    <div class="section-title">
+                        Welcome Dashboard
+                    </div>
+
+                    <div class="section-subtitle">
+                        Select any validation module from the left side menu to begin validation.
+                    </div>
+
+                    <div class="upload-grid">
+
+                        <div class="upload-card">
+
+                            <h3>
+                                Estimation vs Invoice Validator
+                            </h3>
+
+                            <p>
+                                Validate estimation and invoice spot counts automatically using PDF and Excel uploads.
+                            </p>
+
+                            <button class="validate-btn"
+                                onclick="showSection('estimation')">
+                                Open Validator
+                            </button>
+
+                        </div>
+
+                        <div class="upload-card">
+
+                            <h3>
+                                BARC vs Invoice Validator
+                            </h3>
+
+                            <p>
+                                Validate invoice spot counts against BARC reports and identify mismatched channels.
+                            </p>
+
+                            <button class="validate-btn"
+                                onclick="showSection('barc')">
+                                Open Validator
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ESTIMATION VALIDATOR -->
+
+                <div id="estimation" class="section">
+
+                    <div class="section-title">
+                        Estimation Invoice Validator
+                    </div>
+
+                    <div class="section-subtitle">
+                        Smart reconciliation platform for media estimation and invoice validation
+                    </div>
+
+                    <form>
+
+                        <div class="upload-grid">
+
+                            <div class="upload-card">
+
+                                <h3>
+                                    Estimation File
+                                </h3>
+
+                                <p>
+                                    Upload estimation PDF or Excel file
+                                </p>
+
+                                <input type="file" name="estimation_file">
+
+                            </div>
+
+                            <div class="upload-card">
+
+                                <h3>
+                                    Invoice Files
+                                </h3>
+
+                                <p>
+                                    Upload one or multiple invoice files
+                                </p>
+
+                                <input type="file" name="invoice_files" multiple>
+
+                            </div>
+
+                        </div>
+
+                        <div class="button-wrap">
+
+                            <button type="button" class="validate-btn"
+                                onclick="showDemoResults()">
+                                Validate Files
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- DEMO TABLE -->
+
+                    <div id="resultSection" style="display:none;">
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Invoice File</th>
+                                        <th>Estimate Number</th>
+                                        <th>Invoice Number</th>
+                                        <th>Estimate Status</th>
+                                        <th>Estimate Date</th>
+                                        <th>Invoice Date</th>
+                                        <th>Channel</th>
+                                        <th>Duration</th>
+                                        <th>Estimate Spots</th>
+                                        <th>Invoice Spots</th>
+                                        <th>Spot Validation</th>
+                                        <th>Final Validation</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr>
+                                        <td>Invoice_001.pdf</td>
+                                        <td>EST1001</td>
+                                        <td>INV2001</td>
+                                        <td class="matched">MATCHED</td>
+                                        <td>19-May-2026</td>
+                                        <td>19-May-2026</td>
+                                        <td>Star Maa</td>
+                                        <td>30 Sec</td>
+                                        <td>120</td>
+                                        <td>120</td>
+                                        <td class="matched">MATCHED</td>
+                                        <td class="matched">MATCHED</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Invoice_002.pdf</td>
+                                        <td>EST1002</td>
+                                        <td>INV2002</td>
+                                        <td class="mismatch">MISMATCH</td>
+                                        <td>19-May-2026</td>
+                                        <td>20-May-2026</td>
+                                        <td>Zee Telugu</td>
+                                        <td>20 Sec</td>
+                                        <td>85</td>
+                                        <td>80</td>
+                                        <td class="mismatch">MISMATCH</td>
+                                        <td class="mismatch">MISMATCH</td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="download-section">
+
+                            <a href="#" class="download-btn">
+                                Download Validation Report
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BARC VALIDATOR -->
+
+                <div id="barc" class="section">
+
+                    <div class="section-title">
+                        BARC Invoice Validator
+                    </div>
+
+                    <div class="section-subtitle">
+                        Validate invoice spot counts against BARC reports and identify mismatched channels
+                    </div>
+
+                    <form>
+
+                        <div class="upload-grid">
+
+                            <div class="upload-card">
+
+                                <h3>
+                                    BARC Report File
+                                </h3>
+
+                                <p>
+                                    Upload BARC Excel or CSV report
+                                </p>
+
+                                <input type="file">
+
+                            </div>
+
+                            <div class="upload-card">
+
+                                <h3>
+                                    Invoice Files
+                                </h3>
+
+                                <p>
+                                    Upload invoice files for BARC comparison
+                                </p>
+
+                                <input type="file" multiple>
+
+                            </div>
+
+                        </div>
+
+                        <div class="button-wrap">
+
+                            <button type="button" class="validate-btn">
+                                Validate BARC Data
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            Media Validation Automation Platform © 2026
+        </div>
+
+    </div>
+
+    <script>
+
+        function showSection(sectionId, element) {
+
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Remove active class from buttons
+            document.querySelectorAll('.menu-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Add active class
+            if (element) {
+                element.classList.add('active');
+            }
+        }
+
+        function showDemoResults() {
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+    </script>
+
+</body>
+
+</html>
