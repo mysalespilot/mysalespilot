@@ -1,465 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Competitor Price</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <style>
-    /* Custom CSS */
-    .hero.is-primary {
-      background-color: #70A9A1;
-      color: #000;
-    }
-    .container-form {
-      max-width: 100%;
-      margin: 0 auto;
-      border: 1px solid #ccc;
-      padding: 20px;
-    }
-    .message {
-      display: none;
-      margin: 10px;
-      font-weight: bold;
-      color: green;
-      padding: 8px;
-      background-color: beige;
-      border-radius: 4px;
-      border-color: aquamarine;
-    }
-    .preview-table {
-      border: 1px solid #ccc;
-      border-collapse: collapse;
-      margin-top: 10px;
-      width: 100%;
-    }
-    .preview-table th, .preview-table td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andhra Pradesh Competitor Price Entry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Poppins',sans-serif;
+    margin:0;
+    background:linear-gradient(135deg,#dbeafe,#eff6ff);
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    padding:25px;
+    color:#fff;
+    text-align:center;
+}
+
+.login-card{
+    width:400px;
+    margin:80px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+label{
+    margin-bottom:5px;
+    font-size:14px;
+    color:#374151;
+}
+
+input,select{
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #cbd5e1;
+    background:#f8fafc;
+    font-size:14px;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#2563eb;
+    background:#fff;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    color:#fff;
+    font-size:15px;
+    background:#2563eb;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.hidden{
+    display:none;
+}
+
+.form-container{
+    max-width:800px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.field.full{
+    grid-column:span 2;
+}
+
+.button-group{
+    max-width:800px;
+    margin:20px auto;
+    display:flex;
+    gap:15px;
+}
+
+.submit-btn{
+    background:#10b981;
+}
+
+.submit-btn:hover{
+    background:#059669;
+}
+
+.reset-btn{
+    background:#ef4444;
+}
+
+.reset-btn:hover{
+    background:#dc2626;
+}
+
+.loader{
+    display:none;
+    text-align:center;
+    font-weight:600;
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+@media(max-width:768px){
+
+.form-container{
+grid-template-columns:1fr;
+}
+
+.field.full{
+grid-column:span 1;
+}
+
+.login-card{
+width:90%;
+}
+
+.button-group{
+flex-direction:column;
+}
+
+}
+
+</style>
 </head>
+
 <body>
-  <section class="hero is-primary is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div style="display: flex; align-items: center;">
-          <img src="https://gefindia.com/assets/img/GEF_Logo.png" alt="Your Logo" style="max-width: 150px; border: 2px solid #31081F; padding: 5px; border-radius: 10px;">
-          <h1 class="title" style="margin-left: 10px;" >AP Competitor Price </h1>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Employee ID Input -->
-  <div class="container">
-    <div class="field">
-      <label class="label" for="employeeID">Employee ID</label>
-      <div class="control">
-        <input class="input" type="text" id="employeeID" style="width:40%" placeholder="Enter Employee ID">
-      </div>
-    </div>
-    <div class="field">
-      <label class="label" for="employeeName">Employee Name</label>
-      <div class="control">
-        <input class="input" type="text" id="employeeName" style="width:40%" placeholder="Employee Name" readonly>
-      </div>
-    </div>
-  </div>
 
-  <!-- Button to open the form -->
-  <button class="button is-info is-fullwidth" id="open-form-button" disabled>Open Form</button>
+<!-- LOGIN PAGE -->
 
-  <div class="container container-form" id="form-container" style="display: none;">
-    <form id="form">
-      <div class="field">
-        <label class="label" style="width:25%" for="subzone">Subzone</label>
-        <div class="control">
-          <input class="input" type="text" name="Subzone" id="subzone" readonly value="Andhra Pradesh">
-        </div>
-      </div>
+<div id="loginPage">
 
-      <input type="hidden" id="hiddenEmployeeID" name="EmployeeID">
-      <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
+<div class="header">
+<h1>Andhra Pradesh Competitor Price</h1>
+</div>
 
-      <div class="field">
-        <label class="label" style="width:35%" for="districtName">District Name</label>
-        <div class="control">
-          <div class="select">
-            <select id="district" name="DistrictName" required>
-              <option value="">Select One</option>
-              <option value="Anantapur">Anantapur</option>
-              <option value="Chittoor">Chittoor</option>
-              <option value="East Godavari">East Godavari</option>
-              <option value="Guntur">Guntur</option>
-              <option value="Vijayawada">Vijayawada</option>
-              <option value="Kakinada">Kakinada</option>
-              <option value="Eluru">Eluru</option>
-              <option value="Kurnool">Kurnool</option>
-              <option value="Ongole">Ongole</option>
-              <option value="Nellore">Nellore</option>
-              <option value="Srikakulam">Srikakulam</option>
-              <option value="Visakhapatnam">Visakhapatnam</option>
-              <option value="Vizianagaram">Vizianagaram</option>
-              <option value="West Godavari">West Godavari</option>
-              <option value="Kadapa">Kadapa</option>
-              <option value="Chittoor">Chittoor</option>
-              <option value="Tirupati">Tirupati</option>
-            </select>
-          </div>
-        </div>
-      </div>
+<div class="login-card">
 
-      <div class="field">
-        <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
-        <div class="control">
-          <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town" style="width:75%" required>
-        </div>
-      </div>
+<h2>Employee Login</h2>
 
-      <div class="field">
-        <label class="label" style="width:35%" for="brandName">Brand Name</label>
-        <div class="control">
-          <div class="select">
-            <select id="brandName" name="BrandName" required>
-              <option disabled hidden selected>Select One</option>
-              <option value="Freedom">Freedom</option>
-              <option value="Gold Drop">Gold Drop</option>
-              <option value="Fortune">Fortune</option>
-              <option value="Gold winner">Gold Winner</option>
-              <option value="Priya Gold">Priya Gold</option>  
-              <option value="Aadhaar">Aadhaar</option>
-              <option value="Best Choice">Best Choice</option>
-              <option value="Crystal">Crystal</option>
-              <option value="Everyday Gold">Everyday Gold</option>
-              <option value="Fresh and Fry">Fresh and Fry</option>
-              <option value="Fresh Life">Fresh Life</option>
-              <option value="FRISH N FRISH">FRISH N FRISH</option>              
-              <option value="Gold Life">Gold Life</option>              
-              <option value="Kurnool Oil">Kurnool Oil</option>
-              <option value="Nataraj">Nataraj</option>
-              <option value="Naturalle">Naturalle</option>
-              <option value="Nityam">Nityam</option>              
-              <option value="Sun Jyothi">Sun Jyothi</option>
-              <option value="Sun rich">Sun rich</option>
-              <option value="SUNFIT">SUNFIT</option>
-              <option value="Sunflow gold">Sunflow gold</option>
-              <option value="SUNJYOTHI">SUNJYOTHI</option>
-              <option value="Sunlife">Sunlife</option>
-              <option value="SUNPURE">SUNPURE</option>
-              <option value="Sunsolite">Sunsolite</option>
-              <option value="SUNTOP">SUNTOP</option>
-              <option value="Super Life">Super Life</option>
-              <option value="Sunlio">Sunlio</option>
-              <option value="Suvidha">Suvidha</option>
-              <option value="Vijaya">Vijaya</option>
-              <option value="Free Day">Free Day</option>
-              <option value="Sun Rise">Sun Rise</option>
-              <option value="Gold Lite">Gold Lite</option>
-              <option value="Hello LIfe">Hello LIfe</option>
-            </select>
-          </div>
-          <div id="brand-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+<div class="field">
+<label>Employee ID</label>
+<input type="text" id="userId" placeholder="Enter Employee ID">
+</div>
 
-      <div class="field">
-        <label class="label" style="width:65%" for="beatName">Beat Name</label>
-        <div class="control">
-          <input class="input" type="text" id="beatName" placeholder="Enter Beat Name" name="BeatName" style="width:75%" required>
-        </div>
-      </div>
+<div class="field">
+<label>Employee Name</label>
+<input type="text" id="userName" readonly placeholder="Auto Filled">
+</div>
 
-      <div class="field">
-        <label class="label" for="outletName">Outlet Name</label>
-        <div class="control">
-          <input class="input" type="text" id="outletName" placeholder="Enter Outlet Name" name="OutletName" style="width:75%" required>
-        </div>
-      </div>
+<button onclick="openForm()">Open Form</button>
 
-      <div class="field">
-        <label class="label" for="ltrPTR">SF 1 Ltr PTR</label>
-        <div class="control">
-          <input class="input" type="number" id="ltrPTR" placeholder="Enter 1 Ltr PTR (3 digits only)" name="1LtrPTR" min="85" max="299" style="width:45%" oninput="checkInput(this)" required>
-          <div id="ltrPTR-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+</div>
 
-      <div class="field">
-        <label class="label" for="ltrPTC">SF 1 Ltr PTC</label>
-        <div class="control">
-          <input class="input" type="number" id="ltrPTC" placeholder="Enter 1 Ltr PTC (3 digits only)" name="1LtrPTC" min="90" max="299" style="width:45%" oninput="checkInput(this)" required>
-          <div id="ltrPTC-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+</div>
 
-      <div class="field">
-        <label class="label" for="5trPTR">SF 5 Ltr PTR</label>
-        <div class="control">
-          <input class="input" type="number" id="5trPTR" placeholder="Enter 5 Ltr PTR (3 digits only)" name="5LtrPTR" min="400" max="1000" style="width:45%" oninput="checkInput(this)" required>
-          <div id="5trPTR-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+<!-- FORM PAGE -->
 
-      <div class="field">
-        <label class="label" for="5trPTC">SF 5 Ltr PTC</label>
-        <div class="control">
-          <input class="input" type="number" id="5trPTC" placeholder="Enter 5 Ltr PTC (3 digits only)" name="5LtrPTC" min="450" max="1000" style="width:45%" oninput="checkInput(this)" required>
-          <div id="5trPTC-error" class="error-message" style="color: red;"></div>
-        </div>
-      </div>
+<div id="formPage" class="hidden">
 
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">Submit</button>
-        </div>
-        <div class="control">
-          <button class="button is-danger" type="button" id="cancel-button">Refresh</button>
-        </div>
-      </div>
-    </form>
-    <div id="message" class="message"></div>
-  </div>
+<div class="header">
+<h1>Price Entry Form</h1>
+<p id="displayUser"></p>
+</div>
 
-  <!-- Preview Container -->
-  <div class="container" id="preview-container" style="display: none;">
-    <table class="table preview-table">
-      <thead>
-        <tr>
-          <th>Serial No</th>
-          <th>District Name</th>
-          <th>Town/Area Name</th>
-          <th>Brand Name</th>
-          <th>Beat Name</th>
-          <th>Outlet Name</th>
-          <th>1 Ltr PTR</th>
-          <th>1 Ltr PTC</th>
-          <th>5 Ltr PTR</th>
-          <th>5 Ltr PTC</th>
-        </tr>
-      </thead>
-      <tbody id="preview-table-body">
-        <!-- Preview data will be inserted here -->
-      </tbody>
-    </table>
-  </div>
+<div class="loader" id="loader">
+Saving Data...
+</div>
 
-  <script>
-    var submissionCount = 0;
-    var allowedEmployeeIDs = [
-      "2003385503",
-"2003385477",
-"900915",
-"2003385505",
-"2003385514",
-"901014",
-"901060",
-"2003385478",
-"901061",
-"2003385506",
-"2003385517",
-"901083",
-"2003385500",
-"2003385520",
-"2003385523",
-"2003385470",
-"2003385481",
-"901116",
-"2003385493", 
-"2003385614",
-"2003421598",
-"2003454923",
-"2003454920",
-"2003481218"
-]; // Predefined list of Employee IDs
+<div class="form-container">
 
-    var employeeNames = {
-      "2003385503":  "V Jyothiswar",
-"2003385477":  "Kandregula Shyam",
-"900915":  "APPALA SARATH KUMAR",
-"2003385505":  "Madiga Shyamprasad",
-"2003385514":  "Aedla Suresh",
-"901014":  "JALLURI SATYA MANIKYA PRAKASH",
-"901060":  "Katta Narasimha Chaitanya.",
-"2003385478":  "Kota David",
-"901061":  "G.Satish Kumar",
-"2003385506":  "YAKKALA SATYA PRASANNA KUMAR",
-"2003385517":  "Revendla Suresh",
-"901083":  "SAIBABU.G",
-"2003385500":  "Bandi Srinuvasulu Reddy",
-"2003385520":  "Galla Sriram Pavan Kumar",
-"2003385523":  "Iragaraju Madan Kumar",
-"2003385470":  "Alam Siva Ram Prasad",
-"2003385481":  "Lutukurthi Suresh",
-"901116":  "G.Munichanthan",
-"2003385493":  "Orchu Venkateswararao",
-"2003385614":  "N.Dinesh kumar",
-"2003421598": "D Kishore Kumar",
-"2003454923":"Dhami Setty Chaitanya",
-"2003454920": "Chelluri Venkata Srinivas",
-"2003481218" : "PODUGU NARESH"
+<div class="field full">
+<label>Subzone</label>
+<input type="text" id="subzone" value="Andhra Pradesh" readonly>
+</div>
 
-    }; // Predefined Employee Names
+<div class="field">
+<label>Area Name</label>
+<select id="district" required>
+<option value="">Select Area</option>
+<option value="">Select One</option>
+<option value="Anantapur">Anantapur</option>
+<option value="Chittoor">Chittoor</option>
+<option value="East Godavari">East Godavari</option>
+<option value="Guntur">Guntur</option>
+<option value="Vijayawada">Vijayawada</option>
+<option value="Kakinada">Kakinada</option>
+<option value="Eluru">Eluru</option>
+<option value="Kurnool">Kurnool</option>
+<option value="Ongole">Ongole</option>
+<option value="Nellore">Nellore</option>
+<option value="Srikakulam">Srikakulam</option>
+<option value="Visakhapatnam">Visakhapatnam</option>
+<option value="Vizianagaram">Vizianagaram</option>
+<option value="West Godavari">West Godavari</option>
+<option value="Kadapa">Kadapa</option>
+<option value="Chittoor">Chittoor</option>
+<option value="Tirupati">Tirupati</option>
+</select>
+</div>
 
-    var requiredBrands = ["Freedom", "Gold Drop", "Fortune", "Gold Winner", "Priya Gold"]; // Mandatory brands
+<div class="field">
+<label>Town / Area Name</label>
+<input type="text" id="town" required>
+</div>
 
-    document.getElementById("employeeID").addEventListener("input", function() {
-      var employeeID = this.value.trim();
-      document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
-      document.getElementById("employeeName").value = employeeNames[employeeID] || '';
-      document.getElementById("hiddenEmployeeID").value = employeeID;
-      document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
-    });
+<div class="field">
+<label>Brand Name</label>
+<select id="brand" required>
+<option value="">Select Brand</option>
+<option>Freedom</option>
+<option>Gemini</option>
+<option>Fortune</option>
+<option>Saffola</option>
+<option>Gold Drop</option>
+</select>
+</div>
 
-    document.getElementById("form").addEventListener("input", function() {
-      showPreview(new FormData(this)); // Update preview on input
-    });
+<div class="field">
+<label>Beat Name</label>
+<input type="text" id="beat" required>
+</div>
 
-    document.getElementById("form").addEventListener("submit", function(e) {
-      e.preventDefault(); // Prevent the default form submission
+<div class="field full">
+<label>Outlet Name</label>
+<input type="text" id="outlet" required>
+</div>
 
-var districtSelect = document.getElementById("district");
-        if (districtSelect.value === "Select One") {
-            alert("Please select a District Name before submitting the form.");
-            return; // Stop form submission
-        }
+<div class="field">
+<label>SF 1 Ltr PTR</label>
+<input type="number" id="sf1_ptr" required>
+</div>
 
-      if (submissionCount >= 7) {
-        alert("You can only submit 7 times.");
-        return;
-      }
+<div class="field">
+<label>SF 1 Ltr PTC</label>
+<input type="number" id="sf1_ptc" required>
+</div>
 
-      if (!validateBrandSelection()) {
-        return;
-      }
+<div class="field">
+<label>SF 5 Ltr PTR</label>
+<input type="number" id="sf5_ptr" required>
+</div>
 
-      document.getElementById("message").textContent = "Submitting..";
-      document.getElementById("message").style.display = "block";
-      document.getElementById("submit-button").disabled = true;
+<div class="field">
+<label>SF 5 Ltr PTC</label>
+<input type="number" id="sf5_ptc" required>
+</div>
 
-      submissionCount++;
+</div>
 
-      var formData = new FormData(this);
-      var keyValuePairs = [];
-      for (var pair of formData.entries()) {
-        keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
-      }
+<div class="button-group">
+<button class="submit-btn" onclick="submitForm()">Submit</button>
+<button class="reset-btn" onclick="resetForm()">Refresh</button>
+</div>
 
-      var formDataString = keyValuePairs.join("&");
+</div>
 
-      fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
-        redirect: "follow",
-        method: "POST",
-        body: formDataString,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      })
-      .then(function(response) {
-        if (response.ok) {
-          return response.text(); 
-        } else {
-          throw new Error("Failed to submit the form.");
-        }
-      })
-      .then(function(data) {
-        document.getElementById("message").textContent = "Data submitted successfully!";
-        document.getElementById("message").style.backgroundColor = "green";
-        document.getElementById("message").style.color = "beige";
-        document.getElementById("submit-button").disabled = false;
-        document.getElementById("form").reset();
+<script>
 
-        showPreview(new FormData(document.getElementById("form")));
+/**************************************************
+ GOOGLE APPS SCRIPT URL
+**************************************************/
 
-        setTimeout(function() {
-          document.getElementById("message").textContent = "";
-          document.getElementById("message").style.display = "none";
-        }, 2600);
-      })
-      .catch(function(error) {
-        console.error(error);
-        document.getElementById("message").textContent = "An error occurred while submitting the form.";
-        document.getElementById("message").style.display = "block";
-      });
-    });
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbwtIHMkQW_ZrID9A5O86GhdeClA0_3ghVQR2Ug300dcc-6ojryNdmJjt9jPcWRT-SFvtA/exec";
 
-    document.getElementById("open-form-button").addEventListener("click", function() {
-      document.getElementById("form-container").style.display = "block";
-    });
+const SUBZONE = "Andhra Pradesh";
 
-    document.getElementById("cancel-button").addEventListener("click", function() {
-      document.getElementById("form-container").style.display = "none";
-    });
+const EMPLOYEE_API =
+`${SCRIPT_URL}?state=${encodeURIComponent(SUBZONE)}`;
 
-    document.getElementById("district").addEventListener("change", function() {
-      validateBrandSelection(); // Check brand requirements when district changes
-    });
+/**************************************************
+ EMPLOYEE MASTER
+**************************************************/
 
-    document.getElementById("brandName").addEventListener("change", function() {
-      validateBrandSelection(); // Check brand requirements when brand changes
-    });
+let employees = {};
 
-    function showPreview(formData) {
-      var previewTableBody = document.getElementById("preview-table-body");
-      var headers = ['DistrictName', 'Town/AreaName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
+async function loadEmployees(){
 
-      var dataRow = previewTableBody.querySelector("tr");
-      if (!dataRow) {
-        dataRow = document.createElement("tr");
-        previewTableBody.appendChild(dataRow);
+    try{
 
-        var serialNumberCell = document.createElement("td");
-        serialNumberCell.textContent = submissionCount + 1;
-        dataRow.appendChild(serialNumberCell);
+        const response = await fetch(EMPLOYEE_API);
 
-        headers.forEach(function(header) {
-          var dataCell = document.createElement("td");
-          dataRow.appendChild(dataCell);
+        const data = await response.json();
+
+        employees = {};
+
+        data.forEach(emp=>{
+
+            employees[
+                String(emp.employeeId).trim()
+            ] = emp.employeeName;
+
         });
-      }
 
-      var cells = dataRow.querySelectorAll("td");
-      cells.forEach(function(cell, index) {
-        if (index > 0) {
-          cell.textContent = formData.get(headers[index - 1]) || "";
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to load Employee Master");
+
+    }
+
+}
+
+loadEmployees();
+
+/**************************************************
+ AUTO FILL EMPLOYEE NAME
+**************************************************/
+
+document.getElementById("userId")
+.addEventListener("input",function(){
+
+    const empId = this.value.trim();
+
+    document.getElementById("userName").value =
+        employees[empId] || "";
+
+});
+
+/**************************************************
+ OPEN FORM
+**************************************************/
+
+function openForm(){
+
+    const empId =
+        document.getElementById("userId").value.trim();
+
+    const empName =
+        document.getElementById("userName").value.trim();
+
+    if(empId === "" || empName === ""){
+
+        alert("Invalid Employee ID");
+
+        return;
+
+    }
+
+    document.getElementById("loginPage")
+    .classList.add("hidden");
+
+    document.getElementById("formPage")
+    .classList.remove("hidden");
+
+    document.getElementById("displayUser").innerHTML =
+        "Logged in as : <b>" +
+        empName +
+        "</b> (" +
+        empId +
+        ")";
+
+}
+
+/**************************************************
+ SUBMIT TO GOOGLE SHEET
+**************************************************/
+
+async function submitForm(){
+
+    const requiredFields = [
+        "district",
+        "town",
+        "brand",
+        "beat",
+        "outlet",
+        "sf1_ptr",
+        "sf1_ptc",
+        "sf5_ptr",
+        "sf5_ptc"
+    ];
+
+    for(let field of requiredFields){
+
+        if(
+            document
+            .getElementById(field)
+            .value
+            .trim() === ""
+        ){
+
+            alert("Please fill all fields");
+
+            return;
+
         }
-      });
 
-      document.getElementById("preview-container").style.display = "block";
     }
 
-    function checkInput(input) {
-      let value = parseInt(input.value);
-      let min = parseInt(input.getAttribute("min"));
-      let max = parseInt(input.getAttribute("max"));
-      let errorMessage = document.getElementById(input.id + "-error");
+    const data = {
 
-      if (isNaN(value) || value < min || value > max) {
-        errorMessage.textContent = "Please enter a valid number between " + min + " and " + max;
-        input.setCustomValidity("Invalid input");
-      } else {
-        errorMessage.textContent = "";
-        input.setCustomValidity("");
-      }
-    }
+        employeeId:
+        document.getElementById("userId").value,
 
-    function validateBrandSelection() {
-      var selectedBrand = document.getElementById("brandName").value;
+        employeeName:
+        document.getElementById("userName").value,
 
-      if (requiredBrands.includes(selectedBrand)) {
-        var ltrPTR = document.getElementById("ltrPTR").value;
-        var ltrPTC = document.getElementById("ltrPTC").value;
-        var tr5PTR = document.getElementById("5trPTR").value;
-        var tr5PTC = document.getElementById("5trPTC").value;
+        subzone:
+        document.getElementById("subzone").value,
 
-        if (!ltrPTR || !ltrPTC || !tr5PTR || !tr5PTC) {
-          alert("Please fill in all PTR and PTC fields for the selected brand: " + selectedBrand);
-          return false;
+        district:
+        document.getElementById("district").value,
+
+        town:
+        document.getElementById("town").value,
+
+        brand:
+        document.getElementById("brand").value,
+
+        beat:
+        document.getElementById("beat").value,
+
+        outlet:
+        document.getElementById("outlet").value,
+
+        sf1_ptr:
+        document.getElementById("sf1_ptr").value,
+
+        sf1_ptc:
+        document.getElementById("sf1_ptc").value,
+
+        sf5_ptr:
+        document.getElementById("sf5_ptr").value,
+
+        sf5_ptc:
+        document.getElementById("sf5_ptc").value
+
+    };
+
+    let response, text, result;
+    const submitBtn = document.querySelector('.submit-btn');
+
+    try{
+
+        document.getElementById("loader").style.display = "block";
+        if(submitBtn) submitBtn.disabled = true;
+
+        response = await fetch(
+            SCRIPT_URL,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(data)
+            }
+        );
+
+        text = await response.text();
+
+        try{ result = JSON.parse(text); } catch(e){ result = null; }
+
+        if(!response.ok){
+            console.error('HTTP error', response.status, text);
+            alert('Unable to save data. Server returned status ' + response.status);
+            return;
         }
-      }
 
-      return true;
+        if(result && result.status === "success"){
+            alert("Data Saved Successfully");
+            resetForm();
+        }
+        else if(result){
+            alert("Error : " + result.message);
+        }
+        else{
+            console.warn('Unexpected response from server:', text);
+            alert('Unexpected server response. Check console for details.');
+        }
+
     }
-  </script>
-</body>
-</html>
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to save data. Check Apps Script Deployment."
+        );
+
+    }
+
+    finally{
+        document.getElementById("loader").style.display = "none";
+        if(submitBtn) submitBtn.disabled = false;
+    }
+
+}
+
+/**************************************************
+ RESET
+**************************************************/
+
+function resetForm(){
+
+    document
+    .querySelectorAll(
+        "#formPage input"
+    )
+    .forEach(input=>{
+
+        if(
+            input.id !== "subzone"
+        ){
+
+            input.value = "";
+
+        }
+
+    });
+
+    document
+    .querySelectorAll(
+        "#formPage select"
+    )
+    .forEach(select=>{
+
+        select.selectedIndex = 0;
+
+    });
+
+}
+
+</script>

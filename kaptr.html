@@ -1,94 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Competitor Price</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <style>
-    /* Custom CSS */
-    .hero.is-primary {
-      background-color: #70A9A1;
-      color: #000;
-    }
-    .container-form {
-      max-width: 100%;
-      margin: 0 auto;
-      border: 1px solid #ccc; /* Added border style */
-      padding: 20px; /* Added padding for better visualization */
-    }
-    .message {
-      display: none;
-      margin: 10px;
-      font-weight: bold;
-      color: green;
-      padding: 8px;
-      background-color: beige;
-      border-radius: 4px;
-      border-color: aquamarine;
-    }
-    .preview-table {
-      border: 1px solid #ccc;
-      border-collapse: collapse;
-      margin-top: 10px;
-      width: 100%;
-    }
-    .preview-table th, .preview-table td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karnataka Competitor Price Entry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Poppins',sans-serif;
+    margin:0;
+    background:linear-gradient(135deg,#dbeafe,#eff6ff);
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    padding:25px;
+    color:#fff;
+    text-align:center;
+}
+
+.login-card{
+    width:400px;
+    margin:80px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+label{
+    margin-bottom:5px;
+    font-size:14px;
+    color:#374151;
+}
+
+input,select{
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #cbd5e1;
+    background:#f8fafc;
+    font-size:14px;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#2563eb;
+    background:#fff;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    color:#fff;
+    font-size:15px;
+    background:#2563eb;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.hidden{
+    display:none;
+}
+
+.form-container{
+    max-width:800px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.field.full{
+    grid-column:span 2;
+}
+
+.button-group{
+    max-width:800px;
+    margin:20px auto;
+    display:flex;
+    gap:15px;
+}
+
+.submit-btn{
+    background:#10b981;
+}
+
+.submit-btn:hover{
+    background:#059669;
+}
+
+.reset-btn{
+    background:#ef4444;
+}
+
+.reset-btn:hover{
+    background:#dc2626;
+}
+
+.loader{
+    display:none;
+    text-align:center;
+    font-weight:600;
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+@media(max-width:768px){
+
+.form-container{
+grid-template-columns:1fr;
+}
+
+.field.full{
+grid-column:span 1;
+}
+
+.login-card{
+width:90%;
+}
+
+.button-group{
+flex-direction:column;
+}
+
+}
+
+</style>
 </head>
+
 <body>
-  <section class="hero is-primary is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div style="display: flex; align-items: center;">
-    <img src="https://gefindia.com/assets/img/GEF_Logo.png" alt="Your Logo" style="max-width: 150px; border: 2px solid #31081F; padding: 5px; border-radius: 10px;">
-    <h1 class="title" style="margin-left: 10px;" >KA Competitor Price </h1>
+
+<!-- LOGIN PAGE -->
+
+<div id="loginPage">
+
+<div class="header">
+<h1>Karnataka Competitor Price</h1>
 </div>
-    </div>
-  </section>
-  <!-- Employee ID Input -->
-  <div class="container">
-    <div class="field">
-      <label class="label" for="employeeID">Employee ID</label>
-      <div class="control">
-        <input class="input" type="text" id="employeeID" style="width:40%" placeholder="Enter Employee ID">
-      </div>
-    </div>
-    <div class="field">
-      <label class="label" for="employeeName">Employee Name</label>
-      <div class="control">
-        <input class="input" type="text" id="employeeName" style="width:40%" placeholder="Employee Name" readonly>
-      </div>
-    </div>
-  </div>
 
-  <!-- Button to open the form -->
-  <button class="button is-info is-fullwidth" id="open-form-button" disabled>Open Form</button>
+<div class="login-card">
 
-  <div class="container container-form" id="form-container" style="display: none;">
-    <form id="form">
-      <div class="field">
-        <label class="label" style="width:25%" for="subzone">Subzone</label>
-        <div class="control">
-          <input class="input" type="text" name="Subzone" id="subzone"  readonly value="KARNATAKA">
-        </div>
-      </div>
+<h2>Employee Login</h2>
 
-      <!-- Hidden input fields for Employee ID and Name -->
-      <input type="hidden" id="hiddenEmployeeID" name="EmployeeID">
-      <input type="hidden" id="hiddenEmployeeName" name="EmployeeName">
+<div class="field">
+<label>Employee ID</label>
+<input type="text" id="userId" placeholder="Enter Employee ID">
+</div>
 
-      <div class="field">
-        <label class="label" style="width:35%" for="districtName">District Name</label>
-        <div class="control">
-          <div class="select">
-            <select id="district" name="DistrictName" required>
-              <option disabled hidden selected>Select One</option>
-              <option value="Bagalkot">Bagalkot</option>
+<div class="field">
+<label>Employee Name</label>
+<input type="text" id="userName" readonly placeholder="Auto Filled">
+</div>
+
+<button onclick="openForm()">Open Form</button>
+
+</div>
+
+</div>
+
+<!-- FORM PAGE -->
+
+<div id="formPage" class="hidden">
+
+<div class="header">
+<h1>Price Entry Form</h1>
+<p id="displayUser"></p>
+</div>
+
+<div class="loader" id="loader">
+Saving Data...
+</div>
+
+<div class="form-container">
+
+<div class="field full">
+<label>Subzone</label>
+<input type="text" id="subzone" value="Karnataka" readonly>
+</div>
+
+<div class="field">
+<label>Area Name</label>
+<select id="district" required>
+<option value="Bagalkot">Bagalkot</option>
 <option value="Bangalore">Bangalore</option>
 <option value="Bangalore Rural">Bangalore Rural</option>
 <option value="Belgaum">Belgaum</option>
@@ -120,25 +228,19 @@
 <option value="Udupi">Udupi</option>
 <option value="Uttara Kannada">Uttara Kannada</option>
 <option value="Yadgir">Yadgir</option>
-            </select>
-          </div>
-        </div>
-      </div>
+</select>
+</div>
 
-      <div class="field">
-        <label class="label" style="width:65%" for="Enter Town/Area">Town / Area Name</label>
-        <div class="control">
-          <input class="input" type="text" id="town/areaName" placeholder="Type Town / Area Name" name="Town" style="width:75%" required>
-        </div>
-      </div>
+<div class="field">
+<label>Town / Area Name</label>
+<input type="text" id="town" required>
+</div>
 
-      <div class="field">
-        <label class="label" style="width:35%" for="brandName">Brand Name</label>
-        <div class="control">
-          <div class="select">
-            <select id="brandName" name="BrandName">
-               <option disabled hidden selected>Select One</option>
-               <option value="Freedom">Freedom</option>
+<div class="field">
+<label>Brand Name</label>
+<select id="brand" required>
+<option value="">Select Brand</option>
+<option value="Freedom">Freedom</option>
 <option value="Aadhar">Aadhar</option>
 <option value="Bangi Palli">Bangi Palli</option>
 <option value="Bongi-Dalda">Bongi-Dalda</option>
@@ -163,400 +265,316 @@
 <option value="Sunrich">Sunrich</option>
 <option value="Sunsolite">Sunsolite</option>
 <option value="Sunflow Gold">Sunflow Gold</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" style="width:65%" for="beatName">Beat Name</label>
-        <div class="control">
-          <input class="input" type="text" id="beatName" placeholder="Enter Beat Name" name="BeatName" style="width:75%" required>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="outletName">Outlet Name</label>
-        <div class="control">
-          <input class="input" type="text" id="outletName" placeholder="Enter Outlet Name" name="OutletName" style="width:75%" required>
-        </div>
-      </div>
-
-      <div class="field">
-    <label class="label" for="ltrPTR">SF 1 Ltr PTR</label>
-    <div class="control">
-        <input class="input" type="number" id="ltrPTR" placeholder="Enter 1 Ltr PTR (3 digits only)" name="1LtrPTR" min="90" max="299" style="width:45%" oninput="checkInput(this)" required>
-        <div id="ltrPTR-error" class="error-message" style="color: red;"></div>
-    </div>
+</select>
 </div>
 
 <div class="field">
-    <label class="label" for="ltrPTC">SF 1 Ltr PTC</label>
-    <div class="control">
-        <input class="input" type="number" id="ltrPTC" placeholder="Enter 1 Ltr PTC (3 digits only)" name="1LtrPTC" min="100" max="299" style="width:45%" oninput="checkInput(this)" required>
-        <div id="ltrPTC-error" class="error-message" style="color: red;"></div>
-    </div>
+<label>Beat Name</label>
+<input type="text" id="beat" required>
+</div>
+
+<div class="field full">
+<label>Outlet Name</label>
+<input type="text" id="outlet" required>
 </div>
 
 <div class="field">
-    <label class="label" for="5trPTR">SF 5 Ltr PTR</label>
-    <div class="control">
-        <input class="input" type="number" id="5trPTR" placeholder="Enter 5 Ltr PTR (3 digits only)" name="5LtrPTR" min="400" max="1000" style="width:45%" oninput="checkInput(this)" required>
-        <div id="5trPTR-error" class="error-message" style="color: red;"></div>
-    </div>
+<label>SF 1 Ltr PTR</label>
+<input type="number" id="sf1_ptr" required>
 </div>
 
 <div class="field">
-    <label class="label" for="5trPTC">SF 5 Ltr PTC</label>
-    <div class="control">
-        <input class="input" type="number" id="5trPTC" placeholder="Enter 5 Ltr PTC (3 digits only)" name="5LtrPTC" min="450" max="1000" style="width:45%" oninput="checkInput(this)" required>
-        <div id="5trPTC-error" class="error-message" style="color: red;"></div>
-    </div>
+<label>SF 1 Ltr PTC</label>
+<input type="number" id="sf1_ptc" required>
 </div>
 
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">Submit</button>
-        </div>
-        <div class="control">
-          <button class="button is-danger" type="button" id="cancel-button">Refresh </button>
-        </div>
-      </div>
-    </form>
-    <div id="message" class="message"></div>
-  </div>
+<div class="field">
+<label>SF 5 Ltr PTR</label>
+<input type="number" id="sf5_ptr" required>
+</div>
 
-  <!-- Preview Container -->
-  <div class="container" id="preview-container" style="display: none;">
-    <table class="table preview-table">
-      <thead>
-        <tr>
-          <th>Serial No</th>
-          <th>District Name</th>
-          <th>Town/Area Name</th>
-          <th>Brand Name</th>
-          <th>Beat Name</th>
-          <th>Outlet Name</th>
-          <th>1 Ltr PTR</th>
-          <th>1 Ltr PTC</th>
-          <th>5 Ltr PTR</th>
-          <th>5 Ltr PTC</th>
-        </tr>
-      </thead>
-      <tbody id="preview-table-body">
-        <!-- Preview data will be inserted here -->
-      </tbody>
-    </table>
-  </div>
+<div class="field">
+<label>SF 5 Ltr PTC</label>
+<input type="number" id="sf5_ptc" required>
+</div>
 
-  <script>
-  var submissionCount = 0;
-  var freedomSubmissionCount = 0; // Track the number of "Freedom" submissions
-  var allowedEmployeeIDs = [
-    "2003385472",
-"2003385531",
-"2003385486",
-"2003385496",
-"2003385501",
-"2003385476",
-"2003385474",
-"2003385473",
-"2003385539",
-"2003385511",
-"2003385526",
-"2003385589",
-"2003385602",
-"2003385535",
-"901128",
-"2003385572",
-"2003385482",
-"2003385578",
-"2003385575",
-"2003385581",
-"2003385579",
-"2003385554",
-"2003385573",
-"2003385548",
-"2003385549",
-"2003385550",
-"2003385552",
-"901071",
-"2003385546",
-"2003385551",
-"2003385556",
-"2003385553",
-"2003385541",
-"2003385557",
-"2003385558",
-"2003385559",
-"2003385577",
-"2003385560",
-"2003385562",
-"2003385561",
-"2003385563",
-"2003385583",
-"2003385564",
-"2003385571",
-"2003385570",
-"2003385565",
-"2003385566",
-"2003385567",
-"2003385568",
-"2003385569",
-"2003353496",
-"2003257547",
-"2003353493",
-"2003353494",
-"2003353469",
-"2003353495",
-"2003353468",
-"2003353490",
-"2003353497",
-"2003353491",
-"2003367859",
-"2003367861",
-"2003385612",
-"2003385615",
-"2003421601",
-"2003421601",
-"2003421592",
-"2003421586",
-"2003421590",
-"2003421584",
-"2003454929",
-"2003454931",
-"2003454919",
-"2003385547",
-"2003421590",
-"2003421590",
-"2003519807",
-"2003481220",
-"2003584764",
-"2003454931",
-"2003481213",
-"2003481217",
-"2003481216",
-"2003584767"
-  ]; // Predefined list of Employee IDs
+</div>
 
-  var employeeNames = {
-    "2003385472": "Byregowda H",
-"2003385531": "Govindaiah",
-"2003385486": "Venkataramu B M",
-"2003385496": "Budhali Harsha vardhan",
-"2003385501": "Appaji Gowda",
-"2003385476": "Siddaramu R",
-"2003385474": "Lakshmana",
-"2003385473": "Channabasaveshwara prasad",
-"2003385539": "H M Girish",
-"2003385511": "Madhu T N",
-"2003385526": "Santhosh K",
-"2003385589": "T Ravikumar",
-"2003385602": "Suneel Bahubali Patil",
-"2003385535": "A Venkateshwarlu",
-"901128": "Nazeer Ahamed",
-"2003385572": "Channappa Lakamapur",
-"2003385482": "Manoj Shetty",
-"2003385578": "Prasad S R",
-"2003385575": "Raghavendra Mallikarjun Devargudi",
-"2003385581": "Mahadevaswamy",
-"2003385579": "Suresha A B",
-"2003385554": "Shankarappa R ",
-"2003385573": "Deepak B",
-"2003385548": "K Narasimman",
-"2003385549": "Anil Kumar K P",
-"2003385550": "Gurudarshan G",
-"2003385552": "R MURALI",
-"901071": "Manjunath. Pm",
-"2003385546": "Shivukumar C Desaimath",
-"2003385551": "Raghavendra G",
-"2003385556": "Pavan Paris janagouda",
-"2003385553": "Keerthan G",
-"2003385541": "Dhananjaya M K",
-"2003385557": "Shiva Kumar K N",
-"2003385558": "Mallikarjun",
-"2003385559": "Prajwal M",
-"2003385577": "SANTHOSH H",
-"2003385560": "Gokul Suresh Limakar",
-"2003385562": "Manjunath Nagappa Valmiki",
-"2003385561": "Channaveer",
-"2003385563": "Jyotiba Sambaji Pawar",
-"2003385583": "Avinashakumara D",
-"2003385564": "Darshan K",
-"2003385571": "Pendela Ramakrishna",
-"2003385570": "Naveen Kumar G R",
-"2003385565": "S Suresh",
-"2003385566": "KIRAN N",
-"2003385567": "B A Balakrishna",
-"2003385568": "Abhishek H S",
-"2003385569": "Ramakrishna Konda",
-"2003353496": "DHANUSH",
-"2003257547": "SANTOSH",
-"2003353493": "Rajesh Sulepeth",
-"2003353494": "Rahul N Paloti",
-"2003353469": "Vinayak Hugar",
-"2003353495": "Naveen Kallleappanavar",
-"2003353468": "Abhishek Pradeep Math",
-"2003353490": "PRAVEEN BAVIKATTI",
-"2003353497": "Basavarajappa Sr",
-"2003353491": "Nithin Tk",
-"2003367859": "VASUDEVARAO M Y",
-"2003367861": "VEERENDRA NAYAK",
-"2003385612": "S M VARUN THEJA",
-"2003385615": "MALLESH",
-"2003421601":  "Pancham Jain H P",
-"2003421592":  "Shivanand Aravind Ittangihal",
-"2003421586":  "Varun Kumar N",
-"2003421590":  "Aruna Kumara B M",
-"2003421584":  "Deepak",
-"2003454929":  "Abhijit N Renike",
-"2003454931":  "Kapil Yallappa Tarale",
-"2003454919":  "Srinidhi Kulkarni",
-"2003385547": "Umashankar",
-"2003421590":  "ARUNA KUMARA B M",
-"2003421584":  "DEEPAK",
-"2003519807":  "YALLAPPA",
-"2003481220":  "SANTOSH KORAGAR",
-"2003584764":  "VINAYAK K PUJARI",
-"2003454929":  "ABHIJIT N RENIKE",
-"2003454931":  "KAPIL YALLAPPA TARALE",
-"2003481213":  "UDAY SURESH TOPANNAVAR",
-"2003481217":  "MOHAMED FARUK",
-"2003481216":  "MANOJ MURTHY NAYAKA",
-"2003584767":  "RAHULRAJ R"
+<div class="button-group">
+<button class="submit-btn" onclick="submitForm()">Submit</button>
+<button class="reset-btn" onclick="resetForm()">Refresh</button>
+</div>
 
-  }; // Predefined Employee Names
-document.getElementById("employeeID").addEventListener("input", function() {
-  var employeeID = this.value.trim();
-  document.getElementById("open-form-button").disabled = allowedEmployeeIDs.includes(employeeID) ? false : true;
-  document.getElementById("employeeName").value = employeeNames[employeeID] || '';
-  // Set hidden fields for Employee ID and Name
-  document.getElementById("hiddenEmployeeID").value = employeeID;
-  document.getElementById("hiddenEmployeeName").value = employeeNames[employeeID] || '';
-});
+</div>
 
-document.getElementById("form").addEventListener("submit", function(e) {
-  e.preventDefault(); // Prevent the default form submission
+<script>
 
-var districtSelect = document.getElementById("district");
-        if (districtSelect.value === "Select One") {
-            alert("Please select a District Name before submitting the form.");
-            return; // Stop form submission
-        }
+/**************************************************
+ GOOGLE APPS SCRIPT URL
+**************************************************/
 
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbwtIHMkQW_ZrID9A5O86GhdeClA0_3ghVQR2Ug300dcc-6ojryNdmJjt9jPcWRT-SFvtA/exec";
 
-  // Check if submission count has reached the limit
-  if (submissionCount >= 7) {
-    alert("You can only submit 7 times.");
-    return;
-  }
+const SUBZONE = "Karnataka";
 
-  document.getElementById("message").textContent = "Submitting..";
-  document.getElementById("message").style.display = "block";
-  document.getElementById("submit-button").disabled = true;
+const EMPLOYEE_API =
+`${SCRIPT_URL}?state=${encodeURIComponent(SUBZONE)}`;
 
-  submissionCount++;
+/**************************************************
+ EMPLOYEE MASTER
+**************************************************/
 
-  // Collect the form data
-  var formData = new FormData(this);
-  var keyValuePairs = [];
-  for (var pair of formData.entries()) {
-    keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
-  }
+let employees = {};
 
-  var formDataString = keyValuePairs.join("&");
+async function loadEmployees(){
 
-  // Send a POST request to your Google Apps Script
-  fetch("https://script.google.com/macros/s/AKfycbyjVHSQU9NU1KL1dYWq7ZGmpzHbhAe3sfBM4fBqTIW9udcCDXrDy4jJzG2kHmf6pF6ChQ/exec", {
-    redirect: "follow",
-    method: "POST",
-    body: formDataString,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+    try{
+
+        const response = await fetch(EMPLOYEE_API);
+
+        const data = await response.json();
+
+        employees = {};
+
+        data.forEach(emp=>{
+
+            employees[
+                String(emp.employeeId).trim()
+            ] = emp.employeeName;
+
+        });
+
     }
-  })
-  .then(function(response) {
-    // Check if the request was successful
-    if (response.ok) {
-      return response.text(); // Assuming your script returns text response
-    } else {
-      throw new Error("Failed to submit the form.");
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to load Employee Master");
+
     }
-  })
-  .then(function(data) {
-    // Display a success message
-    document.getElementById("message").textContent = "Data submitted successfully!";
-    document.getElementById("message").style.backgroundColor = "green";
-    document.getElementById("message").style.color = "beige";
-    document.getElementById("submit-button").disabled = false;
-    document.getElementById("form").reset();
 
-    // Show preview
-    showPreview(formData);
-
-    setTimeout(function() {
-      document.getElementById("message").textContent = "";
-      document.getElementById("message").style.display = "none";
-    }, 2600);
-  })
-  .catch(function(error) {
-    // Handle errors, you can display an error message here
-    console.error(error);
-    document.getElementById("message").textContent = "An error occurred while submitting the form.";
-    document.getElementById("message").style.display = "block";
-  });
-});
-
-document.getElementById("open-form-button").addEventListener("click", function() {
-  document.getElementById("form-container").style.display = "block";
-});
-
-document.getElementById("cancel-button").addEventListener("click", function() {
-  document.getElementById("form-container").style.display = "none";
-});
-
-// Function to display preview
-function showPreview(formData) {
-  var previewTableBody = document.getElementById("preview-table-body");
-
-  // Create a row for data
-  var dataRow = document.createElement("tr");
-
-  var serialNumberCell = document.createElement("td");
-  serialNumberCell.textContent = submissionCount;
-  dataRow.appendChild(serialNumberCell);
-
-  var headers = ['TownName', 'BrandName', 'BeatName', 'OutletName', '1LtrPTR', '1LtrPTC', '5LtrPTR', '5LtrPTC'];
-
-  headers.forEach(function(header) {
-    var dataCell = document.createElement("td");
-    dataCell.textContent = formData.get(header);
-    dataRow.appendChild(dataCell);
-  });
-
-  previewTableBody.appendChild(dataRow);
-
-  document.getElementById("preview-container").style.display = "block";
 }
 
-  </script>
+loadEmployees();
 
-  <script>
-    function checkInput(input) {
-        let value = input.value;
-        let min = parseInt(input.min);
-        let max = parseInt(input.max);
-        let errorMessage = document.getElementById(input.id + "-error");
+/**************************************************
+ AUTO FILL EMPLOYEE NAME
+**************************************************/
 
-        if (value.length !== 3 || isNaN(value) || value < min || value > max) {
-            errorMessage.textContent = "Please enter Valid number";
-            input.setCustomValidity("Invalid input");
-        } else {
-            errorMessage.textContent = "";
-            input.setCustomValidity("");
-        }
+document.getElementById("userId")
+.addEventListener("input",function(){
+
+    const empId = this.value.trim();
+
+    document.getElementById("userName").value =
+        employees[empId] || "";
+
+});
+
+/**************************************************
+ OPEN FORM
+**************************************************/
+
+function openForm(){
+
+    const empId =
+        document.getElementById("userId").value.trim();
+
+    const empName =
+        document.getElementById("userName").value.trim();
+
+    if(empId === "" || empName === ""){
+
+        alert("Invalid Employee ID");
+
+        return;
+
     }
-</script>
 
-</body>
-</html>
+    document.getElementById("loginPage")
+    .classList.add("hidden");
+
+    document.getElementById("formPage")
+    .classList.remove("hidden");
+
+    document.getElementById("displayUser").innerHTML =
+        "Logged in as : <b>" +
+        empName +
+        "</b> (" +
+        empId +
+        ")";
+
+}
+
+/**************************************************
+ SUBMIT TO GOOGLE SHEET
+**************************************************/
+
+async function submitForm(){
+
+    const requiredFields = [
+        "district",
+        "town",
+        "brand",
+        "beat",
+        "outlet",
+        "sf1_ptr",
+        "sf1_ptc",
+        "sf5_ptr",
+        "sf5_ptc"
+    ];
+
+    for(let field of requiredFields){
+
+        if(
+            document
+            .getElementById(field)
+            .value
+            .trim() === ""
+        ){
+
+            alert("Please fill all fields");
+
+            return;
+
+        }
+
+    }
+
+    const data = {
+
+        employeeId:
+        document.getElementById("userId").value,
+
+        employeeName:
+        document.getElementById("userName").value,
+
+        subzone:
+        document.getElementById("subzone").value,
+
+        district:
+        document.getElementById("district").value,
+
+        town:
+        document.getElementById("town").value,
+
+        brand:
+        document.getElementById("brand").value,
+
+        beat:
+        document.getElementById("beat").value,
+
+        outlet:
+        document.getElementById("outlet").value,
+
+        sf1_ptr:
+        document.getElementById("sf1_ptr").value,
+
+        sf1_ptc:
+        document.getElementById("sf1_ptc").value,
+
+        sf5_ptr:
+        document.getElementById("sf5_ptr").value,
+
+        sf5_ptc:
+        document.getElementById("sf5_ptc").value
+
+    };
+
+    let response, text, result;
+    const submitBtn = document.querySelector('.submit-btn');
+
+    try{
+
+        document.getElementById("loader").style.display = "block";
+        if(submitBtn) submitBtn.disabled = true;
+
+        response = await fetch(
+            SCRIPT_URL,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(data)
+            }
+        );
+
+        text = await response.text();
+
+        try{ result = JSON.parse(text); } catch(e){ result = null; }
+
+        if(!response.ok){
+            console.error('HTTP error', response.status, text);
+            alert('Unable to save data. Server returned status ' + response.status);
+            return;
+        }
+
+        if(result && result.status === "success"){
+            alert("Data Saved Successfully");
+            resetForm();
+        }
+        else if(result){
+            alert("Error : " + result.message);
+        }
+        else{
+            console.warn('Unexpected response from server:', text);
+            alert('Unexpected server response. Check console for details.');
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to save data. Check Apps Script Deployment."
+        );
+
+    }
+
+    finally{
+        document.getElementById("loader").style.display = "none";
+        if(submitBtn) submitBtn.disabled = false;
+    }
+
+}
+
+/**************************************************
+ RESET
+**************************************************/
+
+function resetForm(){
+
+    document
+    .querySelectorAll(
+        "#formPage input"
+    )
+    .forEach(input=>{
+
+        if(
+            input.id !== "subzone"
+        ){
+
+            input.value = "";
+
+        }
+
+    });
+
+    document
+    .querySelectorAll(
+        "#formPage select"
+    )
+    .forEach(select=>{
+
+        select.selectedIndex = 0;
+
+    });
+
+}
+
+</script>
