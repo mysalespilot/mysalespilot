@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYD Metro Competitor Price Entry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Poppins',sans-serif;
+    margin:0;
+    background:linear-gradient(135deg,#dbeafe,#eff6ff);
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    padding:25px;
+    color:#fff;
+    text-align:center;
+}
+
+.login-card{
+    width:400px;
+    margin:80px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+label{
+    margin-bottom:5px;
+    font-size:14px;
+    color:#374151;
+}
+
+input,select{
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #cbd5e1;
+    background:#f8fafc;
+    font-size:14px;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#2563eb;
+    background:#fff;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    color:#fff;
+    font-size:15px;
+    background:#2563eb;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.hidden{
+    display:none;
+}
+
+.form-container{
+    max-width:800px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.field.full{
+    grid-column:span 2;
+}
+
+.button-group{
+    max-width:800px;
+    margin:20px auto;
+    display:flex;
+    gap:15px;
+}
+
+.submit-btn{
+    background:#10b981;
+}
+
+.submit-btn:hover{
+    background:#059669;
+}
+
+.reset-btn{
+    background:#ef4444;
+}
+
+.reset-btn:hover{
+    background:#dc2626;
+}
+
+.loader{
+    display:none;
+    text-align:center;
+    font-weight:600;
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+@media(max-width:768px){
+
+.form-container{
+grid-template-columns:1fr;
+}
+
+.field.full{
+grid-column:span 1;
+}
+
+.login-card{
+width:90%;
+}
+
+.button-group{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+
+<div id="loginPage">
+
+<div class="header">
+<h1>HYD Metro Competitor Price</h1>
+</div>
+
+<div class="login-card">
+
+<h2>Employee Login</h2>
+
+<div class="field">
+<label>Employee ID</label>
+<input type="text" id="userId" placeholder="Enter Employee ID">
+</div>
+
+<div class="field">
+<label>Employee Name</label>
+<input type="text" id="userName" readonly placeholder="Auto Filled">
+</div>
+
+<button onclick="openForm()">Open Form</button>
+
+</div>
+
+</div>
+
+<!-- FORM PAGE -->
+
+<div id="formPage" class="hidden">
+
+<div class="header">
+<h1>Price Entry Form</h1>
+<p id="displayUser"></p>
+</div>
+
+<div class="loader" id="loader">
+Saving Data...
+</div>
+
+<div class="form-container">
+
+<div class="field full">
+<label>Subzone</label>
+<input type="text" id="subzone" value="HYD Metro" readonly>
+</div>
+
+<div class="field">
+<label>Area Name</label>
+<select id="district" required>
+<option value="">Select Area</option>
+<option>Bollaram</option>
+<option>Borabanda</option>
+<option>B N Reddy</option>
+<option>Bahadurpura</option>
+<option>Chaitanyapuri</option>
+<option>Cheriyal</option>
+<option>Chandanagar</option>
+<option>Cherlapally</option>
+<option>Chilkanagar</option>
+<option>Choutuppal</option>
+<option>Damaiguda</option>
+<option>Dilsukhnagar</option>
+<option>Domalguda</option>
+<option>Doodhbowli</option>
+<option>East Maredpally</option>
+<option>Erragadda</option>
+<option>Falaknuma</option>
+<option>Filmnagar</option>
+<option>Gachibowli</option>
+<option>Ghatkesar</option>
+<option>Ghanpur</option>
+<option>Golconda</option>
+<option>Gajwel</option>
+<option>Hafeezpet</option>
+<option>Hayathnagar</option>
+<option>Ibrahmipatnam</option>
+<option>Idpl</option>
+<option>Isnapur</option>
+<option>Jagadgirigutta</option>
+<option>Jiyaguda</option>
+<option>Jp Nagar</option>
+<option>Jubleehills</option>
+<option>Kalapather</option>
+<option>Kapra</option>
+<option>Karkhana</option>
+<option>Karmanghat</option>
+<option>Kattedhan</option>
+<option>Kesara</option>
+<option>Khairatabad</option>
+<option>Kishanbagh</option>
+<option>Koheda</option>
+<option>Kothapet</option>
+<option>Kompally</option>
+<option>Kphb</option>
+<option>Kukatpally</option>
+<option>Kushaiguda</option>
+<option>L.B.Nagar</option>
+<option>Lalapet</option>
+<option>Lalaguda</option>
+<option>Lingampally</option>
+<option>Lothkunta</option>
+<option>Lungerhouse</option>
+<option>Mangalhat</option>
+<option>Madannapet</option>
+<option>Madinaguda</option>
+<option>Malakpet</option>
+<option>Maal</option>
+<option>Manikoda</option>
+<option>Mansoorabad</option>
+<option>Medchal</option>
+<option>Meerpet</option>
+<option>Mehdipatnam</option>
+<option>Miyapur</option>
+<option>Moulali</option>
+<option>Musheerabad</option>
+<option>Nacharam</option>
+<option>Nagaram</option>
+<option>Nagole</option>
+<option>Nampally</option>
+<option>Ngos Colony</option>
+<option>Nizampet</option>
+<option>Panjagutta</option>
+<option>Parsigutta</option>
+<option>padmaraonagar</option>
+<option>Patancheruv</option>
+<option>Peerjadiguda</option>
+<option>Peerjadiguda</option>
+<option>Pragathi Nagar</option>
+<option>Qutbullapur</option>
+<option>R.K.Puram</option>
+<option>Ramanthapur</option>
+<option>Ramayampet</option>
+<option>Ramnagar</option>
+<option>Rajendra Nagar</option>
+<option>Rasoolpura</option>
+<option>Saidabad</option>
+<option>Sri Nagar Colony</option>
+<option>Santosh Nagar</option>
+<option>Saroornagar</option>
+<option>Shamirpet</option>
+<option>Shamshabad</option>
+<option>Shankarpally</option>
+<option>Shivam Road</option>
+<option>Sr Nagar</option>
+<option>Tolichowki</option>
+<option>Talabkatta</option>
+<option>Tarnaka</option>
+<option>Tukkuguda</option>
+<option>Tumkunta</option>
+<option>Uppal</option>
+<option>Uppuguda</option>
+<option>Vanastallipuram</option>
+<option>Venkatagiri</option>
+<option>West Maredpally</option>
+<option>Yakupura</option>
+<option>Yamjal</option>
+<option>Yusufguda</option>
+<option>Achampet</option>
+<option>Aler</option>
+<option>Bhongir</option>
+<option>Chandur</option>
+<option>Chityala</option>
+<option>Damarcharla</option>
+<option>Devarakonda</option>
+<option>Gadwal</option>
+<option>Ghatkesar</option>
+<option>Haliya</option>
+<option>Huzurnagar</option>
+<option>Ieeja</option>
+<option>Jangoan</option>
+<option>Jadcherla</option>
+<option>JALLAPUR</option>
+<option>Jogipet</option>
+<option>Palakurthy</option>
+<option>Kalwakurthy</option>
+<option>Kodad</option>
+<option>Kollapur</option>
+<option>KOSGI</option>
+<option>Kothakota</option>
+<option>Mahabubabad</option>
+<option>Mahabubnagar</option>
+<option>Makhtal</option>
+<option>Medak</option>
+<option>Medchal</option>
+<option>Miryalaguda</option>
+<option>Mothkur</option>
+<option>Nagarkurnool</option>
+<option>Nakrekal</option>
+<option>Nalgonda</option>
+<option>Narayankhed</option>
+<option>Narayanpet</option>
+<option>Narsapur</option>
+<option>Neruducherla</option>
+<option>Pebbair</option>
+<option>Peddavoora</option>
+<option>Rangareddy</option>
+<option>Sangareddy</option>
+<option>Shadnagar</option>
+<option>Siddipet</option>
+<option>Suryapet</option>
+<option>Tandur</option>
+<option>Thirumalagiri</option>
+<option>Toopran</option>
+<option>Valigonda</option>
+<option>Vatpally</option>
+<option>Vikarabad</option>
+<option>Wanaparthy</option>
+<option>Yadagirigutta</option>
+<option>Zaheerabad</option>
+</select>
+</div>
+
+<div class="field">
+<label>Town / Area Name</label>
+<input type="text" id="town" required>
+</div>
+
+<div class="field">
+<label>Brand Name</label>
+<select id="brand" required>
+<option value="">Select Brand</option>
+option value="Freedom">Freedom</option>
+             <option value="Aadhaar">Aadhaar</option>
+<option value="Dalda">Dalda</option>
+<option value="Fortune">Fortune</option>
+<option value="Gold Drop">Gold Drop</option>
+<option value="Gold Winner">Gold Winner</option>
+<option value="Healthy Gold">Healthy Gold</option>
+<option value="Priya Gold">Priya Gold</option>
+<option value="Naturalle">Naturalle</option>
+<option value="Saffolla">Saffolla</option>
+<option value="Shubham">Shubham</option>
+<option value="Sunsollite">Sunsollite</option>
+<option value="Super Life">Super Life</option>
+<option value="Teasty drop">Teasty drop</option>
+<option value="Teasty Gold">Teasty Gold</option>
+<option value="Vijaya">Vijaya</option>
+<option value="Venu Gold">Venu Gold</option>
+<option value="Hello LIfe">Hello LIfe</option>
+<option value="Fiona">Fiona</option>
+</select>
+</div>
+
+<div class="field">
+<label>Beat Name</label>
+<input type="text" id="beat" required>
+</div>
+
+<div class="field full">
+<label>Outlet Name</label>
+<input type="text" id="outlet" required>
+</div>
+
+<div class="field">
+<label>SF 1 Ltr PTR</label>
+<input type="number" id="sf1_ptr" required>
+</div>
+
+<div class="field">
+<label>SF 1 Ltr PTC</label>
+<input type="number" id="sf1_ptc" required>
+</div>
+
+<div class="field">
+<label>SF 5 Ltr PTR</label>
+<input type="number" id="sf5_ptr" required>
+</div>
+
+<div class="field">
+<label>SF 5 Ltr PTC</label>
+<input type="number" id="sf5_ptc" required>
+</div>
+
+</div>
+
+<div class="button-group">
+<button class="submit-btn" onclick="submitForm()">Submit</button>
+<button class="reset-btn" onclick="resetForm()">Refresh</button>
+</div>
+
+</div>
+
+<script>
+
+/**************************************************
+ GOOGLE APPS SCRIPT URL
+**************************************************/
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbwtIHMkQW_ZrID9A5O86GhdeClA0_3ghVQR2Ug300dcc-6ojryNdmJjt9jPcWRT-SFvtA/exec";
+
+const SUBZONE = "HYD Metro";
+
+const EMPLOYEE_API =
+`${SCRIPT_URL}?state=${encodeURIComponent(SUBZONE)}`;
+
+/**************************************************
+ EMPLOYEE MASTER
+**************************************************/
+
+let employees = {};
+
+async function loadEmployees(){
+
+    try{
+
+        const response = await fetch(EMPLOYEE_API);
+
+        const data = await response.json();
+
+        employees = {};
+
+        data.forEach(emp=>{
+
+            employees[
+                String(emp.employeeId).trim()
+            ] = emp.employeeName;
+
+        });
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to load Employee Master");
+
+    }
+
+}
+
+loadEmployees();
+
+/**************************************************
+ AUTO FILL EMPLOYEE NAME
+**************************************************/
+
+document.getElementById("userId")
+.addEventListener("input",function(){
+
+    const empId = this.value.trim();
+
+    document.getElementById("userName").value =
+        employees[empId] || "";
+
+});
+
+/**************************************************
+ OPEN FORM
+**************************************************/
+
+function openForm(){
+
+    const empId =
+        document.getElementById("userId").value.trim();
+
+    const empName =
+        document.getElementById("userName").value.trim();
+
+    if(empId === "" || empName === ""){
+
+        alert("Invalid Employee ID");
+
+        return;
+
+    }
+
+    document.getElementById("loginPage")
+    .classList.add("hidden");
+
+    document.getElementById("formPage")
+    .classList.remove("hidden");
+
+    document.getElementById("displayUser").innerHTML =
+        "Logged in as : <b>" +
+        empName +
+        "</b> (" +
+        empId +
+        ")";
+
+}
+
+/**************************************************
+ SUBMIT TO GOOGLE SHEET
+**************************************************/
+
+async function submitForm(){
+
+    const requiredFields = [
+        "district",
+        "town",
+        "brand",
+        "beat",
+        "outlet",
+        "sf1_ptr",
+        "sf1_ptc",
+        "sf5_ptr",
+        "sf5_ptc"
+    ];
+
+    for(let field of requiredFields){
+
+        if(
+            document
+            .getElementById(field)
+            .value
+            .trim() === ""
+        ){
+
+            alert("Please fill all fields");
+
+            return;
+
+        }
+
+    }
+
+    const data = {
+
+        employeeId:
+        document.getElementById("userId").value,
+
+        employeeName:
+        document.getElementById("userName").value,
+
+        subzone:
+        document.getElementById("subzone").value,
+
+        district:
+        document.getElementById("district").value,
+
+        town:
+        document.getElementById("town").value,
+
+        brand:
+        document.getElementById("brand").value,
+
+        beat:
+        document.getElementById("beat").value,
+
+        outlet:
+        document.getElementById("outlet").value,
+
+        sf1_ptr:
+        document.getElementById("sf1_ptr").value,
+
+        sf1_ptc:
+        document.getElementById("sf1_ptc").value,
+
+        sf5_ptr:
+        document.getElementById("sf5_ptr").value,
+
+        sf5_ptc:
+        document.getElementById("sf5_ptc").value
+
+    };
+
+    let response, text, result;
+    const submitBtn = document.querySelector('.submit-btn');
+
+    try{
+
+        document.getElementById("loader").style.display = "block";
+        if(submitBtn) submitBtn.disabled = true;
+
+        response = await fetch(
+            SCRIPT_URL,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(data)
+            }
+        );
+
+        text = await response.text();
+
+        try{ result = JSON.parse(text); } catch(e){ result = null; }
+
+        if(!response.ok){
+            console.error('HTTP error', response.status, text);
+            alert('Unable to save data. Server returned status ' + response.status);
+            return;
+        }
+
+        if(result && result.status === "success"){
+            alert("Data Saved Successfully");
+            resetForm();
+        }
+        else if(result){
+            alert("Error : " + result.message);
+        }
+        else{
+            console.warn('Unexpected response from server:', text);
+            alert('Unexpected server response. Check console for details.');
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to save data. Check Apps Script Deployment."
+        );
+
+    }
+
+    finally{
+        document.getElementById("loader").style.display = "none";
+        if(submitBtn) submitBtn.disabled = false;
+    }
+
+}
+
+/**************************************************
+ RESET
+**************************************************/
+
+function resetForm(){
+
+    document
+    .querySelectorAll(
+        "#formPage input"
+    )
+    .forEach(input=>{
+
+        if(
+            input.id !== "subzone"
+        ){
+
+            input.value = "";
+
+        }
+
+    });
+
+    document
+    .querySelectorAll(
+        "#formPage select"
+    )
+    .forEach(select=>{
+
+        select.selectedIndex = 0;
+
+    });
+
+}
+
+</script>
