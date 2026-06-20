@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyderabad Competitor Price Portal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS STYLESHEET
+           Organized by section for clear maintenance
+        */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            min-height: 100vh;
+        }
+
+        /* Header UI Block */
+        .header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .sub-header {
+            margin-top: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Authentication View Styling */
+        .login-card {
+            width: 420px;
+            margin: 80px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #1e293b;
+        }
+
+        /* Form Controls */
+        .field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
+
+        label {
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        input,
+        select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Action Buttons */
+        button {
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .login-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Hide by default */
+        #formView {
+            display: none;
+        }
+
+        .user-info {
+            text-align: center;
+            margin-top: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .field.full {
+            grid-column: span 2;
+        }
+
+        .button-group {
+            max-width: 1100px;
+            margin: 20px auto;
+            display: flex;
+            gap: 15px;
+            padding: 0 20px 30px;
+        }
+
+        .submit-btn {
+            flex: 1;
+            padding: 14px;
+            background: #10b981;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .submit-btn:hover {
+            background: #059669;
+        }
+
+        .reset-btn {
+            flex: 1;
+            padding: 14px;
+            background: #ef4444;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .reset-btn:hover {
+            background: #dc2626;
+        }
+
+        .logout-btn {
+            flex: 1;
+            padding: 14px;
+            background: #f59e0b;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .logout-btn:hover {
+            background: #d97706;
+        }
+
+        @media(max-width:768px) {
+            .login-card {
+                width: 90%;
+            }
+
+            .form-container {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: span 1;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loginView">
+        <div class="header">
+            <h1>Hyderabad Competitor Price Portal</h1>
+        </div>
+        <div class="login-card">
+            <h2>Employee Login</h2>
+            <div class="field">
+                <label>Employee ID</label>
+                <input type="text" id="userId" placeholder="Enter Employee ID">
+            </div>
+            <div class="field">
+                <label>Employee Name</label>
+                <input type="text" id="userName" placeholder="Auto-filled" readonly>
+            </div>
+            <button class="login-btn" onclick="openForm()">Open Form</button>
+        </div>
+    </div>
+
+    <div id="formView">
+        <div class="header">
+            <h1>Hyderabad Competitor Price Entry Form</h1>
+            <div class="user-info" id="displayUser"></div>
+            <div class="sub-header">Region: Hyderabad</div>
+        </div>
+
+        <div class="form-container">
+            <input type="hidden" id="region" value="HYD">
+            <div class="field">
+                <label>DistrictName</label>
+                <input type="text" id="DistrictName" value="Hyderabad" readonly>
+            </div>
+            <div class="field">
+                <label>Area</label>
+                <select id="town">
+                    <option value="">Select Area</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Brand</label>
+                <select id="brand">
+                    <option value="">Select Brand</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Beat Name</label>
+                <input type="text" id="beat" placeholder="Enter Beat Name">
+            </div>
+            <div class="field full">
+                <label>Outlet Name</label>
+                <input type="text" id="outlet" placeholder="Enter Outlet Name">
+            </div>
+            <div class="field"><label>SF 1 Ltr PTR</label><input type="number" id="sf1_ptr" placeholder="Enter PTR"></div>
+            <div class="field"><label>SF 1 Ltr PTC</label><input type="number" id="sf1_ptc" placeholder="Enter PTC"></div>
+            <div class="field"><label>SF 5 Ltr PTR</label><input type="number" id="sf5_ptr" placeholder="Enter PTR"></div>
+            <div class="field"><label>SF 5 Ltr PTC</label><input type="number" id="sf5_ptc" placeholder="Enter PTC"></div>
+        </div>
+
+        <div class="button-group">
+            <button class="submit-btn" onclick="submitForm()">Submit</button>
+            <button class="reset-btn" onclick="resetForm()">Refresh</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Endpoint Configuration
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyY71S7OHedCBWZj7PL5dleyVlf2rnVeAKE8Ks-qCGf_PHzaeWHFonKnNPaAkapXi97Vw/exec";
+
+        // DATASETS START
+        // HYD
+        const hydTowns = ["Abids", "Abdullapurmet", "Alwal", "Alwyn Colony", "Amberpet", "Ameerpet", "Anandhbagh", "As Rao Nagar", "Ashoknagar", "Attapur", "Bachupally", "Baghamberpet", "Begumpet", "Balapur", "Bandlaguda", "Banjarahills", "Barkatpura", "Boduppal", "Bollaram", "Borabanda", "B N Reddy", "Bahadurpura", "Chaitanyapuri", "Cheriyal", "Chandanagar", "Cherlapally", "Chilkanagar", "Choutuppal", "Damaiguda", "Dilsukhnagar", "Domalguda", "Doodhbowli", "East Maredpally", "Erragadda", "Falaknuma", "Filmnagar", "Gachibowli", "Ghatkesar", "Ghanpur", "Golconda", "Gajwel", "Hafeezpet", "Hayathnagar", "Ibrahmipatnam", "Idpl", "Isnapur", "Jagadgirigutta", "Jiyaguda", "Jp Nagar", "Jubleehills", "Kalapather", "Kapra", "Karkhana", "Karmanghat", "Kattedhan", "Kesara", "Khairatabad", "Kishanbagh", "Koheda", "Kothapet", "Kompally", "Kphb", "Kukatpally", "Kushaiguda", "L.B.Nagar", "Lalapet", "Lalaguda", "Lingampally", "Lothkunta", "Lungerhouse", "Mangalhat", "Madannapet", "Madinaguda", "Malakpet", "Maal", "Manikoda", "Mansoorabad", "Medchal", "Meerpet", "Mehdipatnam", "Miyapur", "Moulali", "Musheerabad", "Nacharam", "Nagaram", "Nagole", "Nampally", "Ngos Colony", "Nizampet", "Panjagutta", "Parsigutta", "Padmaraonagar", "Patancheruvu", "Peerjadiguda", "Pragathi Nagar", "Qutbullapur", "R.K.Puram", "Ramanthapur", "Ramayampet", "Ramnagar", "Rajendra Nagar", "Rasoolpura", "Saidabad", "Sri Nagar Colony", "Santosh Nagar", "Saroornagar", "Shamirpet", "Shamshabad", "Shankarpally", "Shivam Road", "Sr Nagar", "Tolichowki", "Talabkatta", "Tarnaka", "Tukkuguda", "Tumkunta", "Uppal", "Uppuguda", "Vanastallipuram", "Venkatagiri", "West Maredpally", "Yakupura", "Yamjal", "Yusufguda"];
+        const hydBrands = ["Freedom", "Aadhaar", "Dalda", "Fortune", "Gold Drop", "Gold Winner", "Healthy Gold", "Priya Gold", "Naturalle", "Saffolla", "Shubham", "Sunsollite", "Super Life", "Teasty drop", "Teasty Gold", "Vijaya", "Venu Gold", "Hello LIfe", "Fiona"];
+        // Data Mapping
+        const regionData = {
+            
+            HYD: { towns: hydTowns, brands: hydBrands },
+        };
+        // DATASETS END
+
+        // App Initialization Logic
+        window.onload = function () {
+            document.getElementById("loginView").style.display = "block";
+            document.getElementById("formView").style.display = "none";
+
+            document.getElementById("userId").addEventListener("input", function () {
+                const userId = this.value.trim();
+                const userNameField = document.getElementById("userName");
+
+                if (!userId) {
+                    userNameField.value = "";
+                    return;
+                }
+
+                fetch(`${WEB_APP_URL}?userId=${userId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        userNameField.value = data.status === "found" ? data.name : "Invalid Employee ID";
+                    })
+                    .catch(() => {
+                        userNameField.value = "Error connecting...";
+                    });
+            });
+
+            loadRegionData();
+        };
+
+        // UI View Toggle
+        function openForm() {
+            const userId = document.getElementById("userId").value.trim();
+            const userName = document.getElementById("userName").value;
+
+            if (!userId || userName === "" || userName === "Invalid Employee ID") {
+                alert("Please enter a valid Employee ID");
+                return;
+            }
+            localStorage.setItem("userId", userId);
+            localStorage.setItem("userName", userName);
+
+            document.getElementById("loginView").style.display = "none";
+            document.getElementById("formView").style.display = "block";
+            document.getElementById("displayUser").innerText = `${userName} (${userId})`;
+        }
+
+        // Populate Dropdowns
+        function loadRegionData() {
+            const region = document.getElementById("region").value;
+            const townDropdown = document.getElementById("town");
+            const brandDropdown = document.getElementById("brand");
+
+            townDropdown.innerHTML = '<option value="">Select Town</option>';
+            brandDropdown.innerHTML = '<option value="">Select Brand</option>';
+
+            if (!regionData[region]) return;
+
+            regionData[region].towns.sort().forEach(t => townDropdown.innerHTML += `<option value="${t}">${t}</option>`);
+            regionData[region].brands.sort().forEach(b => brandDropdown.innerHTML += `<option value="${b}">${b}</option>`);
+        }
+
+        // Validation Helper
+        function validate3Digit(value) { return !value || value.toString().length <= 3; }
+
+        // Core Form Submission
+        function submitForm() {
+            const data = {
+                userId: localStorage.getItem("userId"),
+                userName: localStorage.getItem("userName"),
+                region: document.getElementById("region").value,
+                districtname: document.getElementById("DistrictName").value,
+                town: document.getElementById("town").value,
+                brand: document.getElementById("brand").value,
+                beat: document.getElementById("beat").value,
+                outlet: document.getElementById("outlet").value,
+                sf1_ptr: document.getElementById("sf1_ptr").value,
+                sf1_ptc: document.getElementById("sf1_ptc").value,
+                sf5_ptr: document.getElementById("sf5_ptr").value,
+                sf5_ptc: document.getElementById("sf5_ptc").value
+            };
+
+            if (!data.region || !data.town || !data.brand || !data.beat || !data.outlet) {
+                alert("Please fill all required fields");
+                return;
+            }
+            if (!validate3Digit(data.sf1_ptr) || !validate3Digit(data.sf1_ptc) || !validate3Digit(data.sf5_ptr) || !validate3Digit(data.sf5_ptc)) {
+                alert("Only 3 digit values allowed");
+                return;
+            }
+
+            const formData = new URLSearchParams();
+            Object.keys(data).forEach(key => formData.append(key, data[key]));
+
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+                body: formData
+            })
+                .then(res => res.text())
+                .then(response => {
+                    console.log("Submission response:", response);
+                    if (response.includes("Success") || response.includes("success")) {
+                        alert("Data Submitted Successfully");
+                        resetForm();
+                    } else {
+                        alert(response);
+                    }
+                })
+                .catch(error => { console.error(error); alert("Submission Failed"); });
+        }
+
+        // UI Reset
+        function resetForm() {
+            document.querySelectorAll("#formView input:not(#region):not(#DistrictName)").forEach(input => {
+                input.value = "";
+            });
+            document.querySelectorAll("#formView select").forEach(select => select.selectedIndex = 0);
+            document.getElementById("region").value = "HYD";
+            document.getElementById("DistrictName").value = "Hyderabad";
+            loadRegionData();
+        }
+
+        // Security / Logout
+        function logout() {
+            localStorage.clear();
+            document.getElementById("loginView").style.display = "block";
+            document.getElementById("formView").style.display = "none";
+            document.getElementById("userId").value = "";
+            document.getElementById("userName").value = "";
+        }
+    </script>
+</body>
+
+</html>
