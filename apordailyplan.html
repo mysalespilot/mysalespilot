@@ -188,6 +188,43 @@ document.addEventListener('input', e => {
   if(e.target.hasAttribute('contenteditable')) calculateTotals();
 });
 
+function handleArrowNavigation(e) {
+  if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+
+  const currentCell = e.target.closest('td[contenteditable]');
+  if (!currentCell) return;
+
+  const row = currentCell.closest('tr');
+  const table = currentCell.closest('table');
+  if (!row || !table) return;
+
+  const editableCells = Array.from(row.cells).filter(cell => cell.hasAttribute('contenteditable'));
+  const currentIndex = editableCells.indexOf(currentCell);
+  const tbodyRows = Array.from(table.querySelectorAll('tbody tr'));
+  const currentRowIndex = tbodyRows.indexOf(row);
+
+  if (currentIndex === -1 || currentRowIndex === -1) return;
+
+  let targetCell = null;
+
+  if (e.key === 'ArrowUp' && currentRowIndex > 0) {
+    targetCell = Array.from(tbodyRows[currentRowIndex - 1].cells).filter(cell => cell.hasAttribute('contenteditable'))[currentIndex];
+  } else if (e.key === 'ArrowDown' && currentRowIndex < tbodyRows.length - 1) {
+    targetCell = Array.from(tbodyRows[currentRowIndex + 1].cells).filter(cell => cell.hasAttribute('contenteditable'))[currentIndex];
+  } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+    targetCell = editableCells[currentIndex - 1];
+  } else if (e.key === 'ArrowRight' && currentIndex < editableCells.length - 1) {
+    targetCell = editableCells[currentIndex + 1];
+  }
+
+  if (targetCell) {
+    e.preventDefault();
+    targetCell.focus();
+  }
+}
+
+document.addEventListener('keydown', handleArrowNavigation);
+
 // ✅ Google Sheet Submit
 async function submitToSheet() {
   const payload = [];
