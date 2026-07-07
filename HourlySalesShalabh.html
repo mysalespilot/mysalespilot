@@ -105,9 +105,11 @@
 
   <!-- Report Section -->
   <div class="container" id="report-section" style="display: none;">
-    <iframe 
+    <iframe
       id="reportFrame"
+      title="Shalabh-HourlySalesReport"
       class="report-frame"
+      frameborder="0"
       allowFullScreen="true"
       loading="lazy"
       src="">
@@ -120,6 +122,21 @@
     const validIds = ["900029", "900898","901283", "Acc3ss@123", "901080"];
     const reportBaseUrl = "https://app.powerbi.com/view?r=eyJrIjoiZWQzYjFhOGUtM2MxNi00ZmVhLWFlMzctZWJiNDcyMGY4N2JiIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
     let idleTimer;
+    let refreshTimer;
+    const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // reload report every 5 minutes to pick up latest Power BI data
+
+    function reloadReportFrame() {
+      document.getElementById('reportFrame').src = reportBaseUrl + "&ts=" + new Date().getTime();
+    }
+
+    function startRefreshTimer() {
+      clearInterval(refreshTimer);
+      refreshTimer = setInterval(reloadReportFrame, REFRESH_INTERVAL_MS);
+    }
+
+    function stopRefreshTimer() {
+      clearInterval(refreshTimer);
+    }
 
     function login() {
       const empId = document.getElementById('employeeId').value.trim();
@@ -131,10 +148,11 @@
 
         // Delay iframe src assignment slightly for better performance
         setTimeout(() => {
-          document.getElementById('reportFrame').src = reportBaseUrl + "&ts=" + new Date().getTime();
+          reloadReportFrame();
         }, 100);
 
         startIdleTimer();
+        startRefreshTimer();
       } else {
         errorDiv.textContent = "Access denied. Invalid Employee ID.";
       }
@@ -148,6 +166,7 @@
       document.getElementById('error').textContent = "";
       document.getElementById('reportFrame').src = "";
       clearTimeout(idleTimer);
+      stopRefreshTimer();
     }
 
     function startIdleTimer() {
