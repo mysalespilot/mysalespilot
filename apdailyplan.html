@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Planning</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 16px 160px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background: #4b4b4b;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        /* ---- Planning page shell ---- */
+        .planning-page {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 32px 40px;
+            width: 100%;
+            max-width: 1080px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .planning-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 16px;
+        }
+
+        .planning-header h1 {
+            font-size: 22px;
+            margin: 0;
+            color: #1a1a1a;
+        }
+
+        .header-badges {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-badge {
+            font-size: 13px;
+            color: #555;
+            background: #f5f5f5;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* ---- Product + summary grid: 2 columns holding all 8 tiles ---- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .product-card,
+        .summary-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            min-height: 210px;
+        }
+
+        .product-card .body,
+        .summary-card .body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .product-card .head {
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-card .head .symbol {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .product-card .body {
+            padding: 14px 16px;
+        }
+
+        .product-card .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .product-card .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .product-card .row span {
+            font-size: 13px;
+            color: #555;
+            flex: 0 0 auto;
+        }
+
+        .product-card .row input {
+            width: 110px;
+            padding: 8px 10px;
+            font-size: 14px;
+            border: 1px solid #d7d7d7;
+            border-radius: 8px;
+            outline: none;
+            text-align: right;
+        }
+
+        .product-card .row input:focus {
+            border-color: #3b6fe0;
+        }
+
+        .product-card .row.total {
+            margin-top: 4px;
+            padding-top: 8px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .product-card .row.total span {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .product-card .row.total input {
+            font-weight: 700;
+            background: #fafafa;
+            color: #1a1a1a;
+        }
+
+        /* ---- Summary card ---- */
+        .summary-card .head {
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-wrap {
+            padding: 8px 12px 12px;
+            overflow: auto;
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11.5px;
+            min-width: 480px;
+        }
+
+        th,
+        td {
+            padding: 5px 6px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+        }
+
+        thead th {
+            background: #f8f9fb;
+            color: #555;
+            font-weight: 600;
+        }
+
+        tbody tr:last-child td,
+        tbody tr:last-child th {
+            border-bottom: none;
+        }
+
+        tr:has(th) {
+            background: #f3f4f8;
+            font-weight: 700;
+        }
+
+        /* ---- Console log ---- */
+        .console-log {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e1e1e;
+            color: #ddd;
+            font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+            font-size: 12px;
+            max-height: 140px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .console-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-bottom: 1px solid #333;
+            color: #aaa;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .console-body {
+            padding: 6px 12px;
+            display: none;
+        }
+
+        .console-body.open {
+            display: block;
+        }
+
+        .log-line {
+            padding: 3px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .log-error {
+            color: #ff6b6b;
+        }
+
+        .log-info {
+            color: #7ec8ff;
+        }
+
+        /* ================= LOGIN PAGE ================= */
+        .login-page {
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+        }
+
+        .login-page h2 {
+            margin: 0 0 25px;
+            text-align: center;
+            color: #333;
+        }
+
+        .login-group {
+            margin-bottom: 18px;
+        }
+
+        .login-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .login-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .login-group input:focus {
+            outline: none;
+            border-color: #178a3d;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #178a3d;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .login-btn:hover {
+            background: #136b2e;
+        }
+
+        .login-btn:disabled {
+            background: #bfbfbf;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-page" id="loginPage">
+        <h2>Product Planning Portal</h2>
+        <div class="login-group">
+            <label>Employee ID</label>
+            <input type="text" id="employeeId" placeholder="Enter Employee ID">
+        </div>
+        <div class="login-group">
+            <label>Employee Name</label>
+            <input type="text" id="employeeName" readonly>
+        </div>
+        <div class="login-group">
+            <label>State / Subzone</label>
+            <input type="text" id="employeeState" readonly>
+        </div>
+        <button id="loginBtn" class="login-btn" disabled>LOGIN</button>
+    </div>
+
+    <div class="planning-page" id="planningPage" style="display:none;">
+        <div class="planning-header">
+            <h1>Product Planning</h1>
+            <div class="header-badges">
+                <span class="date-badge" id="todayDate"></span>
+                <span class="date-badge" id="loggedEmployee"></span>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="product-card">
+                <div class="head" style="background:#edf4ff;color:#0b57d0"><span>SF</span><span class="symbol">🌻</span>
+                </div>
+                <div class="body">
+                    <div class="row"><span>CP Depot</span><input id="sf-cp-depot" type="number" step="any"></div>
+                    <div class="row"><span>CP Factory</span><input id="sf-cp-factory" type="number" step="any"></div>
+                    <div class="row"><span>BP Depot</span><input id="sf-bp-depot" type="number" step="any"></div>
+                    <div class="row"><span>BP Factory</span><input id="sf-bp-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="sf-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="head" style="background:#eef9ef;color:#178a3d"><span>RB</span><span class="symbol">🌾</span>
+                </div>
+                <div class="body">
+                    <div class="row"><span>Depot</span><input id="rb-depot" type="number" step="any"></div>
+                    <div class="row"><span>Factory</span><input id="rb-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="rb-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="head" style="background:#fff2e4;color:#e46c00"><span>GN</span><span class="symbol">🥜</span>
+                </div>
+                <div class="body">
+                    <div class="row"><span>Depot</span><input id="gn-depot" type="number" step="any"></div>
+                    <div class="row"><span>Factory</span><input id="gn-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="gn-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="head" style="background:#f3edff;color:#5f34d7"><span>MSD</span><span
+                        class="symbol">🌼</span></div>
+                <div class="body">
+                    <div class="row"><span>Depot</span><input id="msd-depot" type="number" step="any"></div>
+                    <div class="row"><span>Factory</span><input id="msd-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="msd-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="head" style="background:#e8f8fb;color:#007a8d"><span>PALM</span><span
+                        class="symbol">🌴</span></div>
+                <div class="body">
+                    <div class="row"><span>CP Depot</span><input id="palm-cp-depot" type="number" step="any"></div>
+                    <div class="row"><span>CP Factory</span><input id="palm-cp-factory" type="number" step="any"></div>
+                    <div class="row"><span>BP Depot</span><input id="palm-bp-depot" type="number" step="any"></div>
+                    <div class="row"><span>BP Factory</span><input id="palm-bp-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="palm-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="head" style="background:#f8f5ea;color:#8a6a00"><span>KRUPA</span><span
+                        class="symbol">🪔</span></div>
+                <div class="body">
+                    <div class="row"><span>Depot</span><input id="krupa-depot" type="number" step="any"></div>
+                    <div class="row"><span>Factory</span><input id="krupa-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="krupa-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="head" style="background:#eef8d9;color:#4d7c0f"><span>SOYA</span><span
+                        class="symbol">🫘</span></div>
+                <div class="body">
+                    <div class="row"><span>CP Depot</span><input id="soya-cp-depot" type="number" step="any"></div>
+                    <div class="row"><span>CP Factory</span><input id="soya-cp-factory" type="number" step="any"></div>
+                    <div class="row"><span>BP Depot</span><input id="soya-bp-depot" type="number" step="any"></div>
+                    <div class="row"><span>BP Factory</span><input id="soya-bp-factory" type="number" step="any"></div>
+                    <div class="row total"><span>Total</span><input id="soya-total" readonly value="0.00"></div>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="head" style="background:#fff3c8;color:#7a5600">SUMMARY (ALL PRODUCTS)</div>
+                <div class="summary-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">SKU</th>
+                                <th colspan="2">CP</th>
+                                <th colspan="2">BP</th>
+                                <th rowspan="2">Depot Total</th>
+                                <th rowspan="2">Factory Total</th>
+                                <th rowspan="2">Total</th>
+                            </tr>
+                            <tr>
+                                <th>Depot</th>
+                                <th>Factory</th>
+                                <th>Depot</th>
+                                <th>Factory</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-product="sf">
+                                <td>SF</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                            <tr data-product="rb">
+                                <td>RB</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                            <tr data-product="gn">
+                                <td>GN</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                            <tr data-product="msd">
+                                <td>MSD</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                            <tr data-product="palm">
+                                <td>Palm</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                            <tr data-product="krupa">
+                                <td>Krupa</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                            <tr data-product="soya">
+                                <td>Soya</td>
+                                <td class="summary-cp-depot">0.00</td>
+                                <td class="summary-cp-factory">0.00</td>
+                                <td class="summary-bp-depot">0.00</td>
+                                <td class="summary-bp-factory">0.00</td>
+                                <td class="summary-depot-total">0.00</td>
+                                <td class="summary-factory-total">0.00</td>
+                                <td class="summary-total">0.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Total</th>
+                                <th id="summary-cp-depot-total">0.00</th>
+                                <th id="summary-cp-factory-total">0.00</th>
+                                <th id="summary-bp-depot-total">0.00</th>
+                                <th id="summary-bp-factory-total">0.00</th>
+                                <th id="summary-depot-total">0.00</th>
+                                <th id="summary-factory-total">0.00</th>
+                                <th id="summary-grand-total">0.00</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:30px;text-align:center;">
+            <button id="submitBtn"
+                style="background:#178a3d;color:white;border:none;padding:14px 40px;font-size:16px;font-weight:bold;border-radius:10px;cursor:pointer;">SUBMIT
+                PLAN</button>
+        </div>
+    </div>
+
+    <div class="console-log">
+        <div class="console-header" id="consoleToggle">☀️ Console Messages</div>
+        <div class="console-body" id="consoleBody"></div>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxbk9hTrrEVL5XI-DTPD3Y6UcbLRlSkU0fXAmCDzc7XI3rZYjoqaam6_h_YdnxQhPk0/exec";
+
+        const productConfig = {
+            sf: { ids: ['sf-cp-depot', 'sf-cp-factory', 'sf-bp-depot', 'sf-bp-factory'], totalId: 'sf-total' },
+            rb: { ids: ['rb-depot', 'rb-factory'], totalId: 'rb-total' },
+            gn: { ids: ['gn-depot', 'gn-factory'], totalId: 'gn-total' },
+            msd: { ids: ['msd-depot', 'msd-factory'], totalId: 'msd-total' },
+            palm: { ids: ['palm-cp-depot', 'palm-cp-factory', 'palm-bp-depot', 'palm-bp-factory'], totalId: 'palm-total' },
+            krupa: { ids: ['krupa-depot', 'krupa-factory'], totalId: 'krupa-total' },
+            soya: { ids: ['soya-cp-depot', 'soya-cp-factory', 'soya-bp-depot', 'soya-bp-factory'], totalId: 'soya-total' }
+        };
+
+        const consoleBody = document.getElementById('consoleBody');
+
+        function logMessage(message, type) {
+            const line = document.createElement('div');
+            line.className = 'log-line' + (type ? (' log-' + type) : '');
+            const time = new Date().toLocaleTimeString();
+            line.textContent = '[' + time + '] ' + message;
+            consoleBody.appendChild(line);
+            consoleBody.scrollTop = consoleBody.scrollHeight;
+        }
+
+        function toNumber(id) {
+            const input = document.getElementById(id);
+            if (!input || input.value === '') return 0;
+            const value = parseFloat(input.value);
+            if (!Number.isFinite(value)) {
+                logMessage('Invalid number ignored for #' + id, 'error');
+                return 0;
+            }
+            return value;
+        }
+
+        function formatValue(value) {
+            return Number(value).toFixed(2);
+        }
+
+        function updateProduct(productKey) {
+            const config = productConfig[productKey];
+            const values = config.ids.map(toNumber);
+
+            let depotTotal = 0;
+            let factoryTotal = 0;
+
+            if (values.length === 4) {
+                depotTotal = values[0] + values[2];
+                factoryTotal = values[1] + values[3];
+            } else {
+                depotTotal = values[0];
+                factoryTotal = values[1];
+            }
+
+            const productTotal = depotTotal + factoryTotal;
+            document.getElementById(config.totalId).value = formatValue(productTotal);
+
+            const summaryRow = document.querySelector('[data-product="' + productKey + '"]');
+            if (!summaryRow) return;
+
+            const cpDepotCell = summaryRow.querySelector('.summary-cp-depot');
+            const cpFactoryCell = summaryRow.querySelector('.summary-cp-factory');
+            const bpDepotCell = summaryRow.querySelector('.summary-bp-depot');
+            const bpFactoryCell = summaryRow.querySelector('.summary-bp-factory');
+            const depotTotalCell = summaryRow.querySelector('.summary-depot-total');
+            const factoryTotalCell = summaryRow.querySelector('.summary-factory-total');
+            const totalCell = summaryRow.querySelector('.summary-total');
+
+            if (values.length === 4) {
+                cpDepotCell.textContent = formatValue(values[0]);
+                cpFactoryCell.textContent = formatValue(values[1]);
+                bpDepotCell.textContent = formatValue(values[2]);
+                bpFactoryCell.textContent = formatValue(values[3]);
+            } else {
+                cpDepotCell.textContent = formatValue(values[0]);
+                cpFactoryCell.textContent = formatValue(values[1]);
+                bpDepotCell.textContent = '0.00';
+                bpFactoryCell.textContent = '0.00';
+            }
+
+            depotTotalCell.textContent = formatValue(depotTotal);
+            factoryTotalCell.textContent = formatValue(factoryTotal);
+            totalCell.textContent = formatValue(productTotal);
+
+            return { depotTotal, factoryTotal, values };
+        }
+
+        function updateSummary() {
+            let cpDepotTotal = 0;
+            let cpFactoryTotal = 0;
+            let bpDepotTotal = 0;
+            let bpFactoryTotal = 0;
+            let depotTotal = 0;
+            let factoryTotal = 0;
+
+            Object.keys(productConfig).forEach((key) => {
+                const result = updateProduct(key);
+                const values = result.values;
+
+                if (values.length === 4) {
+                    cpDepotTotal += values[0];
+                    cpFactoryTotal += values[1];
+                    bpDepotTotal += values[2];
+                    bpFactoryTotal += values[3];
+                    depotTotal += values[0] + values[2];
+                    factoryTotal += values[1] + values[3];
+                } else {
+                    cpDepotTotal += values[0];
+                    cpFactoryTotal += values[1];
+                    depotTotal += values[0];
+                    factoryTotal += values[1];
+                }
+            });
+
+            document.getElementById('summary-cp-depot-total').textContent = formatValue(cpDepotTotal);
+            document.getElementById('summary-cp-factory-total').textContent = formatValue(cpFactoryTotal);
+            document.getElementById('summary-bp-depot-total').textContent = formatValue(bpDepotTotal);
+            document.getElementById('summary-bp-factory-total').textContent = formatValue(bpFactoryTotal);
+            document.getElementById('summary-depot-total').textContent = formatValue(depotTotal);
+            document.getElementById('summary-factory-total').textContent = formatValue(factoryTotal);
+            document.getElementById('summary-grand-total').textContent = formatValue(depotTotal + factoryTotal);
+        }
+
+        document.querySelectorAll('input[type="number"]').forEach((input) => {
+            input.addEventListener('input', updateSummary);
+        });
+
+        updateSummary();
+        logMessage('Product Planning summary initialized.', 'info');
+
+        const todayDateEl = document.getElementById('todayDate');
+        if (todayDateEl) {
+            const today = new Date();
+            todayDateEl.textContent = today.toLocaleDateString(undefined, {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+
+        const consoleToggle = document.getElementById('consoleToggle');
+        consoleToggle.addEventListener('click', () => {
+            consoleBody.classList.toggle('open');
+        });
+
+        const employeeId = document.getElementById("employeeId");
+        const employeeName = document.getElementById("employeeName");
+        const employeeState = document.getElementById("employeeState");
+        const loginBtn = document.getElementById("loginBtn");
+
+        employeeId.addEventListener("change", () => {
+            if (employeeId.value.trim() == "") return;
+            fetch(`${WEB_APP_URL}?action=login&employeeId=${employeeId.value}`)
+                .then(r => r.json())
+                .then(res => {
+                    if (res.success) {
+                        employeeName.value = res.employeeName;
+                        employeeState.value = res.state;
+                        loginBtn.disabled = false;
+                    } else {
+                        employeeName.value = "";
+                        employeeState.value = "";
+                        loginBtn.disabled = true;
+                        alert("Invalid Employee ID");
+                    }
+                });
+        });
+
+        loginBtn.addEventListener("click", () => {
+            document.getElementById("loginPage").style.display = "none";
+            document.getElementById("planningPage").style.display = "block";
+            document.getElementById("loggedEmployee").innerHTML = employeeName.value;
+        });
+
+        // --- UPDATED SUBMISSION LOGIC ---
+        document.getElementById("submitBtn").addEventListener("click", submitPlanning);
+
+        function submitPlanning() {
+            const formData = new FormData();
+            formData.append("action", "submit");
+            formData.append("employeeId", employeeId.value);
+            formData.append("employeeName", employeeName.value);
+            formData.append("state", employeeState.value);
+
+            formData.append("sfCpDepot", document.getElementById("sf-cp-depot").value || 0);
+            formData.append("sfCpFactory", document.getElementById("sf-cp-factory").value || 0);
+            formData.append("sfBpDepot", document.getElementById("sf-bp-depot").value || 0);
+            formData.append("sfBpFactory", document.getElementById("sf-bp-factory").value || 0);
+            formData.append("sfTotal", document.getElementById("sf-total").value);
+
+            formData.append("rbDepot", document.getElementById("rb-depot").value || 0);
+            formData.append("rbFactory", document.getElementById("rb-factory").value || 0);
+            formData.append("rbTotal", document.getElementById("rb-total").value);
+
+            formData.append("gnDepot", document.getElementById("gn-depot").value || 0);
+            formData.append("gnFactory", document.getElementById("gn-factory").value || 0);
+            formData.append("gnTotal", document.getElementById("gn-total").value);
+
+            formData.append("msdDepot", document.getElementById("msd-depot").value || 0);
+            formData.append("msdFactory", document.getElementById("msd-factory").value || 0);
+            formData.append("msdTotal", document.getElementById("msd-total").value);
+
+            formData.append("palmCpDepot", document.getElementById("palm-cp-depot").value || 0);
+            formData.append("palmCpFactory", document.getElementById("palm-cp-factory").value || 0);
+            formData.append("palmBpDepot", document.getElementById("palm-bp-depot").value || 0);
+            formData.append("palmBpFactory", document.getElementById("palm-bp-factory").value || 0);
+            formData.append("palmTotal", document.getElementById("palm-total").value);
+
+            formData.append("krupaDepot", document.getElementById("krupa-depot").value || 0);
+            formData.append("krupaFactory", document.getElementById("krupa-factory").value || 0);
+            formData.append("krupaTotal", document.getElementById("krupa-total").value);
+
+            formData.append("soyaCpDepot", document.getElementById("soya-cp-depot").value || 0);
+            formData.append("soyaCpFactory", document.getElementById("soya-cp-factory").value || 0);
+            formData.append("soyaBpDepot", document.getElementById("soya-bp-depot").value || 0);
+            formData.append("soyaBpFactory", document.getElementById("soya-bp-factory").value || 0);
+            formData.append("soyaTotal", document.getElementById("soya-total").value);
+
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: formData
+            })
+                .then(r => r.json())
+                .then(res => {
+                    alert(res.message);
+                });
+        }
+    </script>
+</body>
+
+</html>
