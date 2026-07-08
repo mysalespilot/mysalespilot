@@ -20,6 +20,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     header img {
@@ -70,9 +71,41 @@
       margin-top: 5px;
     }
 
+    .report-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 0.85em;
+      color: #444;
+    }
+
+    .report-toolbar button {
+      padding: 6px 12px;
+      background-color: #0072c6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    .report-toolbar button:hover {
+      background-color: #005b9f;
+    }
+
+    .report-toolbar #logoutBtn {
+      background-color: #999;
+    }
+
+    .report-toolbar #logoutBtn:hover {
+      background-color: #777;
+    }
+
     .report-frame {
       width: 100%;
-      height: 90vh;
+      height: 85vh;
       border: none;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -83,6 +116,13 @@
       font-size: 0.8em;
       padding: 10px;
       color: gray;
+    }
+
+    .cache-note {
+      font-size: 0.75em;
+      color: #b35c00;
+      text-align: center;
+      margin: 4px 0 8px 0;
     }
   </style>
 </head>
@@ -105,6 +145,16 @@
 
   <!-- Report Section -->
   <div class="container" id="report-section" style="display: none;">
+    <div class="report-toolbar">
+      <span id="lastUpdated"></span>
+      <button id="refreshBtn" onclick="reloadReportFrame(true)">Refresh Now</button>
+      <button id="logoutBtn" onclick="logout()">Logout</button>
+    </div>
+    <div class="cache-note">
+      Note: This report uses Power BI "Publish to Web", which is served from a Microsoft-side
+      cache. Refreshing here reloads the page, but data will only be as new as the last
+      Power BI dataset refresh + Microsoft's own cache cycle (can lag by a while).
+    </div>
     <iframe
       id="reportFrame"
       title="Shalabh-HourlySalesReport"
@@ -116,22 +166,61 @@
     </iframe>
   </div>
 
-  <footer>© 2025 GEF Internal Dashboard v1.0</footer>
+  <footer>© 2025 GEF Internal Dashboard v1.1</footer>
 
   <script>
-    const validIds = ["900029", "900898","901283", "Acc3ss@123", "901080"];
+    // ---------------------------------------------------------------------
+    // NOTE ON SECURITY:
+    // These IDs are visible to anyone who views the page source. This is a
+    // soft UI gate, not real authentication. For anything sensitive, replace
+    // this with a real auth check against a backend/identity provider.
+    // ---------------------------------------------------------------------
+    const validIds = ["900029", "900898", "901283", "Acc3ss@123", "901080"];
+
     const reportBaseUrl = "https://app.powerbi.com/view?r=eyJrIjoiNmFkMzAwYWUtNDEzYy00NjljLWE4MTUtMDFlZjE4YzJmYWYwIiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
+
     let idleTimer;
     let refreshTimer;
-    const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // reload report every 5 minutes to pick up latest Power BI data
+    const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // auto-reload iframe every 5 minutes
 
-    function reloadReportFrame() {
-      document.getElementById('reportFrame').src = reportBaseUrl + "&ts=" + new Date().getTime();
+    // ---------------------------------------------------------------------
+    // reloadReportFrame():
+    // Forces the BROWSER to re-fetch the iframe page by changing its src
+    // (cache-busting on the client side, plus a couple of Power BI query
+    // params that are documented to discourage embedding-level caching).
+    // This does NOT force Microsoft's Publish-to-Web server cache to
+    // refresh - that is controlled by Power BI itself and is outside what
+    // any client-side code can control. If data still looks stale after
+    // this reloads, check the dataset's scheduled refresh in the Power BI
+    // Service first.
+    // ---------------------------------------------------------------------
+    function reloadReportFrame(manual = false) {
+      const frame = document.getElementById('reportFrame');
+      const cacheBuster = new Date().getTime();
+
+      // Force a genuinely new URL each time (not just a query change on an
+      // identical src, which some browsers may still serve from memory cache)
+      frame.src = "about:blank";
+
+      setTimeout(() => {
+        frame.src = reportBaseUrl + "&ts=" + cacheBuster;
+      }, 30);
+
+      const lastUpdatedEl = document.getElementById('lastUpdated');
+      if (lastUpdatedEl) {
+        const now = new Date();
+        lastUpdatedEl.textContent = "Last reloaded: " + now.toLocaleTimeString();
+      }
+
+      if (manual) {
+        // Restart the idle timer on manual refresh too, since it's a user action
+        startIdleTimer();
+      }
     }
 
     function startRefreshTimer() {
       clearInterval(refreshTimer);
-      refreshTimer = setInterval(reloadReportFrame, REFRESH_INTERVAL_MS);
+      refreshTimer = setInterval(() => reloadReportFrame(false), REFRESH_INTERVAL_MS);
     }
 
     function stopRefreshTimer() {
@@ -146,9 +235,8 @@
         document.getElementById('report-section').style.display = 'block';
         errorDiv.textContent = "";
 
-        // Delay iframe src assignment slightly for better performance
         setTimeout(() => {
-          reloadReportFrame();
+          reloadReportFrame(false);
         }, 100);
 
         startIdleTimer();
@@ -159,7 +247,6 @@
     }
 
     function logout() {
-      alert("Logged out due to inactivity.");
       document.getElementById('report-section').style.display = 'none';
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('employeeId').value = "";
@@ -171,7 +258,10 @@
 
     function startIdleTimer() {
       clearTimeout(idleTimer);
-      idleTimer = setTimeout(logout, 2 * 60 * 1000); // 2 minutes
+      idleTimer = setTimeout(() => {
+        alert("Logged out due to inactivity.");
+        logout();
+      }, 2 * 60 * 1000); // 2 minutes
     }
 
     ['mousemove', 'keydown', 'touchstart'].forEach(event => {
