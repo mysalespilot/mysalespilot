@@ -20,11 +20,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
 
     header img {
-      height: 50px;
+      height: 50px; /* Increased logo size */
       margin-right: 10px;
     }
 
@@ -71,41 +70,9 @@
       margin-top: 5px;
     }
 
-    .report-toolbar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-      font-size: 0.85em;
-      color: #444;
-    }
-
-    .report-toolbar button {
-      padding: 6px 12px;
-      background-color: #0072c6;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.9em;
-      cursor: pointer;
-    }
-
-    .report-toolbar button:hover {
-      background-color: #005b9f;
-    }
-
-    .report-toolbar #logoutBtn {
-      background-color: #999;
-    }
-
-    .report-toolbar #logoutBtn:hover {
-      background-color: #777;
-    }
-
     .report-frame {
       width: 100%;
-      height: 85vh;
+      height: 90vh;
       border: none;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -116,13 +83,6 @@
       font-size: 0.8em;
       padding: 10px;
       color: gray;
-    }
-
-    .cache-note {
-      font-size: 0.75em;
-      color: #b35c00;
-      text-align: center;
-      margin: 4px 0 8px 0;
     }
   </style>
 </head>
@@ -145,87 +105,18 @@
 
   <!-- Report Section -->
   <div class="container" id="report-section" style="display: none;">
-    <div class="report-toolbar">
-      <span id="lastUpdated"></span>
-      <button id="refreshBtn" onclick="reloadReportFrame(true)">Refresh Now</button>
-      <button id="logoutBtn" onclick="logout()">Logout</button>
-    </div>
-    <div class="cache-note">
-      Note: This report uses Power BI "Publish to Web", which is served from a Microsoft-side
-      cache. Refreshing here reloads the page, but data will only be as new as the last
-      Power BI dataset refresh + Microsoft's own cache cycle (can lag by a while).
-    </div>
-    <iframe
-      id="reportFrame"
-      title="Shalabh-HourlySalesReport"
-      class="report-frame"
-      frameborder="0"
-      allowFullScreen="true"
-      loading="lazy"
-      src="">
+    <iframe 
+      class="report-frame" 
+      src="https://app.powerbi.com/view?r=eyJrIjoiYmVlMjNlMzktZGE2MC00MDdjLThkMjctYjBiYzI0N2ZhNGI3IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9" 
+      allowFullScreen="true">
     </iframe>
   </div>
 
-  <footer>© 2025 GEF Internal Dashboard v1.1</footer>
+  <footer>© 2025 GEF Internal Dashboard v1.0</footer>
 
   <script>
-    // ---------------------------------------------------------------------
-    // NOTE ON SECURITY:
-    // These IDs are visible to anyone who views the page source. This is a
-    // soft UI gate, not real authentication. For anything sensitive, replace
-    // this with a real auth check against a backend/identity provider.
-    // ---------------------------------------------------------------------
     const validIds = ["900029", "900898", "901283", "Acc3ss@123", "901080"];
-
-    const reportBaseUrl = "https://app.powerbi.com/view?r=eyJrIjoiYmVlMjNlMzktZGE2MC00MDdjLThkMjctYjBiYzI0N2ZhNGI3IiwidCI6ImNhNGVlODZhLTk2Y2MtNGY0Ni05OWI4LTY5ZjMxNmUwNmQ0YiJ9";
-
     let idleTimer;
-    let refreshTimer;
-    const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // auto-reload iframe every 5 minutes
-
-    // ---------------------------------------------------------------------
-    // reloadReportFrame():
-    // Forces the BROWSER to re-fetch the iframe page by changing its src
-    // (cache-busting on the client side, plus a couple of Power BI query
-    // params that are documented to discourage embedding-level caching).
-    // This does NOT force Microsoft's Publish-to-Web server cache to
-    // refresh - that is controlled by Power BI itself and is outside what
-    // any client-side code can control. If data still looks stale after
-    // this reloads, check the dataset's scheduled refresh in the Power BI
-    // Service first.
-    // ---------------------------------------------------------------------
-    function reloadReportFrame(manual = false) {
-      const frame = document.getElementById('reportFrame');
-      const cacheBuster = new Date().getTime();
-
-      // Force a genuinely new URL each time (not just a query change on an
-      // identical src, which some browsers may still serve from memory cache)
-      frame.src = "about:blank";
-
-      setTimeout(() => {
-        frame.src = reportBaseUrl + "&ts=" + cacheBuster;
-      }, 30);
-
-      const lastUpdatedEl = document.getElementById('lastUpdated');
-      if (lastUpdatedEl) {
-        const now = new Date();
-        lastUpdatedEl.textContent = "Last reloaded: " + now.toLocaleTimeString();
-      }
-
-      if (manual) {
-        // Restart the idle timer on manual refresh too, since it's a user action
-        startIdleTimer();
-      }
-    }
-
-    function startRefreshTimer() {
-      clearInterval(refreshTimer);
-      refreshTimer = setInterval(() => reloadReportFrame(false), REFRESH_INTERVAL_MS);
-    }
-
-    function stopRefreshTimer() {
-      clearInterval(refreshTimer);
-    }
 
     function login() {
       const empId = document.getElementById('employeeId').value.trim();
@@ -234,36 +125,27 @@
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('report-section').style.display = 'block';
         errorDiv.textContent = "";
-
-        setTimeout(() => {
-          reloadReportFrame(false);
-        }, 100);
-
         startIdleTimer();
-        startRefreshTimer();
       } else {
         errorDiv.textContent = "Access denied. Invalid Employee ID.";
       }
     }
 
     function logout() {
+      alert("Logged out due to inactivity.");
       document.getElementById('report-section').style.display = 'none';
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('employeeId').value = "";
       document.getElementById('error').textContent = "";
-      document.getElementById('reportFrame').src = "";
       clearTimeout(idleTimer);
-      stopRefreshTimer();
     }
 
     function startIdleTimer() {
       clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        alert("Logged out due to inactivity.");
-        logout();
-      }, 2 * 60 * 1000); // 2 minutes
+      idleTimer = setTimeout(logout, 2 * 60 * 1000); // 2 minutes
     }
 
+    // Reset the idle timer on user activity
     ['mousemove', 'keydown', 'touchstart'].forEach(event => {
       document.addEventListener(event, () => {
         if (document.getElementById('report-section').style.display === 'block') {
@@ -272,6 +154,7 @@
       });
     });
 
+    // Allow login on Enter key
     document.getElementById('employeeId').addEventListener("keyup", function(event) {
       if (event.key === "Enter") {
         login();
