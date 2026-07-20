@@ -1,174 +1,416 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meal Confirmation</title>
+    <meta charset="UTF-8">
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEF HR Lunch QR Scanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================
+           GEF HR Lunch QR Scanner
+           ========================================================== */
 
-<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        body {
+            background: linear-gradient(135deg, #f4f7f6, #e8f5e9);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
 
-body{
-font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#e6c067,#f6c342);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
+        .container {
+            width: 100%;
+            max-width: 430px;
+        }
 
-.form-container{
-background:#ffffff;
-width:440px;
-padding:70px 35px 35px 35px;
-border-radius:18px;
-box-shadow:0 20px 35px rgba(0,0,0,0.15);
-position:relative;
-text-align:center;
-}
+        .card {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .12);
+            animation: fadeIn .5s ease;
+        }
 
-.company-logo{
-position:absolute;
-top:18px;
-left:20px;
-width:50px;
-}
+        .logo-section {
+            text-align: center;
+            margin-bottom: 15px;
+        }
 
-.meal-logo{
-width:65px;
-display:block;
-margin:0 auto 10px auto;
-}
+        .logo {
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
+        }
 
-h2{
-margin-bottom:25px;
-color:#2d2d2d;
-font-weight:600;
-}
+        h1 {
+            text-align: center;
+            color: #006b3f;
+            font-size: 28px;
+            font-weight: 700;
+        }
 
-.input-group{
-text-align:left;
-margin-bottom:18px;
-}
+        h2 {
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
 
-label{
-font-weight:500;
-font-size:14px;
-display:block;
-margin-bottom:6px;
-}
+        .input-group {
+            margin-bottom: 25px;
+        }
 
-input[type="text"]{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid #d4d4d4;
-outline:none;
-font-size:14px;
-}
+        .input-group label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+        }
 
-.radio-group{
-display:flex;
-gap:25px;
-margin-top:5px;
-}
+        .input-group input {
+            width: 100%;
+            height: 52px;
+            border: 2px solid #dcdcdc;
+            border-radius: 12px;
+            padding: 0 15px;
+            font-size: 16px;
+            transition: .3s;
+        }
 
-button{
-width:100%;
-margin-top:20px;
-padding:14px;
-background:#f3b300;
-border:none;
-border-radius:8px;
-color:white;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-}
+        .input-group input:focus {
+            outline: none;
+            border-color: #006b3f;
+            box-shadow: 0 0 12px rgba(0, 107, 63, .15);
+        }
 
-button:hover{
-background:#e3a600;
-}
+        #scanBtn {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 12px;
+            background: #006b3f;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
 
-</style>
+        #scanBtn:hover {
+            background: #00894f;
+            transform: translateY(-2px);
+        }
 
+        #scanBtn:active {
+            transform: scale(.98);
+        }
+
+        #scanBtn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #reader {
+            width: 100%;
+            margin-top: 25px;
+            display: none;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 2px solid #006b3f;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #loading {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #ddd;
+            border-top: 5px solid #006b3f;
+            border-radius: 50%;
+            margin: auto;
+            animation: spin 1s linear infinite;
+        }
+
+        #loading p {
+            margin-top: 15px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        #statusBox {
+            margin-top: 25px;
+            border-radius: 12px;
+            padding: 18px;
+            animation: fadeIn .3s ease;
+        }
+
+        .success {
+            background: #e8f8ef;
+            border-left: 6px solid #28a745;
+        }
+
+        .error {
+            background: #fdeaea;
+            border-left: 6px solid #dc3545;
+        }
+
+        .warning {
+            background: #fff7df;
+            border-left: 6px solid #f4b400;
+        }
+
+        #statusTitle {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #statusMessage {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        footer {
+            margin-top: 25px;
+            color: #777;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* ==========================================================
+           Animations
+           ========================================================== */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ==========================================================
+           Responsive
+           ========================================================== */
+
+        @media(max-width:768px) {
+            .card {
+                padding: 30px 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media(max-width:480px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 25px 18px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 15px;
+            }
+
+            #scanBtn {
+                height: 52px;
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="form-container">
+    <div class="container">
+        <div class="card">
 
-<img src="https://www.gefindia.com/assets/img/GEF_Logo.png" class="company-logo">
+            <div class="logo-section">
+                <!-- Apps Script can't serve local image files. Either host your
+                     logo somewhere (e.g. Google Drive share link / imgur) and
+                     paste the URL below, or delete this <img> tag. -->
+                <img src="https://via.placeholder.com/95x95.png?text=GEF" class="logo" id="logoImg">
+            </div>
 
-<img src="https://img.icons8.com/?size=100&id=123642&format=png&color=000000" class="meal-logo">
+            <h1>Gemini Edibles & Fats</h1>
+            <h2>HR Lunch QR Scanner</h2>
 
-<h2>Meal Confirmation</h2>
+            <div class="input-group">
+                <label>Employee Code</label>
+                <input id="employeeCode" type="text" placeholder="Enter Employee Code" autocomplete="off">
+            </div>
 
-<form id="mealForm">
+            <button id="scanBtn">📷 Scan Lunch QR</button>
 
-<div class="input-group">
-<label>Employee ID</label>
-<input type="text" id="employeeId" required>
-</div>
+            <div id="reader"></div>
 
-<div class="input-group">
-<label>Employee Name</label>
-<input type="text" id="employeeName" required>
-</div>
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Verifying...</p>
+            </div>
 
-<div class="input-group">
-<label>Lunch Confirmation</label>
+            <div id="statusBox" class="hidden">
+                <h3 id="statusTitle"></h3>
+                <p id="statusMessage"></p>
+            </div>
 
-<div class="radio-group">
-<label><input type="radio" name="lunch" value="Yes" required> Yes</label>
-<label><input type="radio" name="lunch" value="No"> No</label>
-</div>
+            <footer>Gemini Edibles &amp; Fats &middot; HR Lunch Verification</footer>
 
-</div>
+        </div>
+    </div>
 
-<button type="submit">Submit</button>
+    <script>
+        const scanBtn = document.getElementById('scanBtn');
+        const employeeCodeInput = document.getElementById('employeeCode');
+        const readerEl = document.getElementById('reader');
+        const loadingEl = document.getElementById('loading');
+        const statusBox = document.getElementById('statusBox');
+        const statusTitle = document.getElementById('statusTitle');
+        const statusMessage = document.getElementById('statusMessage');
 
-</form>
+        let html5QrCode = null;
+        let isScanning = false;
 
-</div>
+        scanBtn.addEventListener('click', () => {
+            const code = employeeCodeInput.value.trim();
+            if (!code) {
+                showStatus('error', '⚠️ Missing Employee Code', 'Please enter your Employee Code first.');
+                return;
+            }
+            if (isScanning) return;
+            startScanner();
+        });
 
-<script>
+        function startScanner() {
+            hideStatus();
+            readerEl.classList.remove('hidden');
+            readerEl.style.display = 'block';
+            scanBtn.disabled = true;
+            scanBtn.textContent = 'Scanning…';
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwMktsO38U6Bn40wR2vS9jEpsIXspkfbhjiXshWOdd8YE_EQdDcoqfcQREZlMxij0ky/exec";
+            html5QrCode = new Html5Qrcode('reader');
+            isScanning = true;
 
-document.getElementById("mealForm").addEventListener("submit", function(e){
+            html5QrCode.start(
+                { facingMode: 'environment' },
+                { fps: 10, qrbox: { width: 240, height: 240 } },
+                onScanSuccess,
+                () => { /* ignore per-frame scan errors */ }
+            ).catch((err) => {
+                isScanning = false;
+                readerEl.style.display = 'none';
+                readerEl.classList.add('hidden');
+                scanBtn.disabled = false;
+                scanBtn.textContent = '📷 Scan Lunch QR';
+                showStatus('error', '❌ Camera Error', 'Could not access the camera: ' + err);
+            });
+        }
 
-e.preventDefault();
+        function onScanSuccess(decodedText) {
+            stopScanner();
+            verifyScan(decodedText);
+        }
 
-const employeeId = document.getElementById("employeeId").value;
-const employeeName = document.getElementById("employeeName").value;
-const lunch = document.querySelector('input[name="lunch"]:checked').value;
+        function stopScanner() {
+            if (html5QrCode && isScanning) {
+                html5QrCode.stop().then(() => {
+                    html5QrCode.clear();
+                    isScanning = false;
+                    readerEl.style.display = 'none';
+                    readerEl.classList.add('hidden');
+                }).catch(() => {
+                    isScanning = false;
+                });
+            }
+        }
 
-fetch(scriptURL,{
-method:"POST",
-body:JSON.stringify({
-employeeId:employeeId,
-employeeName:employeeName,
-lunch:lunch
-})
-})
-.then(res=>{
-alert("Meal / Lunch Confirmed");
-document.getElementById("mealForm").reset();
-})
-.catch(err=>alert("Error submitting form"));
+        function verifyScan(qrData) {
+            loadingEl.classList.remove('hidden');
+            hideStatus();
+            scanBtn.disabled = true;
 
-});
+            google.script.run
+                .withSuccessHandler(onVerifyResult)
+                .withFailureHandler(onVerifyFailure)
+                .verifyAndLogLunch(employeeCodeInput.value.trim(), qrData);
+        }
 
-</script>
+        function onVerifyResult(result) {
+            loadingEl.classList.add('hidden');
+            scanBtn.disabled = false;
+            scanBtn.textContent = '📷 Scan Lunch QR';
+            showStatus(result.status, result.title, result.message);
+        }
+
+        function onVerifyFailure(error) {
+            loadingEl.classList.add('hidden');
+            scanBtn.disabled = false;
+            scanBtn.textContent = '📷 Scan Lunch QR';
+            showStatus('error', '⚠️ Server Error', error.message || String(error));
+        }
+
+        function showStatus(status, title, message) {
+            statusBox.classList.remove('hidden', 'success', 'error', 'warning');
+            statusBox.classList.add(status);
+            statusTitle.textContent = title;
+            statusMessage.textContent = message;
+        }
+
+        function hideStatus() {
+            statusBox.classList.add('hidden');
+            statusBox.classList.remove('success', 'error', 'warning');
+        }
+    </script>
 
 </body>
+
 </html>
