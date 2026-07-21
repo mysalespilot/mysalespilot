@@ -316,6 +316,7 @@
 
         let html5QrCode = null;
         let isScanning = false;
+        let scanLocked = false; // prevents duplicate onScanSuccess fires while stopping
 
         scanBtn.addEventListener('click', () => {
             const code = employeeCodeInput.value.trim();
@@ -333,13 +334,32 @@
             readerEl.style.display = 'block';
             scanBtn.disabled = true;
             scanBtn.textContent = 'Scanning…';
+            scanLocked = false;
 
-            html5QrCode = new Html5Qrcode('reader');
+            html5QrCode = new Html5Qrcode('reader', {
+                // Uses the browser's native BarcodeDetector API when the device
+                // supports it (most modern Android/Chrome) — this is significantly
+                // faster than the pure-JS decoder fallback.
+                useBarCodeDetectorIfSupported: true,
+                verbose: false
+            });
             isScanning = true;
 
             html5QrCode.start(
-                { facingMode: 'environment' },
-                { fps: 10, qrbox: { width: 240, height: 240 } },
+                // Lower requested camera resolution = fewer pixels per frame to
+                // scan = faster decode loop. 720p is plenty for a QR code held
+                // at a normal distance.
+                {
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+                {
+                    fps: 20,                              // was 10 — more scan attempts per second
+                    qrbox: { width: 260, height: 260 },
+                    aspectRatio: 1.0,
+                    disableFlip: true                     // skip the flipped-image scan pass (halves work per frame)
+                },
                 onScanSuccess,
                 () => { /* ignore per-frame scan errors */ }
             ).catch((err) => {
@@ -353,6 +373,8 @@
         }
 
         function onScanSuccess(decodedText) {
+            if (scanLocked) return;
+            scanLocked = true;
             stopScanner();
             verifyScan(decodedText);
         }
